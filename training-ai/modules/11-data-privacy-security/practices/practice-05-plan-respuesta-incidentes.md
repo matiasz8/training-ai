@@ -1,0 +1,14 @@
+# Práctica 05 — Plan de respuesta a incidentes
+
+## Objetivo
+Definir acciones ante evento de seguridad.
+
+## Enunciado
+1. Definir tipos de incidente.
+2. Establecer pasos de detección, contención y recuperación.
+3. Asignar responsables.
+4. Definir comunicación y post-mortem.
+
+## Validación
+- Plan claro y accionable.
+- Responsables y tiempos definidos.
