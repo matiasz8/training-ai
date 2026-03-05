@@ -1,38 +1,71 @@
 # Generative AI & Prompt Engineering
 
-## Objetivo del módulo
-Aprender a diseñar soluciones de IA generativa y prompts efectivos para producir resultados útiles, controlados y evaluables.
+## 🎯 Objetivo del módulo
+Dominar técnicas de IA generativa (GANs, VAEs, Diffusion) y prompt engineering para crear contenido sintético y optimizar interacciones con LLMs.
 
-## Qué vas a lograr
-- Entender fundamentos de modelos generativos y prompting.
-- Diseñar prompts estructurados con instrucciones claras.
-- Evaluar calidad de salidas y reducir errores frecuentes.
-- Crear un flujo generativo práctico con guardrails básicos.
+## 💡 Qué vas a lograr
+- Implementar GANs (vanilla, DCGAN, conditional, WGAN) para generar imágenes
+- Construir Variational Autoencoders con reparameterization trick
+- Entender diffusion models y denoising process
+- Aplicar prompt engineering avanzado (zero-shot, few-shot, chain-of-thought)
+- Identificar y mitigar mode collapse en GANs
+- Explorar latent spaces y generar interpolaciones
 
-## Estructura interna
-- theory/: fundamentos en español.
-- examples/: ejemplos guiados.
-- practices/: ejercicios por dificultad.
-- mini-project/: caso integrador corto.
-- evaluation/: checklist y rúbrica.
-- notes/: apuntes y decisiones técnicas.
+## 📂 Estructura interna
+- **theory/**: fundamentos (GANs, VAEs, diffusion, prompt engineering strategies)
+- **examples/**: ejemplos guiados con PyTorch
+- **practices/**: ejercicios hands-on
+  - 01: GANs (vanilla GAN, DCGAN, conditional GAN, mode collapse, WGAN, Pix2Pix)
+  - 02: VAE y Diffusion (VAE implementation, latent interpolation, β-VAE, diffusion basics, denoising)
+- **mini-project/**: generador completo (imágenes o texto)
+- **evaluation/**: checklist y rúbrica
+- **notes/**: experimentos con arquitecturas generativas
 
-## Ruta de niveles (L1-L4)
-- L1 Fundamentos: conceptos de IA generativa y tipos de tareas.
-- L2 Aplicado: construcción de prompts y iteración.
-- L3 Avanzado: evaluación sistemática y técnicas de control.
-- L4 Senior: diseño de soluciones robustas y seguras.
+## 📋 Prerrequisitos
+- Módulo 04: Deep Learning Basics (PyTorch, training loops)
+- Módulo 05: NLP & LLMs (para prompt engineering avanzado)
+- Familiaridad con backpropagation y optimización
 
-## Migración
-- Fuente base original: folders/Generative AI & Prompt Engineering
+## 📅 Plan de Estudio Recomendado
 
-## Plan recomendado (4 semanas)
-- Semana 1: fundamentos de GenAI y tareas típicas.
-- Semana 2: prompting básico y estructurado.
-- Semana 3: evaluación, guardrails y mejora iterativa.
-- Semana 4: mini-proyecto + evaluación final.
+**Semana 1-2** (8-10 horas):
+1. Lee material de `/theory` sobre GANs y VAEs (2h)
+2. Ejecuta `/examples` (3h)
+3. Completa `/practices/01-gans.md` (4h)
 
-## Criterio de módulo completado
-- 5 prácticas resueltas.
-- Mini-proyecto con evaluación de respuestas.
-- Evaluación final aprobada (>=70/100).
+**Semana 3** (6-8 horas):
+4. Completa `/practices/02-vae-diffusion.md` (4h)
+5. Desarrolla mini-proyecto (3h)
+
+## ✅ Competencias Clave
+- [ ] Implementar Generator y Discriminator
+- [ ] Training loop adversarial (alternate updates)
+- [ ] Detectar mode collapse
+- [ ] VAE con reparameterization trick
+- [ ] Latent space exploration
+- [ ] Prompt engineering efectivo
+
+## ✅ Criterio de módulo completado
+- 2 prácticas resueltas y validadas
+- Mini-proyecto: generador funcional (samples realistas)
+- Evaluación final aprobada (>=70/100)
+- Demostrar: GAN training, VAE implementation, prompt engineering
+
+## 📚 Recursos Adicionales
+
+**Tutoriales:**
+- [GAN Lab (Interactive)](https://poloclub.github.io/ganlab/)
+- [PyTorch GAN Examples](https://github.com/eriklindernoren/PyTorch-GAN)
+
+**Papers:**
+- [Generative Adversarial Networks (Goodfellow 2014)](https://arxiv.org/abs/1406.2661)
+- [Auto-Encoding Variational Bayes](https://arxiv.org/abs/1312.6114)
+- [Denoising Diffusion Probabilistic Models](https://arxiv.org/abs/2006.11239)
+
+**Blogs:**
+- [VAE Tutorial](https://arxiv.org/abs/1906.02691)
+- [Diffusion Models Explained](https://lilianweng.github.io/posts/2021-07-11-diffusion-models/)
+- [Prompt Engineering Guide](https://www.promptingguide.ai/)
+
+## 🚀 Próximo Módulo
+**Módulo 10: Ethics, Bias & Explainability** - Fairness y explicabilidad en ML

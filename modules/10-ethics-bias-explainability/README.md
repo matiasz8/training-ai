@@ -1,38 +1,76 @@
 # Ethics, Bias & Explainability
 
-## Objetivo del módulo
-Desarrollar criterio para construir sistemas de IA responsables, explicables y con menor riesgo de sesgo o daño.
+## 🎯 Objetivo del módulo
+Aprender a identificar, medir y mitigar sesgos en modelos ML, y explicar decisiones de modelos para construir IA responsable y transparente.
 
-## Qué vas a lograr
-- Identificar tipos de sesgo en datos y modelos.
-- Aplicar técnicas básicas de explainability.
-- Diseñar controles éticos en el ciclo de desarrollo.
-- Comunicar riesgos y mitigaciones de forma clara.
+## 💡 Qué vas a lograr
+- Detectar bias en datasets y modelos (demographic parity, equalized odds)
+- Calcular disparate impact y métricas de fairness
+- Implementar técnicas de debiasing (reweighting, threshold optimization, adversarial)
+- Aplicar SHAP values para feature importance
+- Usar LIME para explicar black-box models
+- Generar counterfactual explanations y Anchors rules
+- Construir dashboards de fairness
 
-## Estructura interna
-- theory/: fundamentos en español.
-- examples/: ejemplos guiados.
-- practices/: ejercicios por dificultad.
-- mini-project/: caso integrador corto.
-- evaluation/: checklist y rúbrica.
-- notes/: apuntes y decisiones técnicas.
+## 📂 Estructura interna
+- **theory/**: fundamentos (tipos de bias, fairness metrics, explainability methods)
+- **examples/**: ejemplos guiados con Fairlearn, SHAP, LIME
+- **practices/**: ejercicios hands-on
+  - 01: Detección y Mitigación de Bias (disparate impact, reweighting, thresholds, adversarial debiasing, counterfactuals)
+  - 02: Explainability con SHAP y LIME (SHAP for trees/NNs, LIME tabular, PDPs, Anchors, dashboard)
+- **mini-project/**: auditoría de fairness + sistema de explicaciones
+- **evaluation/**: checklist y rúbrica
+- **notes/**: casos de bias encontrados y mitigaciones aplicadas
 
-## Ruta de niveles (L1-L4)
-- L1 Fundamentos: ética en IA y tipos de sesgo.
-- L2 Aplicado: medición de fairness y explicación local/global.
-- L3 Avanzado: auditoría de decisiones y documentación de riesgo.
-- L4 Senior: gobernanza y diseño responsable de sistemas.
+## 📋 Prerrequisitos
+- Módulo 03: Machine Learning Fundamentals (clasificación, métricas)
+- Conocimientos de métricas (confusion matrix, TPR, FPR)
+- Conciencia sobre impactos sociales de ML
 
-## Migración
-- Fuente base original: folders/Ethics, Bias & Explainability
+## 📅 Plan de Estudio Recomendado
 
-## Plan recomendado (4 semanas)
-- Semana 1: fundamentos éticos y sesgos.
-- Semana 2: fairness y explainability aplicada.
-- Semana 3: auditoría y mitigación de riesgos.
-- Semana 4: mini-proyecto + evaluación final.
+**Semana 1** (6-8 horas):
+1. Lee material de `/theory` (2h)
+2. Ejecuta `/examples` (2h)
+3. Completa `/practices/01-deteccion-mitigacion-bias.md` (4h)
 
-## Criterio de módulo completado
-- 5 prácticas resueltas.
-- Mini-proyecto con análisis de riesgo y explicabilidad.
-- Evaluación final aprobada (>=70/100).
+**Semana 2** (6-8 horas):
+4. Completa `/practices/02-explainability-shap-lime.md` (4h)
+5. Desarrolla mini-proyecto (3h)
+
+## ✅ Competencias Clave
+- [ ] Detectar bias en datos y modelos
+- [ ] Calcular disparate impact (80% rule)
+- [ ] Aplicar reweighting y resampling
+- [ ] Threshold optimization por grupo
+- [ ] SHAP values y visualizaciones
+- [ ] LIME para black-box models
+- [ ] Counterfactual explanations
+- [ ] Fairness vs accuracy trade-offs
+
+## ✅ Criterio de módulo completado
+- 2 prácticas resueltas y validadas
+- Mini-proyecto: auditoría de fairness completa
+- Evaluación final aprobada (>=70/100)
+- Demostrar: detección de bias, debiasing, SHAP/LIME, dashboard de fairness
+
+## 📚 Recursos Adicionales
+
+**Librerías:**
+- [Fairlearn](https://fairlearn.org/)
+- [AI Fairness 360 (IBM)](https://aif360.mybluemix.net/)
+- [SHAP](https://shap.readthedocs.io/)
+- [LIME](https://github.com/marcotcr/lime)
+
+**Cursos:**
+- [Fairness in Machine Learning (NIPS Tutorial)](https://fairmlbook.org/)
+
+**Papers:**
+- [Fairness Definitions Explained](https://arxiv.org/abs/1710.03184)
+- [A Unified Approach to Interpreting Model Predictions (SHAP)](https://arxiv.org/abs/1705.07874)
+
+**Libros:**
+- [Interpretable Machine Learning](https://christophm.github.io/interpretable-ml-book/)
+
+## 🚀 Próximo Módulo
+**Módulo 11: Data Privacy & Security** - Encriptación, differential privacy, federated learning

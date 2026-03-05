@@ -1,21 +1,25 @@
 # Recommender Systems
 
-## Objetivo del módulo
+## 🎯 Objetivo del módulo
 Aprender a diseñar sistemas de recomendación que ayuden a personalizar experiencias y aumentar valor de producto con métricas técnicas y de negocio.
 
-## Qué vas a lograr
-- Entender enfoques de recomendación basados en popularidad, contenido y filtrado colaborativo.
-- Implementar un pipeline de recomendaciones reproducible.
-- Evaluar calidad con métricas offline.
-- Analizar trade-offs entre relevancia, novedad y cobertura.
+## 💡 Qué vas a lograr
+- Entender enfoques de recomendación (popularity-based, content-based, collaborative filtering)
+- Implementar user-based y item-based CF desde cero con NumPy
+- Aplicar matrix factorization (SVD, ALS) para escalabilidad
+- Construir hybrid recommenders (CF + content-based weighted)
+- Manejar cold start problem con estrategias
+- Evaluar con RMSE/MAE y métricas de diversidad (coverage, novelty, serendipity)
 
-## Estructura interna
-- theory/: fundamentos en español.
-- examples/: ejemplos guiados.
-- practices/: ejercicios por dificultad.
-- mini-project/: caso integrador corto.
-- evaluation/: checklist y rúbrica.
-- notes/: apuntes y decisiones técnicas.
+## 📂 Estructura interna
+- **theory/**: fundamentos (CF, content-based, matrix factorization, evaluation)
+- **examples/**: ejemplos guiados con NumPy, Surprise
+- **practices/**: ejercicios hands-on
+  - 01: Collaborative Filtering (user-based, item-based, SVD, ALS, cold start)
+  - 02: Content-Based y Hybrid (TF-IDF, neural CF, A/B testing, serendipity)
+- **mini-project/**: sistema de recomendaciones completo con evaluación
+- **evaluation/**: checklist y rúbrica
+- **notes/**: experimentos con diferentes approaches
 
 ## Ruta de niveles (L1-L4)
 - L1 Fundamentos: tipos de recomendadores y problemas frecuentes.
@@ -32,7 +36,25 @@ Aprender a diseñar sistemas de recomendación que ayuden a personalizar experie
 - Semana 3: evaluación y mejoras de ranking.
 - Semana 4: mini-proyecto + evaluación final.
 
-## Criterio de módulo completado
-- 5 prácticas resueltas.
-- Mini-proyecto con recomendaciones evaluadas.
-- Evaluación final aprobada (>=70/100).
+## ✅ Criterio de módulo completado
+- 2 prácticas resueltas y validadas
+- Mini-proyecto con recomendaciones evaluadas (RMSE, diversity metrics)
+- Evaluación final aprobada (>=70/100)
+- Demostrar: CF implementation, matrix factorization, hybrid systems, cold start handling
+
+## 📚 Recursos Adicionales
+**Librerías:**
+- [Surprise (RecSys Library)](http://surpriselib.com/)
+- [Microsoft Recommenders](https://github.com/microsoft/recommenders)
+- [LightFM](https://github.com/lyst/lightfm)
+
+**Tutoriales:**
+- [RecSys Papers Collection](https://github.com/hongleizhang/RSPapers)
+- [Deep Learning for RecSys](https://deeplearning.neuromatch.io/)
+
+**Papers:**
+- [Matrix Factorization Techniques](https://datajobs.com/data-science-repo/Recommender-Systems-[Netflix].pdf)
+- [Neural Collaborative Filtering](https://arxiv.org/abs/1708.05031)
+
+## 🚀 Próximo Módulo
+**Módulo 09: Generative AI & Prompt Engineering** - GANs, VAEs y diffusion models

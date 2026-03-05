@@ -1,21 +1,25 @@
 # Time Series & Anomaly Detection
 
-## Objetivo del módulo
+## 🎯 Objetivo del módulo
 Aprender a modelar series temporales y detectar anomalías para anticipar eventos, fallas o comportamientos fuera de patrón.
 
-## Qué vas a lograr
-- Entender componentes de una serie temporal (tendencia, estacionalidad, ruido).
-- Construir modelos base de forecasting.
-- Implementar estrategias de detección de anomalías.
-- Evaluar resultados con métricas temporales y análisis visual.
+## 💡 Qué vas a lograr
+- Entender componentes de series temporales (tendencia, estacionalidad, ruido, descomposición)
+- Construir modelos de forecasting (ARIMA, Prophet, LSTM)
+- Implementar detectors de anomalías (Z-score, IQR, Isolation Forest, LSTM Autoencoder)
+- Aplicar cross-validation temporal y multi-step forecasting
+- Evaluar con métricas temporales (MAE, RMSE, MAPE) y análisis visual
+- Diseñar sistemas de detección en tiempo real
 
-## Estructura interna
-- theory/: fundamentos en español.
-- examples/: ejemplos guiados.
-- practices/: ejercicios por dificultad.
-- mini-project/: caso integrador corto.
-- evaluation/: checklist y rúbrica.
-- notes/: apuntes y decisiones técnicas.
+## 📂 Estructura interna
+- **theory/**: fundamentos (series temporales, estacionariedad, forecasting, anomaly detection)
+- **examples/**: ejemplos guiados con statsmodels, Prophet, PyOD
+- **practices/**: ejercicios hands-on
+  - 01: Forecasting de Series Temporales (ARIMA, Prophet, LSTM, cross-validation temporal)
+  - 02: Detección de Anomalías (Z-score, IsoForest, LSTM Autoencoder, ensemble, real-time)
+- **mini-project/**: sistema de forecasting + detección de anomalías
+- **evaluation/**: checklist y rúbrica
+- **notes/**: experimentos con diferentes modelos
 
 ## Ruta de niveles (L1-L4)
 - L1 Fundamentos: estructura temporal y preparación de datos.
@@ -32,7 +36,24 @@ Aprender a modelar series temporales y detectar anomalías para anticipar evento
 - Semana 3: detección de anomalías y evaluación.
 - Semana 4: mini-proyecto + evaluación final.
 
-## Criterio de módulo completado
-- 5 prácticas resueltas.
-- Mini-proyecto con forecasting y anomalías.
-- Evaluación final aprobada (>=70/100).
+## ✅ Criterio de módulo completado
+- 2 prácticas resueltas y validadas
+- Mini-proyecto con forecasting y anomalías detectadas
+- Evaluación final aprobada (>=70/100)
+- Demostrar: forecasting con ARIMA/Prophet, detección con múltiples métodos, evaluación
+
+## 📚 Recursos Adicionales
+**Librerías:**
+- [statsmodels TSA](https://www.statsmodels.org/stable/tsa.html)
+- [Facebook Prophet](https://facebook.github.io/prophet/)
+- [PyOD (Anomaly Detection)](https://github.com/yzhao062/pyod)
+
+**Tutoriales:**
+- [Time Series Forecasting Guide](https://otexts.com/fpp3/)
+- [Anomaly Detection Papers](https://paperswithcode.com/task/anomaly-detection)
+
+**Libros:**
+- [Forecasting: Principles and Practice](https://otexts.com/fpp3/)
+
+## 🚀 Próximo Módulo
+**Módulo 08: Recommender Systems** - Sistemas de recomendación

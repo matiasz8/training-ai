@@ -1,38 +1,92 @@
 # MLOps & AI in Production
 
-## Objetivo del módulo
-Aprender a llevar modelos de IA a producción con confiabilidad, monitoreo y mejora continua.
+## 🎯 Objetivo del módulo
+Aprender a deployar, monitorear y mantener modelos ML en producción con CI/CD, observability y mejores prácticas de MLOps.
 
-## Qué vas a lograr
-- Entender ciclo de vida MLOps de extremo a extremo.
-- Diseñar pipelines de entrenamiento y despliegue.
-- Implementar monitoreo de modelo y datos.
-- Definir estrategias de actualización y rollback.
+## 💡 Qué vas a lograr
+- Containerizar modelos con Docker para reproducibilidad
+- Implementar CI/CD pipelines con GitHub Actions para ML
+- Setup model registry con MLflow para version control
+- Detectar data drift y model decay en producción
+- Implementar monitoring con Prometheus + Grafana
+- Crear alerting automático para anomalías
+- Automated retraining pipelines
+- A/B testing infrastructure para modelos
+- Log predictions y performance metrics
 
-## Estructura interna
-- theory/: fundamentos en español.
-- examples/: ejemplos guiados.
-- practices/: ejercicios por dificultad.
-- mini-project/: caso integrador corto.
-- evaluation/: checklist y rúbrica.
-- notes/: apuntes y decisiones técnicas.
+## 📂 Estructura interna
+- **theory/**: fundamentos (MLOps lifecycle, deployment strategies, monitoring, CI/CD)
+- **examples/**: ejemplos guiados con Docker, MLflow, FastAPI
+- **practices/**: ejercicios hands-on
+  - 01: CI/CD para ML (Dockerfile, GitHub Actions, MLflow registry, automated retraining, data drift detection, A/B testing)
+  - 02: Monitoring y Observability (logging predictions, Prometheus metrics, Grafana dashboard, alerting, performance tracking, cost monitoring)
+- **mini-project/**: full MLOps pipeline (training → testing → deployment → monitoring)
+- **evaluation/**: checklist y rúbrica
+- **notes/**: deployment decisions y incident logs
 
-## Ruta de niveles (L1-L4)
-- L1 Fundamentos: lifecycle, versionado y reproducibilidad.
-- L2 Aplicado: despliegue básico y serving.
-- L3 Avanzado: monitoreo de drift y automatización.
-- L4 Senior: arquitectura robusta y gobernanza operativa.
+## 📋 Prerrequisitos
+- Módulo 03: Machine Learning Fundamentals (model training)
+- Conocimientos básicos de Docker
+- Familiaridad con Git/GitHub
+- Linux command line basics
 
-## Migración
-- Fuente base original: folders/MLOps & AI in Production
+## 📅 Plan de Estudio Recomendado
 
-## Plan recomendado (4 semanas)
-- Semana 1: fundamentos MLOps y pipeline base.
-- Semana 2: despliegue y serving de modelos.
-- Semana 3: monitoreo y estrategias de mejora.
-- Semana 4: mini-proyecto + evaluación final.
+**Semana 1** (8-10 horas):
+1. Lee material de `/theory` (MLOps, CI/CD, deployment) (2h)
+2. Ejecuta `/examples` (Docker, FastAPI, MLflow) (3h)
+3. Completa `/practices/01-cicd-ml.md` (5h)
 
-## Criterio de módulo completado
-- 5 prácticas resueltas.
-- Mini-proyecto con flujo de producción simplificado.
-- Evaluación final aprobada (>=70/100).
+**Semana 2** (8-10 horas):
+4. Lee material sobre monitoring y observability (2h)
+5. Completa `/practices/02-monitoring-observability.md` (5h)
+6. Desarrolla mini-proyecto (4h)
+
+## ✅ Competencias Clave
+- [ ] Dockerize ML models (Dockerfile, requirements.txt)
+- [ ] FastAPI para model serving
+- [ ] CI/CD con GitHub Actions (test → train → deploy)
+- [ ] Model registry y versioning (MLflow)
+- [ ] Data drift detection (KS test, PSI)
+- [ ] Automated retraining triggers
+- [ ] Prometheus metrics export
+- [ ] Grafana dashboards
+- [ ] Alerting rules (latency, error rate, drift)
+- [ ] A/B testing infrastructure
+- [ ] Cost monitoring
+
+## ✅ Criterio de módulo completado
+- 2 prácticas resueltas y validadas
+- Mini-proyecto: full MLOps pipeline desplegado y monitoreado
+- Evaluación final aprobada (>=70/100)
+- Demostrar: Docker, CI/CD, monitoring, alerting, drift detection
+
+## 📚 Recursos Adicionales
+
+**Herramientas:**
+- [MLflow](https://mlflow.org/)
+- [DVC (Data Version Control)](https://dvc.org/)
+- [FastAPI](https://fastapi.tiangolo.com/)
+- [Docker](https://docs.docker.com/)
+- [Prometheus](https://prometheus.io/)
+- [Grafana](https://grafana.com/)
+
+**Plataformas:**
+- [Weights & Biases](https://wandb.ai/)
+- [Neptune.ai](https://neptune.ai/)
+- [Evidently AI (drift detection)](https://www.evidentlyai.com/)
+
+**Libros:**
+- [Designing Machine Learning Systems (Chip Huyen)](https://www.oreilly.com/library/view/designing-machine-learning/9781098107956/)
+- [ML Engineering on AWS](https://www.oreilly.com/library/view/machine-learning-engineering/9781803247595/)
+
+**Courses:**
+- [MLOps Specialization (Coursera)](https://www.coursera.org/specializations/machine-learning-engineering-for-production-mlops)
+- [Full Stack Deep Learning](https://fullstackdeeplearning.com/)
+
+## 🚀 Próximos Pasos
+¡Felicitaciones! Has completado los 12 módulos core. Ahora puedes:
+- Explorar **trends-extras/** (agents, guardrails, multimodal, etc.)
+- Profundizar en tu área de interés
+- Construir proyectos end-to-end
+- Contribuir a proyectos open source

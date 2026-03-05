@@ -1,21 +1,25 @@
 # NLP & Large Language Models
 
-## Objetivo del módulo
+## 🎯 Objetivo del módulo
 Aprender fundamentos de procesamiento de lenguaje natural y bases de LLMs para construir soluciones textuales útiles y evaluables.
 
-## Qué vas a lograr
-- Entender tokenización, embeddings y pipelines de NLP.
-- Construir modelos NLP clásicos para tareas textuales.
-- Comprender qué son los LLMs y cómo evaluarlos.
-- Diseñar un mini flujo RAG/prompting básico con criterio.
+## 💡 Qué vas a lograr
+- Entender tokenización (word/subword), embeddings (Word2Vec, GloVe, transformers) y pipelines de NLP
+- Construir modelos NLP clásicos (BoW, TF-IDF, sentiment analysis, topic modeling)
+- Usar Hugging Face Transformers (BERT, GPT, pipelines pre-entrenados)
+- Aplicar prompt engineering (zero-shot, few-shot, chain-of-thought)
+- Fine-tuning de modelos pre-entrenados con LoRA
+- Diseñar un mini flujo RAG básico con retrieval + generation
 
-## Estructura interna
-- theory/: fundamentos en español.
-- examples/: ejemplos guiados.
-- practices/: ejercicios por dificultad.
-- mini-project/: caso integrador corto.
-- evaluation/: checklist y rúbrica.
-- notes/: apuntes y decisiones técnicas.
+## 📂 Estructura interna
+- **theory/**: fundamentos (tokenización, embeddings, transformers, LLMs)
+- **examples/**: ejemplos guiados con NLTK, Gensim, Hugging Face
+- **practices/**: ejercicios hands-on
+  - 01: Procesamiento de Texto y Embeddings (limpieza, TF-IDF, Word2Vec, clasificación)
+  - 02: Fine-Tuning y Prompting (Hugging Face, few-shot, CoT, RAG básico)
+- **mini-project/**: chatbot o sistema Q&A con LLM
+- **evaluation/**: checklist y rúbrica
+- **notes/**: prompts efectivos y experimentos
 
 ## Ruta de niveles (L1-L4)
 - L1 Fundamentos: limpieza textual, tokenización y representación.
@@ -32,7 +36,25 @@ Aprender fundamentos de procesamiento de lenguaje natural y bases de LLMs para c
 - Semana 3: introducción a LLMs, prompting y evaluación.
 - Semana 4: mini-proyecto + evaluación final.
 
-## Criterio de módulo completado
-- 5 prácticas resueltas.
-- Mini-proyecto con evaluación básica de resultados.
-- Evaluación final aprobada (>=70/100).
+## ✅ Criterio de módulo completado
+- 2 prácticas resueltas y validadas
+- Mini-proyecto con evaluación básica de resultados (BLEU/ROUGE/manual)
+- Evaluación final aprobada (>=70/100)
+- Demostrar: preprocesamiento de texto, embeddings, uso de transformers, prompt engineering
+
+## 📚 Recursos Adicionales
+**Librerías:**
+- [Hugging Face Transformers](https://huggingface.co/docs/transformers/index)
+- [NLTK Book](https://www.nltk.org/book/)
+- [Gensim](https://radimrehurek.com/gensim/)
+
+**Cursos:**
+- [Hugging Face NLP Course](https://huggingface.co/learn/nlp-course/chapter1/1)
+- [CS224n: NLP with Deep Learning](http://web.stanford.edu/class/cs224n/)
+
+**Guías:**
+- [Prompt Engineering Guide](https://www.promptingguide.ai/)
+- [LangChain Documentation](https://python.langchain.com/docs/get_started/introduction)
+
+## 🚀 Próximo Módulo
+**Módulo 06: Computer Vision** - Detección de objetos y segmentación de imágenes
