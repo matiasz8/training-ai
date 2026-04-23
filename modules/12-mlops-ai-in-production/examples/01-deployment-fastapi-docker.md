@@ -8,7 +8,7 @@ Llevar modelos de Jupyter notebooks a producción requiere API robusta, versiona
 
 Desplegar modelo de clasificación con FastAPI, Docker y mejores prácticas de MLOps.
 
----
+______________________________________________________________________
 
 ## 🚀 Setup del proyecto
 
@@ -33,7 +33,7 @@ ml-api/
 └── README.md
 ```
 
----
+______________________________________________________________________
 
 ## 🤖 Entrenar y guardar modelo
 
@@ -99,13 +99,14 @@ print(f"ROC-AUC: {metrics['roc_auc']:.4f}")
 ```
 
 **Salida:**
+
 ```
 ✅ Modelo entrenado y guardado
 Accuracy: 0.9737
 ROC-AUC: 0.9956
 ```
 
----
+______________________________________________________________________
 
 ## 📦 Pydantic Schemas
 
@@ -126,7 +127,7 @@ class PredictionInput(BaseModel):
         max_items=30,
         description="30 features del tumor"
     )
-    
+
     @validator('features')
     def validate_features(cls, v):
         # Validar que no haya NaN o Inf
@@ -160,7 +161,7 @@ class MetricsResponse(BaseModel):
     model_version: str
 ```
 
----
+______________________________________________________________________
 
 ## 🔧 Lógica de inferencia
 
@@ -187,9 +188,9 @@ class ModelInference:
         self.metadata = None
         self.prediction_count = 0
         self.total_inference_time = 0.0
-        
+
         self.load_model()
-    
+
     def load_model(self):
         """
         Carga modelo, scaler y metadata
@@ -197,57 +198,57 @@ class ModelInference:
         try:
             self.model = joblib.load(self.model_path)
             self.scaler = joblib.load(self.model_path.parent / "preprocessing.pkl")
-            
+
             with open(self.model_path.parent / "metadata.json") as f:
                 self.metadata = json.load(f)
-            
+
             logger.info(f"✅ Modelo cargado: v{self.metadata['metrics']['model_version']}")
-        
+
         except Exception as e:
             logger.error(f"❌ Error cargando modelo: {e}")
             raise
-    
+
     def predict(self, features: list) -> dict:
         """
         Realiza predicción
         """
         start_time = time.time()
-        
+
         # Validación dimensional
         if len(features) != 30:
             raise ValueError(f"Expected 30 features, got {len(features)}")
-        
+
         # Preprocesar
         features_array = np.array(features).reshape(1, -1)
         features_scaled = self.scaler.transform(features_array)
-        
+
         # Predecir
         prediction = int(self.model.predict(features_scaled)[0])
         probabilities = self.model.predict_proba(features_scaled)[0]
-        
+
         # Métricas
         inference_time = (time.time() - start_time) * 1000  # ms
         self.prediction_count += 1
         self.total_inference_time += inference_time
-        
+
         logger.info(f"Predicción: {prediction}, Prob: {probabilities[1]:.4f}, Time: {inference_time:.2f}ms")
-        
+
         return {
             'prediction': prediction,
             'probability_benign': float(probabilities[1]),
             'inference_time_ms': inference_time
         }
-    
+
     def get_metrics(self) -> dict:
         """
         Retorna métricas de uso
         """
         avg_time = (
-            self.total_inference_time / self.prediction_count 
-            if self.prediction_count > 0 
+            self.total_inference_time / self.prediction_count
+            if self.prediction_count > 0
             else 0
         )
-        
+
         return {
             'total_predictions': self.prediction_count,
             'avg_inference_time_ms': avg_time,
@@ -255,7 +256,7 @@ class ModelInference:
         }
 ```
 
----
+______________________________________________________________________
 
 ## 🌐 FastAPI Application
 
@@ -270,8 +271,8 @@ import uuid
 from datetime import datetime
 
 from .models import (
-    PredictionInput, 
-    PredictionOutput, 
+    PredictionInput,
+    PredictionOutput,
     HealthResponse,
     MetricsResponse
 )
@@ -333,7 +334,7 @@ async def health_check():
     Health check endpoint
     """
     model_loaded = model_inference is not None and model_inference.model is not None
-    
+
     return HealthResponse(
         status="healthy" if model_loaded else "unhealthy",
         model_loaded=model_loaded,
@@ -344,30 +345,30 @@ async def health_check():
 async def predict(input_data: PredictionInput):
     """
     Realizar predicción
-    
+
     Args:
         input_data: 30 features del tumor
-    
+
     Returns:
         Predicción y probabilidad
     """
     try:
         # Predecir
         result = model_inference.predict(input_data.features)
-        
+
         # Generar ID único
         prediction_id = str(uuid.uuid4())
-        
+
         return PredictionOutput(
             prediction=result['prediction'],
             probability_benign=result['probability_benign'],
             model_version=model_inference.metadata['metrics']['model_version'],
             prediction_id=prediction_id
         )
-    
+
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
-    
+
     except Exception as e:
         logger.error(f"Error en predicción: {e}")
         raise HTTPException(status_code=500, detail="Internal server error")
@@ -378,7 +379,7 @@ async def get_metrics():
     Obtener métricas de uso del modelo
     """
     metrics = model_inference.get_metrics()
-    
+
     return MetricsResponse(**metrics)
 
 @app.exception_handler(Exception)
@@ -387,14 +388,14 @@ async def global_exception_handler(request: Request, exc: Exception):
     Handler global de excepciones
     """
     logger.error(f"Unhandled exception: {exc}")
-    
+
     return JSONResponse(
         status_code=500,
         content={"detail": "Internal server error"}
     )
 ```
 
----
+______________________________________________________________________
 
 ## 📋 Requirements
 
@@ -410,7 +411,7 @@ numpy==1.24.3
 pandas==2.1.3
 ```
 
----
+______________________________________________________________________
 
 ## 🐳 Dockerfile
 
@@ -456,7 +457,7 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
 ```
 
----
+______________________________________________________________________
 
 ## 🚀 Build y Run
 
@@ -482,7 +483,7 @@ curl http://localhost:8000/health
 curl -X POST http://localhost:8000/predict \
     -H "Content-Type: application/json" \
     -d '{
-        "features": [17.99, 10.38, 122.8, 1001.0, 0.1184, 0.2776, 0.3001, 
+        "features": [17.99, 10.38, 122.8, 1001.0, 0.1184, 0.2776, 0.3001,
                      0.1471, 0.2419, 0.07871, 1.095, 0.9053, 8.589, 153.4,
                      0.006399, 0.04904, 0.05373, 0.01587, 0.03003, 0.006193,
                      25.38, 17.33, 184.6, 2019.0, 0.1622, 0.6656, 0.7119,
@@ -494,6 +495,7 @@ curl http://localhost:8000/metrics
 ```
 
 **Salida:**
+
 ```json
 {
   "prediction": 0,
@@ -503,7 +505,7 @@ curl http://localhost:8000/metrics
 }
 ```
 
----
+______________________________________________________________________
 
 ## ✅ Testing
 
@@ -538,15 +540,15 @@ def test_predict_valid():
     Test predicción válida
     """
     payload = {
-        "features": [17.99, 10.38, 122.8, 1001.0, 0.1184, 0.2776, 0.3001, 
+        "features": [17.99, 10.38, 122.8, 1001.0, 0.1184, 0.2776, 0.3001,
                      0.1471, 0.2419, 0.07871, 1.095, 0.9053, 8.589, 153.4,
                      0.006399, 0.04904, 0.05373, 0.01587, 0.03003, 0.006193,
                      25.38, 17.33, 184.6, 2019.0, 0.1622, 0.6656, 0.7119,
                      0.2654, 0.4601, 0.1189]
     }
-    
+
     response = client.post("/predict", json=payload)
-    
+
     assert response.status_code == 200
     data = response.json()
     assert "prediction" in data
@@ -561,7 +563,7 @@ def test_predict_invalid_features():
     payload = {
         "features": [1.0, 2.0, 3.0]  # Solo 3 features (requiere 30)
     }
-    
+
     response = client.post("/predict", json=payload)
     assert response.status_code == 422  # Validation error
 
@@ -577,7 +579,7 @@ def test_metrics():
 # pytest tests/ -v --cov=app
 ```
 
----
+______________________________________________________________________
 
 ## 📊 Load Testing
 
@@ -602,14 +604,14 @@ def make_prediction(features):
     Hace una predicción
     """
     start = time.time()
-    
+
     response = requests.post(
         API_URL,
         json={"features": features}
     )
-    
+
     latency = (time.time() - start) * 1000  # ms
-    
+
     return {
         'status_code': response.status_code,
         'latency_ms': latency,
@@ -621,22 +623,22 @@ def load_test(n_requests=100, n_workers=10):
     Load test con múltiples workers
     """
     print(f"🔥 Load test: {n_requests} requests con {n_workers} workers paralelos")
-    
+
     results = []
-    
+
     with ThreadPoolExecutor(max_workers=n_workers) as executor:
         futures = [
             executor.submit(make_prediction, generate_random_features())
             for _ in range(n_requests)
         ]
-        
+
         for future in as_completed(futures):
             results.append(future.result())
-    
+
     # Análisis
     latencies = [r['latency_ms'] for r in results if r['success']]
     success_rate = sum(r['success'] for r in results) / len(results)
-    
+
     print(f"\n✅ Resultados:")
     print(f"Success rate: {success_rate:.2%}")
     print(f"Latency media: {np.mean(latencies):.2f}ms")
@@ -651,6 +653,7 @@ if __name__ == "__main__":
 ```
 
 **Salida:**
+
 ```
 🔥 Load test: 500 requests con 20 workers paralelos
 
@@ -664,7 +667,7 @@ Latency max: 67.89ms
 Throughput: 326.78 req/s
 ```
 
----
+______________________________________________________________________
 
 ## 📝 Resumen
 

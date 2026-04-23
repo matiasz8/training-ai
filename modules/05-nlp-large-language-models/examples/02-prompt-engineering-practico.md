@@ -10,7 +10,7 @@ Dominar técnicas de prompting para tareas de: clasificación, extracción de in
 
 **Nota:** Usaremos ejemplos conceptuales. En producción, reemplaza con APIs como OpenAI GPT, Anthropic Claude, o modelos locales vía HuggingFace.
 
----
+______________________________________________________________________
 
 ## 🚀 Paso 1: Setup simulado (sin API real)
 
@@ -27,13 +27,13 @@ class MockLLM:
         """Simula respuesta de LLM"""
         # Aquí iría la llamada real a la API
         return f"[SIMULATED RESPONSE to: {prompt[:50]}...]"
-    
+
 llm = MockLLM()
 
 # En producción (ejemplo con OpenAI):
 # import openai
 # openai.api_key = 'tu-api-key'
-# 
+#
 # def call_llm(prompt):
 #     response = openai.ChatCompletion.create(
 #         model="gpt-4",
@@ -43,11 +43,12 @@ llm = MockLLM()
 #     return response.choices[0].message.content
 ```
 
----
+______________________________________________________________________
 
 ## 📚 Técnica 1: Zero-Shot Prompting
 
 ### ¿Qué es?
+
 Dar instrucciones directas sin ejemplos previos.
 
 ### Ejemplo: Clasificación de sentimientos
@@ -74,16 +75,18 @@ print("\nPrompt bueno:", good_prompt)
 ```
 
 **Mejoras aplicadas:**
+
 - ✅ Instrucción clara y específica
 - ✅ Opciones de respuesta definidas (POSITIVO, NEGATIVO, NEUTRAL)
 - ✅ Formato estructurado
 - ✅ Delimitación clara del input ("Texto: ...")
 
----
+______________________________________________________________________
 
 ## 🎯 Técnica 2: Few-Shot Prompting
 
 ### ¿Qué es?
+
 Proporcionar ejemplos de entrada-salida antes de la tarea real. El modelo aprende el patrón.
 
 ### Ejemplo: Extracción de información
@@ -128,20 +131,23 @@ print(few_shot_prompt)
 ```
 
 **Ventajas:**
+
 - ✅ No requiere fine-tuning del modelo
 - ✅ El LLM aprende el formato deseado
 - ✅ Más preciso que zero-shot para tareas complejas
 
 **Recomendaciones:**
+
 - Usar 2-5 ejemplos (más no siempre es mejor)
 - Ejemplos diversos (diferentes cases)
 - Mantener formato consistente
 
----
+______________________________________________________________________
 
 ## 🧠 Técnica 3: Chain-of-Thought (CoT) Prompting
 
 ### ¿Qué es?
+
 Pedir al modelo que "piense en voz alta" paso a paso antes de responder. Mejora razonamiento en problemas complejos.
 
 ### Ejemplo: Problema matemático
@@ -204,12 +210,13 @@ print(cot_logic_prompt)
 ```
 
 **Cuándo usar CoT:**
+
 - ✅ Problemas matemáticos
 - ✅ Razonamiento lógico
 - ✅ Tareas multi-paso
 - ✅ Cuando necesitas explicabilidad
 
----
+______________________________________________________________________
 
 ## 🏗️ Técnica 4: Estructuración de Roles y Contexto
 
@@ -231,20 +238,22 @@ print(structured_prompt)
 # - Febrero: -8% (sobre base de 115%) = neto ~105.8%
 # - Marzo: +22% (sobre base de 105.8%) = neto ~129.1%
 # Retorno acumulado: ~29.1% en trimestre Q1 (excelente)
-# Sin embargo, volatilidad intramensual significativa. 
+# Sin embargo, volatilidad intramensual significativa.
 # Recomendación: Buena señala alcista, pero verificar fundamentals y diversificar riesgo."
 ```
 
 **Beneficios de estructurar roles:**
+
 - ✅ El modelo adopta "personalidad" específica
 - ✅ Respuestas más alineadas con expertise requerido
 - ✅ Tono y nivel técnico apropiados
 
----
+______________________________________________________________________
 
 ## 📋 Técnica 5: Output Formatting (JSON estructurado)
 
 ### ¿Por qué?
+
 Facilita parseo automático de respuestas para integrar con pipelines de datos.
 
 ### Ejemplo: Extracción a JSON
@@ -292,11 +301,11 @@ def validate_llm_json(response):
     try:
         data = json.loads(response)
         required_keys = ["nombre", "especialidad", "experiencia_años", "empresa", "puesto", "email"]
-        
+
         for key in required_keys:
             if key not in data:
                 return False, f"Falta clave: {key}"
-        
+
         return True, data
     except json.JSONDecodeError as e:
         return False, f"JSON inválido: {e}"
@@ -307,7 +316,7 @@ is_valid, result = validate_llm_json(simulated_response)
 print(f"Válido: {is_valid}")
 ```
 
----
+______________________________________________________________________
 
 ## 🛡️ Técnica 6: Constraint Enforcement (Restricciones)
 
@@ -332,17 +341,19 @@ print(constrained_prompt)
 ```
 
 **Restricciones útiles:**
+
 - **Longitud:** "máximo 100 palabras", "exactamente 5 ítems"
 - **Formato:** "solo bullets", "tabla markdown"
 - **Tono:** "lenguaje simple", "técnico y formal"
 - **Idioma:** "responde en español"
 - **Prohibiciones:** "no uses analogías", "evita jerga"
 
----
+______________________________________________________________________
 
 ## 💡 Técnica 7: Self-Consistency (Auto-consistencia)
 
 ### ¿Qué es?
+
 Generar múltiples respuestas independientes y elegir la más consistente (votación).
 
 ### Implementación conceptual
@@ -355,9 +366,9 @@ def self_consistency(prompt, num_samples=5):
     responses = []
     for i in range(num_samples):
         # En producción: modificar temperature para variabilidad
-        response = llm.generate(prompt, temperature=0.8)  
+        response = llm.generate(prompt, temperature=0.8)
         responses.append(response)
-    
+
     # Votar (contar respuestas más frecuentes)
     from collections import Counter
     vote_result = Counter(responses).most_common(1)[0]
@@ -375,11 +386,12 @@ Responde solo la hora (formato HH:MM).
 ```
 
 **Cuándo usar:**
+
 - Problemas de razonamiento complejo
 - Cuando necesitas alta confiabilidad
 - Tareas con respuesta inequívoca
 
----
+______________________________________________________________________
 
 ## 🎨 Técnica 8: Multi-turn Conversation (Refinamiento iterativo)
 
@@ -427,11 +439,12 @@ Ahora optimiza usando lru_cache para memoization.
 ```
 
 **Ventajas:**
+
 - Refinamiento incremental
 - El LLM recuerda contexto previo
 - Ideal para tareas complejas iterativas
 
----
+______________________________________________________________________
 
 ## 📊 Comparación de técnicas
 
@@ -468,6 +481,7 @@ print(comparison.to_string(index=False))
 ```
 
 **Salida:**
+
 ```
           Technique Complexity  Cost (API calls)  Accuracy                Use Case
           Zero-Shot        Low                 1    Medium          Tareas simples
@@ -480,62 +494,73 @@ print(comparison.to_string(index=False))
          Multi-Turn       High                 3      High      Refinamiento código
 ```
 
----
+______________________________________________________________________
 
 ## 📝 Resumen ejecutivo
 
 ### ✅ Mejores prácticas para prompts efectivos
 
 1. **Ser específico:**
+
    - ❌ "Analiza este texto"
    - ✅ "Clasifica el sentimiento como POSITIVO, NEGATIVO o NEUTRAL"
 
-2. **Usar delimitadores claros:**
+1. **Usar delimitadores claros:**
+
    ```
    Input: """texto aquí"""
    Output:
    ```
 
-3. **Especificar formato de salida:**
+1. **Especificar formato de salida:**
+
    - "Responde en JSON"
    - "Lista numerada de 5 ítems"
    - "Tabla markdown"
 
-4. **Dar contexto/rol:**
+1. **Dar contexto/rol:**
+
    - "Eres un experto en..."
    - "Actúa como un profesor de..."
 
-5. **Pedir razonamiento paso a paso:**
+1. **Pedir razonamiento paso a paso:**
+
    - Para matemáticas, lógica, problemas complejos
 
-6. **Usar ejemplos (few-shot):**
+1. **Usar ejemplos (few-shot):**
+
    - 2-5 ejemplos representativos
    - Formato consistente
 
-7. **Iterar y refinar:**
+1. **Iterar y refinar:**
+
    - Probar múltiples formulaciones
    - Ajustar temperatura (0 = determinista, 1 = creativo)
 
----
+______________________________________________________________________
 
 ## 🎓 Lecciones aprendidas
 
 ### ✅ Parámetros de API importantes
 
 **Temperature (0-1):**
+
 - `0.0`: Determinista, respuestas consistentes (para clasificación, extracción)
 - `0.7`: Balance (general purpose)
 - `1.0`: Creativo, variado (para generación de ideas, storytelling)
 
 **Max tokens:**
+
 - Limita longitud de respuesta
 - Evita respuestas cortadas: calcular tokens necesarios (1 palabra ≈ 1.3 tokens)
 
 **Top-p (nucleus sampling):**
+
 - Alternativa a temperature
 - `0.9` = considera solo top 90% de probabilidad de tokens
 
 **Frequency/Presence penalty:**
+
 - Penaliza repetición de tokens
 - Útil para textos creativos largos
 
@@ -550,25 +575,29 @@ print(comparison.to_string(index=False))
 ### 💡 Debugging de prompts
 
 1. **Prompt no funciona:**
+
    - Revisar especificidad
    - Agregar ejemplos
    - Usar CoT para problemas complejos
 
-2. **Output inconsistente:**
+1. **Output inconsistente:**
+
    - Bajar temperature (hacia 0)
    - Agregar más restricciones
    - Usar self-consistency
 
-3. **Respuestas cortadas:**
+1. **Respuestas cortadas:**
+
    - Aumentar max_tokens
    - Simplificar prompt
 
-4. **Demasiado costoso:**
+1. **Demasiado costoso:**
+
    - Reducir num_samples (self-consistency)
    - Usar modelos más pequeños para tareas simples
    - Cachear respuestas comunes
 
----
+______________________________________________________________________
 
 ## 🔧 Template de prompt completo
 
@@ -626,19 +655,22 @@ print(filled_prompt)
 - ✅ Temperature apropiada (0 = determinista, 1 = creativo)
 - ✅ Control de costos (max_tokens, num_samples)
 
----
+______________________________________________________________________
 
 ## 📚 Recursos adicionales
 
 - **Papers:**
+
   - "Chain-of-Thought Prompting Elicits Reasoning in LLMs" (Wei et al., 2022)
   - "Few-Shot Learning with Language Models" (Brown et al., 2020)
-  
+
 - **Herramientas:**
+
   - [OpenAI Playground](https://platform.openai.com/playground): Experimentar con prompts
   - [LangChain](https://langchain.com): Framework para aplicaciones con LLMs
   - [PromptBase](https://promptbase.com): Marketplace de prompts
 
 - **Práctica:**
+
   - [Learn Prompting](https://learnprompting.org): Curso interactivo
   - [Anthropic Prompt Library](https://docs.anthropic.com/claude/prompt-library): Ejemplos de Claude

@@ -7,7 +7,7 @@
 - Evaluar modelos con métricas apropiadas
 - Interpretar coeficientes y hacer predicciones
 
----
+______________________________________________________________________
 
 ## 📚 Parte 1: Ejercicios Guiados
 
@@ -103,10 +103,10 @@ df['distance_center_km'] = np.random.uniform(1, 30, n)
 
 # Recalcular precio con múltiples factores
 df['price'] = (
-    50000 + 
-    df['size_m2'] * 1500 + 
-    df['bedrooms'] * 15000 + 
-    -df['age_years'] * 1000 + 
+    50000 +
+    df['size_m2'] * 1500 +
+    df['bedrooms'] * 15000 +
+    -df['age_years'] * 1000 +
     -df['distance_center_km'] * 2000 +
     np.random.normal(0, 20000, n)
 )
@@ -140,7 +140,7 @@ print(f"RMSE: ${rmse_multi:,.2f}")
 # Gráfico de predicciones vs reales
 plt.figure(figsize=(10, 6))
 plt.scatter(y_test, y_pred_multi, alpha=0.6, color='steelblue')
-plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 
+plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()],
          'r--', linewidth=2, label='Perfect prediction')
 plt.xlabel('Real Price ($)')
 plt.ylabel('Predicted Price ($)')
@@ -170,8 +170,8 @@ df_credit = pd.DataFrame({
 
 # Target: aprobación basada en reglas
 df_credit['approved'] = (
-    (df_credit['income'] > 40000) & 
-    (df_credit['credit_score'] > 600) & 
+    (df_credit['income'] > 40000) &
+    (df_credit['credit_score'] > 600) &
     (df_credit['debt'] < 30000)
 ).astype(int)
 
@@ -219,7 +219,7 @@ plt.savefig('logistic_coefficients.png', dpi=150)
 plt.show()
 ```
 
----
+______________________________________________________________________
 
 ## 🚀 Parte 2: Ejercicios Propuestos
 
@@ -232,7 +232,7 @@ Implementa regresión lineal sin sklearn usando gradient descent:
 def linear_regression_gd(X, y, learning_rate=0.01, epochs=1000):
     """
     Implementa regresión lineal con gradient descent
-    
+
     Returns:
         weights, bias, loss_history
     """
@@ -246,9 +246,10 @@ Valida que los coeficientes sean similares a sklearn.
 
 **Enunciado:**
 Compara modelos con regularización:
+
 1. Linear Regression (sin regularización)
-2. Ridge (L2 regularization)
-3. Lasso (L1 regularization)
+1. Ridge (L2 regularization)
+1. Lasso (L1 regularization)
 
 Usa `Ridge` y `Lasso` de sklearn con diferentes valores de `alpha`.
 Visualiza cómo cambian los coeficientes.
@@ -257,6 +258,7 @@ Visualiza cómo cambian los coeficientes.
 
 **Enunciado:**
 Ajusta regresión polinomial de grados 1, 2, 3, 5:
+
 - Usa `PolynomialFeatures` de sklearn
 - Compara RMSE y R² en test set
 - Visualiza overfitting en grado 5
@@ -266,6 +268,7 @@ Ajusta regresión polinomial de grados 1, 2, 3, 5:
 **Enunciado:**
 Por defecto, threshold = 0.5 para clasificación.
 Varía threshold de 0.1 a 0.9 y grafica:
+
 - Precision vs Threshold
 - Recall vs Threshold
 - F1-Score vs Threshold
@@ -276,12 +279,13 @@ Encuentra threshold óptimo para maximizar F1.
 
 **Enunciado:**
 Genera ROC curve para modelo logístico:
-1. Calcula TPR y FPR para diferentes thresholds
-2. Grafica ROC curve
-3. Calcula AUC (área bajo la curva)
-4. Compara con `roc_curve` y `roc_auc_score` de sklearn
 
----
+1. Calcula TPR y FPR para diferentes thresholds
+1. Grafica ROC curve
+1. Calcula AUC (área bajo la curva)
+1. Compara con `roc_curve` y `roc_auc_score` de sklearn
+
+______________________________________________________________________
 
 ## ✅ Checklist de Competencias
 
@@ -295,7 +299,7 @@ Genera ROC curve para modelo logístico:
 - [ ] Ajustar threshold de clasificación
 - [ ] Aplicar regularización (Ridge, Lasso)
 
----
+______________________________________________________________________
 
 ## 📚 Recursos
 

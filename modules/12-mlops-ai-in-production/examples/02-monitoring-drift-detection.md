@@ -8,7 +8,7 @@ Modelos ML en producción degradan su performance por **data drift** (cambios en
 
 Implementar sistema de monitoring para detectar drift y alertar antes de que el modelo falle.
 
----
+______________________________________________________________________
 
 ## 🚀 Setup
 
@@ -27,7 +27,7 @@ warnings.filterwarnings('ignore')
 np.random.seed(42)
 ```
 
----
+______________________________________________________________________
 
 ## 📚 Datos de entrenamiento
 
@@ -36,7 +36,7 @@ np.random.seed(42)
 def generate_credit_data(n_samples=1000, drift=False):
     """
     Genera datos sintéticos
-    
+
     Si drift=True: cambia distribución y relación X→y
     """
     if drift:
@@ -51,7 +51,7 @@ def generate_credit_data(n_samples=1000, drift=False):
         income = np.random.normal(60000, 20000, n_samples)
         credit_score = np.random.randint(550, 850, n_samples)
         drift_factor = 0.0
-    
+
     # Features
     df = pd.DataFrame({
         'age': age,
@@ -60,7 +60,7 @@ def generate_credit_data(n_samples=1000, drift=False):
         'debt_to_income': np.random.uniform(0.1, 0.8, n_samples),
         'num_credit_lines': np.random.randint(1, 8, n_samples),
     })
-    
+
     # Target: default (lógica basada en features)
     score = (
         (df['credit_score'] - 550) / 300 * 0.4 +
@@ -68,14 +68,14 @@ def generate_credit_data(n_samples=1000, drift=False):
         (65 - df['age']) / 40 * 0.2 +
         (1 - df['debt_to_income']) * 0.1
     )
-    
+
     # Aplicar drift al target
     score = score - drift_factor
-    
+
     # Binarizar con ruido
     prob = 1 / (1 + np.exp(-5 * (score - 0.5)))
     df['default'] = (np.random.rand(n_samples) < prob).astype(int)
-    
+
     return df
 
 # Generar train y early production data (sin drift)
@@ -89,6 +89,7 @@ print(f"Default rate: {df_train['default'].mean():.2%}")
 ```
 
 **Salida:**
+
 ```
 === Training Data ===
    age       income  credit_score  debt_to_income  num_credit_lines  default
@@ -101,7 +102,7 @@ Shape: (2000, 6)
 Default rate: 28.35%
 ```
 
----
+______________________________________________________________________
 
 ## 🤖 Entrenar modelo
 
@@ -131,13 +132,14 @@ print(f"Production (early) accuracy: {prod_acc:.4f}")
 ```
 
 **Salida:**
+
 ```
 === Baseline Performance ===
 Train accuracy: 0.9865
 Production (early) accuracy: 0.8540
 ```
 
----
+______________________________________________________________________
 
 ## 📊 1. Data Drift Detection
 
@@ -147,7 +149,7 @@ Production (early) accuracy: 0.8540
 def detect_data_drift_ks(reference_data, current_data, feature, threshold=0.05):
     """
     KS test para detectar drift en feature continua
-    
+
     H0: Las dos distribuciones son iguales
     p-value < threshold → rechazamos H0 → hay drift
     """
@@ -155,9 +157,9 @@ def detect_data_drift_ks(reference_data, current_data, feature, threshold=0.05):
         reference_data[feature],
         current_data[feature]
     )
-    
+
     drift_detected = p_value < threshold
-    
+
     return {
         'feature': feature,
         'ks_statistic': statistic,
@@ -175,10 +177,10 @@ print("\n=== Data Drift Detection (KS Test) ===\n")
 for feature in feature_cols:
     # Sin drift (early production)
     result_no_drift = detect_data_drift_ks(df_train, df_prod_early, feature)
-    
+
     # Con drift
     result_drift = detect_data_drift_ks(df_train, df_prod_drift, feature)
-    
+
     print(f"{feature}:")
     print(f"  Early prod: p-value={result_no_drift['p_value']:.4f} | "
           f"Drift: {'❌ NO' if not result_no_drift['drift_detected'] else '⚠️ SÍ'}")
@@ -188,6 +190,7 @@ for feature in feature_cols:
 ```
 
 **Salida:**
+
 ```
 === Data Drift Detection (KS Test) ===
 
@@ -220,12 +223,12 @@ axes = axes.flatten()
 
 for idx, feature in enumerate(feature_cols):
     ax = axes[idx]
-    
+
     # Distribuciones
     ax.hist(df_train[feature], bins=30, alpha=0.5, label='Train', color='blue', density=True)
     ax.hist(df_prod_early[feature], bins=30, alpha=0.5, label='Prod (no drift)', color='green', density=True)
     ax.hist(df_prod_drift[feature], bins=30, alpha=0.5, label='Prod (drift)', color='red', density=True)
-    
+
     ax.set_xlabel(feature)
     ax.set_ylabel('Density')
     ax.set_title(f'{feature} Distribution')
@@ -237,7 +240,7 @@ plt.savefig('data_drift_distributions.png', dpi=150)
 plt.show()
 ```
 
----
+______________________________________________________________________
 
 ## 📉 2. Concept Drift Detection
 
@@ -247,27 +250,27 @@ plt.show()
 def track_performance_over_time(model, data_stream, window_size=100):
     """
     Simula tracking de performance a lo largo del tiempo
-    
+
     data_stream: lista de (X, y) batches
     """
     performance_log = []
-    
+
     for batch_idx, (X_batch, y_batch) in enumerate(data_stream):
         # Predecir
         y_pred = model.predict(X_batch)
         y_proba = model.predict_proba(X_batch)[:, 1]
-        
+
         # Métricas
         acc = accuracy_score(y_batch, y_pred)
         auc = roc_auc_score(y_batch, y_proba)
-        
+
         performance_log.append({
             'batch': batch_idx,
             'accuracy': acc,
             'roc_auc': auc,
             'samples': len(y_batch)
         })
-    
+
     return pd.DataFrame(performance_log)
 
 # Simular stream con drift progresivo
@@ -277,19 +280,19 @@ batches = []
 for i in range(20):
     # Incrementar drift gradualmente
     drift_level = i / 20  # 0.0 → 1.0
-    
+
     # Mezclar datos sin drift y con drift
     n_no_drift = int(100 * (1 - drift_level))
     n_drift = int(100 * drift_level)
-    
+
     df_batch_no_drift = generate_credit_data(n_no_drift, drift=False) if n_no_drift > 0 else pd.DataFrame()
     df_batch_drift = generate_credit_data(n_drift, drift=True) if n_drift > 0 else pd.DataFrame()
-    
+
     df_batch = pd.concat([df_batch_no_drift, df_batch_drift], ignore_index=True)
-    
+
     X_batch = df_batch[feature_cols]
     y_batch = df_batch['default']
-    
+
     batches.append((X_batch, y_batch))
 
 # Trackear performance
@@ -299,6 +302,7 @@ print(perf_df.head(10))
 ```
 
 **Salida:**
+
 ```
 === Concept Drift Simulation ===
 
@@ -354,12 +358,13 @@ print(f"🚨 Critical threshold cruzado en batch: {critical_batch}")
 ```
 
 **Salida:**
+
 ```
 ⚠️ Warning threshold cruzado en batch: 7
 🚨 Critical threshold cruzado en batch: 12
 ```
 
----
+______________________________________________________________________
 
 ## 🔔 3. Sistema de Alerta
 
@@ -368,7 +373,7 @@ class DriftMonitor:
     """
     Sistema de monitoreo de drift con alertas
     """
-    def __init__(self, reference_data, feature_cols, performance_baseline, 
+    def __init__(self, reference_data, feature_cols, performance_baseline,
                  ks_threshold=0.05, perf_warning_pct=0.95, perf_critical_pct=0.90):
         self.reference_data = reference_data
         self.feature_cols = feature_cols
@@ -376,26 +381,26 @@ class DriftMonitor:
         self.ks_threshold = ks_threshold
         self.perf_warning = performance_baseline * perf_warning_pct
         self.perf_critical = performance_baseline * perf_critical_pct
-        
+
         self.alerts = []
-    
+
     def check_data_drift(self, current_data):
         """
         Detecta data drift en todas las features
         """
         drifts_detected = []
-        
+
         for feature in self.feature_cols:
             result = detect_data_drift_ks(
-                self.reference_data, 
-                current_data, 
-                feature, 
+                self.reference_data,
+                current_data,
+                feature,
                 self.ks_threshold
             )
-            
+
             if result['drift_detected']:
                 drifts_detected.append(result)
-                
+
                 self.alerts.append({
                     'type': 'DATA_DRIFT',
                     'severity': 'WARNING',
@@ -403,9 +408,9 @@ class DriftMonitor:
                     'p_value': result['p_value'],
                     'message': f"Data drift detected in {feature} (p-value: {result['p_value']:.4f})"
                 })
-        
+
         return drifts_detected
-    
+
     def check_performance_drift(self, current_accuracy):
         """
         Detecta concept drift por degradación de performance
@@ -421,7 +426,7 @@ class DriftMonitor:
                            f"({(1 - current_accuracy / self.performance_baseline) * 100:.1f}% below baseline)"
             })
             return 'CRITICAL'
-        
+
         elif current_accuracy < self.perf_warning:
             self.alerts.append({
                 'type': 'CONCEPT_DRIFT',
@@ -433,9 +438,9 @@ class DriftMonitor:
                            f"({(1 - current_accuracy / self.performance_baseline) * 100:.1f}% below baseline)"
             })
             return 'WARNING'
-        
+
         return 'OK'
-    
+
     def get_alerts(self):
         """
         Retorna todas las alertas
@@ -470,6 +475,7 @@ print(alerts_df[['type', 'severity', 'message']].head(10))
 ```
 
 **Salida:**
+
 ```
 === Drift Monitoring System ===
 
@@ -492,7 +498,7 @@ Batch 13: CRITICAL
 ...
 ```
 
----
+______________________________________________________________________
 
 ## 🔧 4. Reentrenamiento Automático
 
@@ -507,47 +513,47 @@ class AutoRetrainer:
         self.y_train = y_train
         self.drift_monitor = drift_monitor
         self.retrain_history = []
-    
+
     def should_retrain(self):
         """
         Decide si reentrenar basándose en alertas
         """
         alerts = self.drift_monitor.get_alerts()
-        
+
         # Reentrenar si hay alertas críticas
         critical_alerts = alerts[alerts['severity'] == 'CRITICAL']
-        
+
         return len(critical_alerts) > 0
-    
+
     def retrain(self, X_new, y_new):
         """
         Reentrena modelo con nuevos datos
         """
         print("\n🔄 Reentrenando modelo...")
-        
+
         # Combinar datos antiguos y nuevos
         X_combined = pd.concat([self.X_train, X_new], ignore_index=True)
         y_combined = pd.concat([self.y_train, y_new], ignore_index=True)
-        
+
         # Reentrenar
         self.model.fit(X_combined, y_combined)
-        
+
         # Evaluar nuevo modelo
         y_pred = self.model.predict(X_new)
         new_acc = accuracy_score(y_new, y_pred)
-        
+
         self.retrain_history.append({
             'timestamp': pd.Timestamp.now(),
             'new_accuracy': new_acc,
             'training_samples': len(X_combined)
         })
-        
+
         print(f"✅ Modelo reentrenado. Nueva accuracy: {new_acc:.4f}")
-        
+
         # Actualizar datos de referencia
         self.X_train = X_combined
         self.y_train = y_combined
-        
+
         return new_acc
 
 # Ejemplo de uso
@@ -555,10 +561,10 @@ retrainer = AutoRetrainer(model, X_train, y_train, monitor)
 
 if retrainer.should_retrain():
     print("\n🚨 Drift crítico detectado. Iniciando reentrenamiento...")
-    
+
     # Reentrenar con datos recientes que tienen drift
     new_acc = retrainer.retrain(X_prod_drift, df_prod_drift['default'])
-    
+
     print(f"\nComparación:")
     print(f"Accuracy antes de drift: {prod_acc:.4f}")
     print(f"Accuracy con drift (modelo viejo): {accuracy_score(df_prod_drift['default'], model.predict(X_prod_drift)):.4f}")
@@ -566,6 +572,7 @@ if retrainer.should_retrain():
 ```
 
 **Salida:**
+
 ```
 🚨 Drift crítico detectado. Iniciando reentrenamiento...
 
@@ -578,28 +585,30 @@ Accuracy con drift (modelo viejo): 0.7120
 Accuracy con drift (modelo nuevo): 0.8320
 ```
 
----
+______________________________________________________________________
 
 ## 📝 Resumen
 
 ### ✅ Tipos de Drift
 
-| Tipo | Qué cambia | Detección | Solución |
-|------|-----------|-----------|----------|
-| **Data Drift** | P(X) | KS test, PSI, MMD | Normalización, reentrenamiento |
-| **Concept Drift** | P(y\|X) | Performance degradation | Reentrenamiento con nuevos datos |
-| **Label Drift** | P(y) | Class distribution shift | Balanceo, threshold tuning |
-| **Prediction Drift** | P(ŷ) | Output distribution | Calibración, reentrenamiento |
+| Tipo                 | Qué cambia | Detección                | Solución                         |
+| -------------------- | ---------- | ------------------------ | -------------------------------- |
+| **Data Drift**       | P(X)       | KS test, PSI, MMD        | Normalización, reentrenamiento   |
+| **Concept Drift**    | P(y\|X)    | Performance degradation  | Reentrenamiento con nuevos datos |
+| **Label Drift**      | P(y)       | Class distribution shift | Balanceo, threshold tuning       |
+| **Prediction Drift** | P(ŷ)       | Output distribution      | Calibración, reentrenamiento     |
 
 ### 🎯 Métricas de Drift
 
 **Data Drift (features):**
+
 - **KS Test:** Test estadístico para features continuas
 - **Chi-Square:** Test para features categóricas
 - **PSI (Population Stability Index):** Cambio en distribución de features
 - **Wasserstein Distance:** Distancia entre distribuciones
 
 **Concept Drift (performance):**
+
 - Accuracy, Precision, Recall degradation
 - ROC-AUC drop
 - Calibration error increase
@@ -637,12 +646,14 @@ Accuracy con drift (modelo nuevo): 0.8320
 ### 🛠️ Herramientas
 
 **Open Source:**
+
 - **Evidently AI:** Drift detection + reporting
 - **NannyML:** Performance estimation sin labels
 - **Alibi Detect:** Drift detection + outliers
 - **Great Expectations:** Data validation
 
 **Commercial:**
+
 - **Arize AI:** ML observability
 - **WhyLabs:** Data logging + drift detection
 - **Fiddler:** ML monitoring + explainability

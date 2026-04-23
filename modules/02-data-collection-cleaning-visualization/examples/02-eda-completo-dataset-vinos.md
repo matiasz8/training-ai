@@ -3,6 +3,7 @@
 ## Contexto
 
 Tienes un dataset de vinos con características físico-químicas y calidad evaluada por expertos. Tu objetivo es realizar un **Análisis Exploratorio de Datos (EDA)** completo para entender:
+
 - Distribuciones de variables
 - Correlaciones entre features
 - Segmentación por calidad
@@ -38,6 +39,7 @@ print(df.head())
 ```
 
 **Salida:**
+
 ```
 Dimensiones: (1599, 12)
 
@@ -47,7 +49,7 @@ Dimensiones: (1599, 12)
 2            7.8              0.76         0.04             2.3      0.092  ...  0.99700  3.26       0.65      9.8        5
 ```
 
----
+______________________________________________________________________
 
 ## 📊 Paso 1: Inspección inicial
 
@@ -59,12 +61,13 @@ print(df.info())
 ```
 
 **Salida:**
+
 ```
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 1599 entries, 0 to 1598
 Data columns (total 12 columns):
- #   Column                Non-Null Count  Dtype  
----  ------                --------------  -----  
+ #   Column                Non-Null Count  Dtype
+---  ------                --------------  -----
  0   fixed acidity         1599 non-null   float64
  1   volatile acidity      1599 non-null   float64
  2   citric acid           1599 non-null   float64
@@ -76,7 +79,7 @@ Data columns (total 12 columns):
  8   pH                    1599 non-null   float64
  9   sulphates             1599 non-null   float64
  10  alcohol               1599 non-null   float64
- 11  quality               1599 non-null   int64  
+ 11  quality               1599 non-null   int64
 
 ✅ No hay valores nulos
 ✅ Todos los tipos son numéricos (correcto para este dataset)
@@ -90,6 +93,7 @@ print(df.describe())
 ```
 
 **Salida:**
+
 ```
        fixed acidity  volatile acidity  citric acid  ...       pH  sulphates  alcohol   quality
 count    1599.000000       1599.000000  1599.000000  ... 1599.000  1599.000  1599.000  1599.000
@@ -103,11 +107,12 @@ max        15.900000          1.580000     1.000000  ...    4.010    2.000    14
 ```
 
 **Observaciones iniciales:**
+
 - `quality`: rango 3-8, media ≈ 5.6 (escala de 0-10)
 - `alcohol`: media ≈ 10.4%, rango 8.4-14.9%
 - `pH`: media ≈ 3.3 (ácido, esperado en vino)
 
----
+______________________________________________________________________
 
 ## 📈 Paso 2: Análisis univariado
 
@@ -140,6 +145,7 @@ print(df['quality'].value_counts().sort_index())
 ```
 
 **Salida:**
+
 ```
 Distribución de calidad:
 3      10
@@ -150,7 +156,8 @@ Distribución de calidad:
 8      18
 ```
 
-**Insight:** 
+**Insight:**
+
 - Dataset **desbalanceado**: 82% son calidad 5-6
 - Pocos vinos de calidad muy baja (3) o muy alta (8)
 - Considerar re-balanceo o métricas apropiadas (F1 en lugar de accuracy)
@@ -175,12 +182,13 @@ plt.show()
 ```
 
 **Observaciones:**
+
 - **alcohol:** distribución aproximadamente normal, ligera asimetría a derecha
 - **volatile acidity:** cola larga a derecha (outliers potenciales)
 - **citric acid:** muchos valores cercanos a 0 (posible componente ausente en algunos vinos)
 - **residual sugar:** fuertemente sesgada a derecha (la mayoría de vinos son secos)
 
----
+______________________________________________________________________
 
 ## 🔗 Paso 3: Análisis bivariado
 
@@ -205,6 +213,7 @@ print(quality_corr)
 ```
 
 **Salida:**
+
 ```
 Correlaciones con 'quality':
 quality                 1.000000
@@ -222,6 +231,7 @@ volatile acidity       -0.390558  👈 Correlación negativa fuerte
 ```
 
 **Insights clave:**
+
 - **alcohol** tiene correlación positiva más fuerte con calidad (0.48)
 - **volatile acidity** tiene correlación negativa fuerte (-0.39)
 - Vinos de **mayor calidad** tienden a tener:
@@ -242,13 +252,13 @@ for idx, feature in enumerate(top_features):
     # Scatter con jitter en quality para mejor visualización
     jitter = np.random.normal(0, 0.1, len(df))
     axes[idx].scatter(df[feature], df['quality'] + jitter, alpha=0.3, s=10)
-    
+
     # Línea de tendencia
     z = np.polyfit(df[feature], df['quality'], 1)
     p = np.poly1d(z)
-    axes[idx].plot(df[feature].sort_values(), p(df[feature].sort_values()), 
+    axes[idx].plot(df[feature].sort_values(), p(df[feature].sort_values()),
                    "r--", linewidth=2, label=f'Tendencia: {z[0]:.2f}x + {z[1]:.2f}')
-    
+
     axes[idx].set_xlabel(feature)
     axes[idx].set_ylabel('Quality')
     axes[idx].set_title(f'{feature} vs Quality (corr: {quality_corr[feature]:.2f})')
@@ -259,10 +269,11 @@ plt.show()
 ```
 
 **Observaciones:**
+
 - Relaciones lineales moderadas (no perfectas, esperable en datos reales)
 - Alta variabilidad: vinos con mismo alcohol pueden tener calidades muy diferentes
 
----
+______________________________________________________________________
 
 ## 📦 Paso 4: Análisis multivariado
 
@@ -270,7 +281,7 @@ plt.show()
 
 ```python
 # Crear categorías: Baja (3-4), Media (5-6), Alta (7-8)
-df['quality_category'] = pd.cut(df['quality'], bins=[2, 4, 6, 8], 
+df['quality_category'] = pd.cut(df['quality'], bins=[2, 4, 6, 8],
                                  labels=['Baja', 'Media', 'Alta'])
 
 print("Distribución por categoría:")
@@ -278,6 +289,7 @@ print(df['quality_category'].value_counts())
 ```
 
 **Salida:**
+
 ```
 Media    1319  (82%)
 Baja       63  (4%)
@@ -304,6 +316,7 @@ plt.show()
 ```
 
 **Insights:**
+
 - **Alcohol:** Medianas claramente crecientes con calidad
 - **Volatile acidity:** Medianas decrecientes con calidad
 - **Sulphates:** Ligero incremento con calidad (conservante, previene oxidación)
@@ -314,17 +327,18 @@ plt.show()
 # Seleccionar subset de features para legibilidad
 selected_features = ['alcohol', 'volatile acidity', 'sulphates', 'citric acid', 'quality_category']
 
-sns.pairplot(df[selected_features], hue='quality_category', palette='viridis', 
+sns.pairplot(df[selected_features], hue='quality_category', palette='viridis',
              diag_kind='kde', plot_kws={'alpha': 0.6, 's': 20})
 plt.suptitle('Pairplot: Features Clave por Calidad', y=1.02, fontsize=16)
 plt.show()
 ```
 
 **Observaciones:**
+
 - Separación visual entre categorías de calidad (aunque con overlap)
 - Combinaciones de features podrían mejorar predicción (ej: alcohol alto + volatile acidity baja)
 
----
+______________________________________________________________________
 
 ## 📊 Paso 5: Feature Engineering sugerido
 
@@ -354,62 +368,70 @@ print("\nCorrelaciones de nuevas features con quality:")
 print(new_corr.sort_values(ascending=False))
 ```
 
----
+______________________________________________________________________
 
 ## 📝 Resumen ejecutivo
 
 ### ✅ Hallazgos clave
 
 1. **Variable objetivo:**
+
    - Dataset desbalanceado (82% calidad media)
    - Pocas instancias de calidad extrema
 
-2. **Predictores principales:**
+1. **Predictores principales:**
+
    - **Alcohol** (+): Mayor alcohol → mayor calidad
    - **Volatile acidity** (-): Más acidez volátil → menor calidad
    - **Sulphates** (+): Conservante, correlación positiva con calidad
    - **Citric acid** (+): Frescura del vino
 
-3. **Outliers:**
+1. **Outliers:**
+
    - Presentes en multiple features (especialmente `residual sugar`, `chlorides`)
    - Requieren tratamiento antes de modelado
 
-4. **Relaciones no lineales:**
+1. **Relaciones no lineales:**
+
    - Scatter plots sugieren relaciones no perfectamente lineales
    - Considerar modelos no lineales (Random Forest, XGBoost)
 
 ### 🚀 Recomendaciones para modelado
 
 1. **Preprocesamiento:**
+
    - Escalar features (StandardScaler)
    - Manejar outliers (IQR clipping o Robust Scaler)
    - Considerar re-balanceo (SMOTE, class weights)
 
-2. **Features:**
+1. **Features:**
+
    - Usar top features correlacionadas
    - Probar features derivadas (ratios)
    - Considerar PCA si hay multicolinealidad
 
-3. **Modelos:**
+1. **Modelos:**
+
    - Baseline: Logistic Regression
    - Modelos no lineales: Random Forest, XGBoost
    - Métrica: F1-score macro (dataset desbalanceado)
 
-4. **Validación:**
+1. **Validación:**
+
    - Stratified K-Fold (preservar distribución de quality)
    - Validar performance por categoría de calidad
 
----
+______________________________________________________________________
 
 ## 🎓 Lecciones aprendidas
 
 ### Workflow de EDA
 
 1. **Inspección** → `info()`, `describe()`, `isnull()`
-2. **Univariado** → Distribuciones, outliers, asimetrías
-3. **Bivariado** → Correlaciones, scatter plots
-4. **Multivariado** → Segmentación, pairplots, interacciones
-5. **Feature Engineering** → Crear features derivadas y validar
+1. **Univariado** → Distribuciones, outliers, asimetrías
+1. **Bivariado** → Correlaciones, scatter plots
+1. **Multivariado** → Segmentación, pairplots, interacciones
+1. **Feature Engineering** → Crear features derivadas y validar
 
 ### Visualizaciones efectivas
 

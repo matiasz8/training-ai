@@ -7,7 +7,7 @@
 - Comparar modelos y entender trade-offs
 - Optimizar hiperparámetros con Grid Search
 
----
+______________________________________________________________________
 
 ## 📚 Parte 1: Ejercicios Guiados
 
@@ -42,13 +42,13 @@ for idx, depth in enumerate(depths):
     # Entrenar
     tree = DecisionTreeClassifier(max_depth=depth, random_state=42)
     tree.fit(X_train, y_train)
-    
+
     # Evaluar
     y_pred = tree.predict(X_test)
     acc = accuracy_score(y_test, y_pred)
-    
+
     # Visualizar árbol
-    plot_tree(tree, feature_names=iris.feature_names, 
+    plot_tree(tree, feature_names=iris.feature_names,
               class_names=iris.target_names, filled=True, ax=axes[idx])
     axes[idx].set_title(f'Decision Tree (depth={depth}) - Accuracy: {acc:.4f}')
 
@@ -99,26 +99,26 @@ results = []
 for n_est in n_estimators_list:
     rf = RandomForestClassifier(n_estimators=n_est, random_state=42)
     rf.fit(X_train, y_train)
-    
+
     # Evaluar
     train_acc = rf.score(X_train, y_train)
     test_acc = rf.score(X_test, y_test)
-    
+
     results.append({
         'n_estimators': n_est,
         'train_accuracy': train_acc,
         'test_accuracy': test_acc
     })
-    
+
     print(f"n_estimators={n_est:3d} | Train: {train_acc:.4f} | Test: {test_acc:.4f}")
 
 # Visualizar learning curves
 results_df = pd.DataFrame(results)
 
 plt.figure(figsize=(10, 6))
-plt.plot(results_df['n_estimators'], results_df['train_accuracy'], 
+plt.plot(results_df['n_estimators'], results_df['train_accuracy'],
          marker='o', label='Train Accuracy', linewidth=2)
-plt.plot(results_df['n_estimators'], results_df['test_accuracy'], 
+plt.plot(results_df['n_estimators'], results_df['test_accuracy'],
          marker='s', label='Test Accuracy', linewidth=2)
 plt.xlabel('Number of Trees')
 plt.ylabel('Accuracy')
@@ -152,11 +152,11 @@ comparison = []
 for name, model in models.items():
     # Entrenar
     model.fit(X_train, y_train)
-    
+
     # Evaluar
     train_acc = model.score(X_train, y_train)
     test_acc = model.score(X_test, y_test)
-    
+
     comparison.append({
         'Model': name,
         'Train Accuracy': train_acc,
@@ -176,9 +176,9 @@ fig, axes = plt.subplots(1, 2, figsize=(16, 6))
 x = np.arange(len(comparison_df))
 width = 0.35
 
-axes[0].bar(x - width/2, comparison_df['Train Accuracy'], width, 
+axes[0].bar(x - width/2, comparison_df['Train Accuracy'], width,
             label='Train', alpha=0.7, color='steelblue')
-axes[0].bar(x + width/2, comparison_df['Test Accuracy'], width, 
+axes[0].bar(x + width/2, comparison_df['Test Accuracy'], width,
             label='Test', alpha=0.7, color='coral')
 axes[0].set_xlabel('Model')
 axes[0].set_ylabel('Accuracy')
@@ -189,7 +189,7 @@ axes[0].legend()
 axes[0].grid(True, alpha=0.3, axis='y')
 
 # Overfitting analysis
-axes[1].bar(comparison_df['Model'], comparison_df['Overfitting Gap'], 
+axes[1].bar(comparison_df['Model'], comparison_df['Overfitting Gap'],
             color='orange', alpha=0.7)
 axes[1].set_xlabel('Model')
 axes[1].set_ylabel('Overfitting Gap (Train - Test)')
@@ -219,7 +219,7 @@ param_grid = {
 # Grid Search
 rf = RandomForestClassifier(random_state=42)
 grid_search = GridSearchCV(
-    rf, param_grid, cv=5, scoring='accuracy', 
+    rf, param_grid, cv=5, scoring='accuracy',
     n_jobs=-1, verbose=1
 )
 
@@ -240,7 +240,7 @@ results_df = pd.DataFrame(grid_search.cv_results_)
 
 # Top 10 configuraciones
 top_configs = results_df.nsmallest(10, 'rank_test_score')[
-    ['param_n_estimators', 'param_max_depth', 'param_min_samples_split', 
+    ['param_n_estimators', 'param_max_depth', 'param_min_samples_split',
      'mean_test_score', 'std_test_score']
 ]
 
@@ -248,7 +248,7 @@ print("\n=== Top 10 Configurations ===")
 print(top_configs.to_string(index=False))
 ```
 
----
+______________________________________________________________________
 
 ## 🚀 Parte 2: Ejercicios Propuestos
 
@@ -256,15 +256,17 @@ print(top_configs.to_string(index=False))
 
 **Enunciado:**
 Usa solo 2 features (petal length y petal width) y visualiza:
+
 1. Decision boundary para Decision Tree (depth=3)
-2. Decision boundary para Random Forest (n_estimators=100)
-3. Grafica puntos de train/test con colores por clase
-4. Compara cómo difieren los boundaries
+1. Decision boundary para Random Forest (n_estimators=100)
+1. Grafica puntos de train/test con colores por clase
+1. Compara cómo difieren los boundaries
 
 ### Ejercicio 2.2: Feature Engineering para Árboles
 
 **Enunciado:**
 Crea nuevas features derivadas:
+
 - Ratios entre features (ej: sepal_length / sepal_width)
 - Interacciones (ej: feature1 * feature2)
 - Categorías binned (ej: size groups: small/medium/large)
@@ -276,6 +278,7 @@ Compara performance con y sin feature engineering.
 **Enunciado:**
 Random Forest usa bootstrap samples. Cada árbol no ve ~37% de datos (OOB).
 Entrena RandomForest con `oob_score=True` y compara:
+
 - OOB Score
 - Train Score
 - Test Score
@@ -286,6 +289,7 @@ Entrena RandomForest con `oob_score=True` y compara:
 
 **Enunciado:**
 Crea un `VotingClassifier` (sklearn) que combine:
+
 - Decision Tree
 - Random Forest
 - SVM
@@ -298,6 +302,7 @@ Compara accuracy del ensemble vs modelos individuales.
 
 **Enunciado:**
 Extrae 3 árboles del Random Forest entrenado:
+
 ```python
 trees = rf.estimators_[:3]
 ```
@@ -306,7 +311,7 @@ Visualiza cada árbol con `plot_tree`.
 Analiza: ¿usan las mismas features en la raíz?
 ¿Diferentes estructuras debido a randomness?
 
----
+______________________________________________________________________
 
 ## ✅ Checklist de Competencias
 
@@ -319,7 +324,7 @@ Analiza: ¿usan las mismas features en la raíz?
 - [ ] Usar cross-validation para evaluación robusta
 - [ ] Entender trade-off bias-variance
 
----
+______________________________________________________________________
 
 ## 📚 Recursos
 

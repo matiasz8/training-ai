@@ -8,7 +8,7 @@ RAG combina búsqueda de documentos con generación de LLMs para responder pregu
 
 Construir sistema Q&A sobre documentación interna usando embeddings + LLM.
 
----
+______________________________________________________________________
 
 ## 🚀 Setup
 
@@ -28,7 +28,7 @@ def mock_llm_generate(prompt):
     return f"[SIMULATED ANSWER based on: {prompt[:100]}...]"
 ```
 
----
+______________________________________________________________________
 
 ## 📚 Crear knowledge base
 
@@ -69,7 +69,7 @@ for doc in documents:
 print(f"Knowledge base: {len(documents)} documentos indexados")
 ```
 
----
+______________________________________________________________________
 
 ## 🔍 Función de retrieval
 
@@ -80,16 +80,16 @@ def retrieve_relevant_docs(query, documents, top_k=3):
     """
     # Embed query
     query_embedding = mock_embed(query)
-    
+
     # Calcular similitudes
     similarities = []
     for doc in documents:
         sim = cosine_similarity([query_embedding], [doc["embedding"]])[0][0]
         similarities.append((doc, sim))
-    
+
     # Ordenar por similitud
     similarities.sort(key=lambda x: x[1], reverse=True)
-    
+
     # Retornar top K
     return [doc for doc, sim in similarities[:top_k]]
 
@@ -104,6 +104,7 @@ for i, doc in enumerate(relevant_docs, 1):
 ```
 
 **Salida:**
+
 ```
 Query: ¿Cuántos días de vacaciones tengo?
 Documentos relevantes:
@@ -112,7 +113,7 @@ Documentos relevantes:
 2. Horario de trabajo flexible: entrada entre 8AM-10AM, salida 8 horas después...
 ```
 
----
+______________________________________________________________________
 
 ## 🤖 RAG Pipeline completo
 
@@ -126,11 +127,11 @@ def rag_answer(question, documents, top_k=3):
     """
     # Paso 1: Retrieve
     relevant_docs = retrieve_relevant_docs(question, documents, top_k)
-    
+
     # Paso 2: Construir contexto
-    context = "\n\n".join([f"Documento {i+1}: {doc['content']}" 
+    context = "\n\n".join([f"Documento {i+1}: {doc['content']}"
                            for i, doc in enumerate(relevant_docs)])
-    
+
     # Paso 3: Prompt engineering
     prompt = f"""
 Responde la siguiente pregunta SOLO basándote en el contexto proporcionado.
@@ -143,14 +144,14 @@ Pregunta: {question}
 
 Respuesta:
 """
-    
+
     # Generate (simulated)
     answer = mock_llm_generate(prompt)
-    
+
     # Metadata de sources
-    sources = [{"id": doc["id"], "category": doc["metadata"]["category"]} 
+    sources = [{"id": doc["id"], "category": doc["metadata"]["category"]}
                for doc in relevant_docs]
-    
+
     return {
         "answer": answer,
         "sources": sources,
@@ -169,14 +170,14 @@ print("\n=== RAG Q&A System ===\n")
 
 for q in questions:
     result = rag_answer(q, documents, top_k=2)
-    
+
     print(f"Pregunta: {q}")
     print(f"Respuesta: {result['answer']}")
     print(f"Fuentes: {', '.join([s['id'] for s in result['sources']])}")
     print("-" * 80)
 ```
 
----
+______________________________________________________________________
 
 ## 📊 Evaluación
 
@@ -196,23 +197,23 @@ def evaluate_retrieval(eval_set, documents, top_k=3):
     """
     precisions = []
     recalls = []
-    
+
     for item in eval_set:
         query = item["question"]
         relevant_ids = set(item["relevant_doc_ids"])
-        
+
         # Retrieve
         retrieved_docs = retrieve_relevant_docs(query, documents, top_k)
         retrieved_ids = set([doc["id"] for doc in retrieved_docs])
-        
+
         # Métricas
         tp = len(relevant_ids & retrieved_ids)
         precision = tp / len(retrieved_ids) if retrieved_ids else 0
         recall = tp / len(relevant_ids) if relevant_ids else 0
-        
+
         precisions.append(precision)
         recalls.append(recall)
-    
+
     return {
         "precision@k": np.mean(precisions),
         "recall@k": np.mean(recalls)
@@ -224,7 +225,7 @@ print(f"Precision@2: {metrics['precision@k']:.2f}")
 print(f"Recall@2: {metrics['recall@k']:.2f}")
 ```
 
----
+______________________________________________________________________
 
 ## 💡 Mejoras para producción
 
@@ -235,17 +236,17 @@ print(f"Recall@2: {metrics['recall@k']:.2f}")
 # pip install chromadb
 
 # import chromadb
-# 
+#
 # client = chromadb.Client()
 # collection = client.create_collection("company_docs")
-# 
+#
 # # Indexar documentos
 # collection.add(
 #     documents=[doc["content"] for doc in documents],
 #     metadatas=[doc["metadata"] for doc in documents],
 #     ids=[doc["id"] for doc in documents]
 # )
-# 
+#
 # # Búsqueda
 # results = collection.query(
 #     query_texts=["¿Cuántos días de vacaciones?"],
@@ -262,7 +263,7 @@ def rerank_results(query, docs, llm_model):
     """
     # Prompt para reranking
     docs_text = "\n".join([f"{i}. {doc['content']}" for i, doc in enumerate(docs)])
-    
+
     prompt = f"""
 Ordena estos documentos de más a menos relevante para la pregunta.
 
@@ -273,7 +274,7 @@ Documentos:
 
 Responde solo con los números ordenados (ej: 2,0,1):
 """
-    
+
     # LLM reranking (simulated)
     # ranking = llm_model.generate(prompt)
     return docs  # Placeholder
@@ -296,16 +297,16 @@ def hybrid_retrieve(query, documents, alpha=0.5):
     alpha: peso de semantic search (1-alpha = keyword search)
     """
     # Semantic similarity
-    semantic_scores = [cosine_similarity([mock_embed(query)], [doc["embedding"]])[0][0] 
+    semantic_scores = [cosine_similarity([mock_embed(query)], [doc["embedding"]])[0][0]
                        for doc in documents]
-    
+
     # Keyword similarity
     query_vec = tfidf.transform([query])
     keyword_scores = cosine_similarity(query_vec, tfidf_matrix)[0]
-    
+
     # Combinar
     hybrid_scores = alpha * np.array(semantic_scores) + (1-alpha) * keyword_scores
-    
+
     # Top docs
     top_indices = hybrid_scores.argsort()[-3:][::-1]
     return [documents[i] for i in top_indices]
@@ -313,7 +314,7 @@ def hybrid_retrieve(query, documents, alpha=0.5):
 hybrid_results = hybrid_retrieve("días de vacaciones", documents, alpha=0.7)
 ```
 
----
+______________________________________________________________________
 
 ## 📝 Resumen
 
@@ -336,9 +337,9 @@ Retornar respuesta + fuentes
 ### 🎯 Ventajas de RAG
 
 1. **Conocimiento actualizado:** No requiere reentrenar LLM
-2. **Reduce hallucinations:** LLM responde basándose en documentos reales
-3. **Transparencia:** Cita fuentes
-4. **Privacidad:** Documentos privados no van al training data
+1. **Reduce hallucinations:** LLM responde basándose en documentos reales
+1. **Transparencia:** Cita fuentes
+1. **Privacidad:** Documentos privados no van al training data
 
 ### 💡 Mejores prácticas
 

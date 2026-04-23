@@ -7,7 +7,7 @@
 - Secure key management
 - Aplicar en ML pipelines
 
----
+______________________________________________________________________
 
 ## 📚 Parte 1: Ejercicios Guiados
 
@@ -44,7 +44,7 @@ received_hash = hashlib.sha256(received_data.encode()).hexdigest()
 print(f"Data integrity verified: {data_hash == received_hash}")
 ```
 
----
+______________________________________________________________________
 
 ## 🚀 Parte 2: Ejercicios Propuestos
 
@@ -52,6 +52,7 @@ print(f"Data integrity verified: {data_hash == received_hash}")
 
 **Enunciado:**
 Encripta datasets con Fernet:
+
 ```python
 from cryptography.fernet import Fernet
 key = Fernet.generate_key()
@@ -63,6 +64,7 @@ encrypted = cipher.encrypt(data)
 
 **Enunciado:**
 Implementa RSA:
+
 - Genera par de llaves (pública/privada)
 - Encripta con pública
 - Desencripta con privada
@@ -72,6 +74,7 @@ Implementa RSA:
 
 **Enunciado:**
 Usa PySEAL o Pyfhel:
+
 - Opera sobre datos encriptados
 - Suma/multiplicación sin desencriptar
 - Aplica a modelo lineal simple
@@ -80,6 +83,7 @@ Usa PySEAL o Pyfhel:
 
 **Enunciado:**
 Pipeline completo:
+
 - Encripta features sensibles
 - Entrena sobre encrypted features
 - Desencripta predicciones
@@ -89,12 +93,13 @@ Pipeline completo:
 
 **Enunciado:**
 Sistema de gestión de llaves:
+
 - Key rotation
 - Almacenamiento seguro (KeyVault simulation)
 - Access logs
 - Revocation
 
----
+______________________________________________________________________
 
 ## ✅ Checklist
 
@@ -104,7 +109,7 @@ Sistema de gestión de llaves:
 - [ ] Homomorphic encryption básico
 - [ ] Secure key management
 
----
+______________________________________________________________________
 
 ## 📚 Recursos
 

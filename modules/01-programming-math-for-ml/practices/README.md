@@ -3,6 +3,7 @@
 Estas prácticas están ordenadas de menor a mayor dificultad.
 
 ## Prácticas
+
 - `practice-01-python-y-numpy.md`
 - `practice-02-algebra-lineal-aplicada.md`
 - `practice-03-estadistica-para-datos.md`
@@ -10,6 +11,7 @@ Estas prácticas están ordenadas de menor a mayor dificultad.
 - `practice-05-pipeline-matematico-integrado.md`
 
 ## Criterio de aprobación
+
 - Resolver al menos 4/5 prácticas con resultados correctos.
 - Documentar decisiones en `notes/`.
 - Repetir la práctica fallida hasta que pase validación.

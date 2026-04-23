@@ -7,7 +7,7 @@
 - Entrenar modelos con diferentes optimizadores
 - Evaluar y validar performance
 
----
+______________________________________________________________________
 
 ## 📚 Parte 1: Ejercicios Guiados
 
@@ -43,7 +43,7 @@ class SimpleNN(nn.Module):
         self.relu = nn.ReLU()
         self.fc2 = nn.Linear(hidden_size, output_size)
         self.sigmoid = nn.Sigmoid()
-    
+
     def forward(self, x):
         x = self.fc1(x)
         x = self.relu(x)
@@ -79,21 +79,21 @@ for epoch in range(epochs):
     model.train()
     outputs = model(X_train)
     loss = criterion(outputs, y_train)
-    
+
     # Backward pass
     optimizer.zero_grad()
     loss.backward()
     optimizer.step()
-    
+
     # Evaluation
     model.eval()
     with torch.no_grad():
         test_outputs = model(X_test)
         test_loss = criterion(test_outputs, y_test)
-    
+
     train_losses.append(loss.item())
     test_losses.append(test_loss.item())
-    
+
     if (epoch + 1) % 10 == 0:
         print(f"Epoch [{epoch+1}/{epochs}] | Train Loss: {loss.item():.4f} | Test Loss: {test_loss.item():.4f}")
 
@@ -117,7 +117,7 @@ with torch.no_grad():
     print(f"\nTest Accuracy: {accuracy:.4f}")
 ```
 
----
+______________________________________________________________________
 
 ## 🚀 Parte 2: Ejercicios Propuestos
 
@@ -125,6 +125,7 @@ with torch.no_grad():
 
 **Enunciado:**
 Compara 3 optimizadores: SGD, Adam, RMSprop
+
 - Entrena mismo modelo con cada uno
 - Grafica learning curves
 - Compara velocidad de convergencia
@@ -133,6 +134,7 @@ Compara 3 optimizadores: SGD, Adam, RMSprop
 
 **Enunciado:**
 Implementa `torch.optim.lr_scheduler.ReduceLROnPlateau`:
+
 - Reduce LR cuando loss se estanca
 - Visualiza cómo cambia LR durante training
 
@@ -140,6 +142,7 @@ Implementa `torch.optim.lr_scheduler.ReduceLROnPlateau`:
 
 **Enunciado:**
 Implementa early stopping:
+
 - Detén training si val loss no mejora por N épocas
 - Guarda mejor modelo
 - Restaura pesos del mejor checkpoint
@@ -149,6 +152,7 @@ Implementa early stopping:
 **Enunciado:**
 Agrega `nn.BatchNorm1d` después de cada capa hidden.
 Compara:
+
 - Convergencia con vs sin BatchNorm
 - Estabilidad del gradiente
 
@@ -158,7 +162,7 @@ Compara:
 Agrega `nn.Dropout(p=0.5)` después de ReLU.
 Compara overfitting con vs sin Dropout.
 
----
+______________________________________________________________________
 
 ## ✅ Checklist
 
@@ -171,7 +175,7 @@ Compara overfitting con vs sin Dropout.
 - [ ] Usar learning rate scheduling
 - [ ] Implementar regularización (Dropout, L2)
 
----
+______________________________________________________________________
 
 ## 📚 Recursos
 

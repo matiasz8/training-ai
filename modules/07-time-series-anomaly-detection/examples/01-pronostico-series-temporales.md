@@ -8,7 +8,7 @@ Las series temporales son datos ordenados en el tiempo (ventas, temperatura, tr�
 
 Pronosticar ventas futuras usando datos históricos.
 
----
+______________________________________________________________________
 
 ## 🚀 Paso 1: Setup e importaciones
 
@@ -29,7 +29,7 @@ warnings.filterwarnings('ignore')
 sns.set_style('whitegrid')
 ```
 
----
+______________________________________________________________________
 
 ## 📥 Paso 2: Generar datos de ejemplo (ventas diarias)
 
@@ -65,11 +65,12 @@ print(f"\n{df.describe()}")
 ```
 
 **Salida:**
+
 ```
 Datos: 730 observaciones
 
             sales
-date              
+date
 2022-01-01  100.23
 2022-01-02  101.45
 2022-01-03   99.87
@@ -84,7 +85,7 @@ min       78.234512
 max      215.678901
 ```
 
----
+______________________________________________________________________
 
 ## 📊 Paso 3: Exploración y visualización
 
@@ -131,11 +132,12 @@ plt.show()
 ```
 
 **Interpretación:**
+
 - **Tendencia:** Crecimiento lineal claro
 - **Estacionalidad:** Patrón anual (picos cada ~365 días)
 - **Residuos:** Ruido aleatorio (idealmente sin patrón)
 
----
+______________________________________________________________________
 
 ## 🔍 Paso 4: Verificar estacionariedad (crítico para ARIMA)
 
@@ -148,14 +150,14 @@ def adf_test(series, title=''):
     H0: Serie NO es estacionaria (tiene raíz unitaria)
     """
     result = adfuller(series.dropna())
-    
+
     print(f'=== ADF Test: {title} ===')
     print(f'ADF Statistic: {result[0]:.4f}')
     print(f'p-value: {result[1]:.4f}')
     print(f'Critical Values:')
     for key, value in result[4].items():
         print(f'  {key}: {value:.4f}')
-    
+
     if result[1] <= 0.05:
         print("✅ Serie ES estacionaria (rechazar H0)")
     else:
@@ -167,6 +169,7 @@ adf_test(df['sales'], 'Serie Original')
 ```
 
 **Salida:**
+
 ```
 === ADF Test: Serie Original ===
 ADF Statistic: -2.1234
@@ -204,6 +207,7 @@ plt.show()
 ```
 
 **Salida:**
+
 ```
 === ADF Test: Serie Diferenciada ===
 ADF Statistic: -15.6789
@@ -212,7 +216,7 @@ p-value: 0.0000
 ✅ Serie ES estacionaria (rechazar H0)  👈 Ahora es estacionaria
 ```
 
----
+______________________________________________________________________
 
 ## 📈 Paso 5: Identificar parámetros ARIMA (p, d, q)
 
@@ -234,13 +238,14 @@ plt.show()
 ```
 
 **Interpretación:**
+
 - **p (AR term):** Lags significativos en PACF → p=1 o p=2
 - **d (Differencing):** Ya usamos d=1 para hacer serie estacionaria
 - **q (MA term):** Lags significativos en ACF → q=1
 
 **Parámetros elegidos:** ARIMA(1, 1, 1)
 
----
+______________________________________________________________________
 
 ## 🏋️ Paso 6: Entrenar modelo ARIMA
 
@@ -267,6 +272,7 @@ print(fitted_arima.summary())
 ```
 
 **Salida:**
+
 ```
                                SARIMAX Results
 ==============================================================================
@@ -297,6 +303,7 @@ print(f"RMSE: {rmse_arima:.2f}")
 ```
 
 **Salida:**
+
 ```
 === ARIMA Performance ===
 MAE:  12.34
@@ -326,7 +333,7 @@ plt.grid(alpha=0.3)
 plt.show()
 ```
 
----
+______________________________________________________________________
 
 ## 🔮 Paso 7: Prophet (más robusto para estacionalidad)
 
@@ -381,6 +388,7 @@ print(f"RMSE: {rmse_prophet:.2f}")
 ```
 
 **Salida:**
+
 ```
 === Prophet Performance ===
 MAE:  8.12  👈 Mejor que ARIMA
@@ -400,7 +408,7 @@ fig_components = model_prophet.plot_components(forecast)
 plt.show()
 ```
 
----
+______________________________________________________________________
 
 ## 📊 Paso 8: Comparar modelos
 
@@ -433,6 +441,7 @@ plt.show()
 ```
 
 **Salida:**
+
 ```
 === COMPARACIÓN DE MODELOS ===
         Modelo    MAE   RMSE
@@ -440,7 +449,7 @@ plt.show()
        Prophet   8.12  10.45  👈 Ganador
 ```
 
----
+______________________________________________________________________
 
 ## 🔍 Paso 9: Intervalos de confianza (Prophet)
 
@@ -452,8 +461,8 @@ plt.plot(df.index, df['sales'], label='Datos Reales', color='blue')
 plt.plot(forecast_prophet['ds'], forecast_prophet['yhat'], label='Pronóstico Prophet', color='green', linewidth=2)
 
 # Intervalo de confianza (80%)
-plt.fill_between(forecast_prophet['ds'], 
-                 forecast_prophet['yhat_lower'], 
+plt.fill_between(forecast_prophet['ds'],
+                 forecast_prophet['yhat_lower'],
                  forecast_prophet['yhat_upper'],
                  alpha=0.3, color='green', label='Intervalo 80%')
 
@@ -467,16 +476,16 @@ plt.grid(alpha=0.3)
 plt.show()
 ```
 
----
+______________________________________________________________________
 
 ## 📝 Resumen ejecutivo
 
 ### ✅ Resultados
 
-| Modelo | MAE | RMSE | Ventajas |
-|--------|-----|------|----------|
-| **ARIMA(1,1,1)** | 12.34 | 15.67 | Simple, interpretable |
-| **Prophet** | **8.12** | **10.45** | Maneja múltiples estacionalidades, robusto a datos faltantes |
+| Modelo           | MAE      | RMSE      | Ventajas                                                     |
+| ---------------- | -------- | --------- | ------------------------------------------------------------ |
+| **ARIMA(1,1,1)** | 12.34    | 15.67     | Simple, interpretable                                        |
+| **Prophet**      | **8.12** | **10.45** | Maneja múltiples estacionalidades, robusto a datos faltantes |
 
 ### 🎯 Pipeline de pronóstico
 
@@ -500,28 +509,32 @@ Evaluar en test set (MAE, RMSE)
 Pronosticar futuro
 ```
 
----
+______________________________________________________________________
 
 ## 🎓 Lecciones aprendidas
 
 ### ✅ ARIMA
 
 **Componentes:**
+
 - **AR (AutoRegressive):** Usa valores pasados (p lags)
 - **I (Integrated):** Diferenciación para hacer serie estacionaria (d veces)
 - **MA (Moving Average):** Usa errores pasados (q lags)
 
 **Parámetros:**
+
 - **p:** Número de lags AR (mira PACF)
 - **d:** Orden de diferenciación (d=1 típicamente suficiente)
 - **q:** Número de lags MA (mira ACF)
 
 **Cuándo usar:**
+
 - Serie estacionaria (o puede hacerse estacionaria)
 - Estacionalidad simple
 - Pocos datos faltantes
 
 **Limitaciones:**
+
 - ❌ Asume linealidad
 - ❌ Sensible a outliers
 - ❌ Difícil con múltiples estacionalidades
@@ -529,12 +542,14 @@ Pronosticar futuro
 ### ✅ Prophet
 
 **Ventajas:**
+
 - ✅ Maneja múltiples estacionalidades (anual, mensual, semanal)
 - ✅ Robusto a datos faltantes y outliers
 - ✅ Intervalos de confianza automáticos
 - ✅ Fácil agregar regressors externos (holidays, eventos)
 
 **Componentes:**
+
 ```python
 g(t): tendencia (piecewise linear o logistic)
 s(t): estacionalidad (Fourier series)
@@ -543,11 +558,13 @@ h(t): efectos de holidays
 ```
 
 **Parámetros importantes:**
+
 - `yearly_seasonality`: True/False
 - `changepoint_prior_scale`: Flexibilidad de tendencia (0.001-0.5)
 - `seasonality_prior_scale`: Fuerza de estacionalidad
 
 **Cuándo usar:**
+
 - Series con tendencias no lineales
 - Múltiples estacionalidades
 - Datos faltantes frecuentes
@@ -556,9 +573,9 @@ h(t): efectos de holidays
 ### 💡 Mejoras adicionales
 
 1. **SARIMA:** ARIMA con estacionalidad explícita (p, d, q)(P, D, Q, s)
-2. **LSTM/GRU:** Deep learning para series no lineales
-3. **XGBoost:** Con features de lag, rolling stats, fecha
-4. **Ensemble:** Combinar ARIMA + Prophet + ML
+1. **LSTM/GRU:** Deep learning para series no lineales
+1. **XGBoost:** Con features de lag, rolling stats, fecha
+1. **Ensemble:** Combinar ARIMA + Prophet + ML
 
 ### 🚫 Errores comunes
 
@@ -567,7 +584,7 @@ h(t): efectos de holidays
 - ❌ No considerar eventos externos (holidays, promociones)
 - ❌ Pronosticar muy lejos en el futuro (incertidumbre crece)
 
----
+______________________________________________________________________
 
 ## 🔧 Código de producción
 
@@ -579,7 +596,7 @@ def forecast_pipeline(df, target_col, forecast_days=30):
     """
     # Preparar datos
     df_prophet = df.reset_index().rename(columns={'date': 'ds', target_col: 'y'})
-    
+
     # Entrenar Prophet
     model = Prophet(
         yearly_seasonality=True,
@@ -587,11 +604,11 @@ def forecast_pipeline(df, target_col, forecast_days=30):
         changepoint_prior_scale=0.05
     )
     model.fit(df_prophet)
-    
+
     # Pronosticar
     future = model.make_future_dataframe(periods=forecast_days, freq='D')
     forecast = model.predict(future)
-    
+
     return forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail(forecast_days)
 
 # Usar

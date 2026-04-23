@@ -8,7 +8,7 @@ Modelos complejos (Random Forest, XGBoost, Neural Nets) son "black boxes". SHAP 
 
 Explicar predicciones de modelo de clasificación usando SHAP (global + local) y LIME (local).
 
----
+______________________________________________________________________
 
 ## 🚀 Setup
 
@@ -29,7 +29,7 @@ warnings.filterwarnings('ignore')
 np.random.seed(42)
 ```
 
----
+______________________________________________________________________
 
 ## 📚 Dataset
 
@@ -60,16 +60,16 @@ def generate_churn(row):
     - no tech support
     """
     score = 0
-    
+
     score += (72 - row['tenure_months']) / 72 * 3  # tenure bajo = +3
     score += row['monthly_charges'] / 120 * 2      # charges altos = +2
     score += 1.5 if row['contract_type'] == 0 else 0  # month-to-month = +1.5
     score += 1 if row['tech_support'] == 0 else 0  # no support = +1
     score -= row['num_services'] * 0.3             # más servicios = menos churn
-    
+
     # Ruido
     score += np.random.randn() * 0.5
-    
+
     return 1 if score > 3 else 0
 
 df['churn'] = df.apply(generate_churn, axis=1)
@@ -79,12 +79,13 @@ print(f"Tasa de churn: {df['churn'].mean():.2%}")
 ```
 
 **Salida:**
+
 ```
 Dataset: 1000 clientes
 Tasa de churn: 34.20%
 ```
 
----
+______________________________________________________________________
 
 ## 🤖 Entrenar modelo
 
@@ -119,6 +120,7 @@ print(feature_importance)
 ```
 
 **Salida:**
+
 ```
 Accuracy: 0.8850
 
@@ -132,7 +134,7 @@ Feature Importance (global):
 ...
 ```
 
----
+______________________________________________________________________
 
 ## 🔍 SHAP (SHapley Additive exPlanations)
 
@@ -225,6 +227,7 @@ plt.show()
 ```
 
 **Interpretación:**
+
 ```
 Cliente #0:
 tenure_months: 6 meses → +0.15 SHAP (bajo tenure aumenta churn)
@@ -258,7 +261,7 @@ plt.show()
 # - tenure alto = SHAP negativo (bajo riesgo)
 ```
 
----
+______________________________________________________________________
 
 ## 🔬 LIME (Local Interpretable Model-agnostic Explanations)
 
@@ -301,6 +304,7 @@ for feature, weight in lime_exp.as_list():
 ```
 
 **Salida:**
+
 ```
 === LIME Explanation - Cliente #0 ===
 Predicción: [0.28, 0.72]  # 72% probabilidad de churn
@@ -313,7 +317,7 @@ tech_support = 0: +0.08
 ...
 ```
 
----
+______________________________________________________________________
 
 ## 📊 Comparación SHAP vs LIME
 
@@ -353,7 +357,7 @@ axes[0].set_title('SHAP - Top 5 Features')
 axes[0].set_xlabel('|SHAP value|')
 
 # LIME (extraer solo nombre de feature)
-lime_features = [f.split('<=')[0].split('>')[0].split('=')[0].strip() 
+lime_features = [f.split('<=')[0].split('>')[0].split('=')[0].strip()
                  for f in lime_importance['feature']]
 lime_importance['feature_name'] = lime_features
 
@@ -367,7 +371,7 @@ plt.savefig('shap_vs_lime_comparison.png', dpi=150)
 plt.show()
 ```
 
----
+______________________________________________________________________
 
 ## 💡 Casos de uso
 
@@ -380,7 +384,7 @@ def audit_prediction(model, explainer, client_data, threshold=0.05):
     """
     # SHAP values
     shap_vals = explainer.shap_values(client_data)[1]
-    
+
     # Features con alto impacto
     high_impact = []
     for i, (feat, val) in enumerate(zip(X.columns, shap_vals)):
@@ -390,7 +394,7 @@ def audit_prediction(model, explainer, client_data, threshold=0.05):
                 'shap_value': val,
                 'feature_value': client_data[i]
             })
-    
+
     return high_impact
 
 # Auditar cliente
@@ -413,9 +417,9 @@ def generate_recommendations(client, shap_values, top_n=3):
     # Features que aumentan churn más (SHAP positivos)
     feature_shap = list(zip(X.columns, shap_values))
     sorted_features = sorted(feature_shap, key=lambda x: x[1], reverse=True)
-    
+
     recommendations = []
-    
+
     for feature, shap_val in sorted_features[:top_n]:
         if shap_val > 0:
             if feature == 'tenure_months':
@@ -438,7 +442,7 @@ def generate_recommendations(client, shap_values, top_n=3):
                     recommendations.append(
                         "Sin tech support. Ofrecer prueba gratuita de soporte técnico."
                     )
-    
+
     return recommendations
 
 # Generar para cliente de alto riesgo
@@ -454,6 +458,7 @@ for i, rec in enumerate(recs, 1):
 ```
 
 **Salida:**
+
 ```
 === Recomendaciones para Retención ===
 1. Cliente nuevo (6 meses). Ofrecer descuento de fidelización.
@@ -461,30 +466,32 @@ for i, rec in enumerate(recs, 1):
 3. Contrato month-to-month. Incentivar upgrade a contrato anual.
 ```
 
----
+______________________________________________________________________
 
 ## 📝 Resumen
 
 ### ✅ SHAP vs LIME
 
-| Aspecto | SHAP | LIME |
-|---------|------|------|
-| **Base teórica** | Shapley values (teoría de juegos) | Local linear approximation |
-| **Consistencia** | Garantizada (propiedades Shapley) | No garantizada |
-| **Velocidad** | Lento (especialmente KernelExplainer) | Rápido |
-| **Global vs Local** | Ambos | Solo local |
-| **Model-agnostic** | Sí (KernelExplainer), optimized para trees | Sí |
-| **Interpretación** | Contribución aditiva | Peso en modelo local |
+| Aspecto             | SHAP                                       | LIME                       |
+| ------------------- | ------------------------------------------ | -------------------------- |
+| **Base teórica**    | Shapley values (teoría de juegos)          | Local linear approximation |
+| **Consistencia**    | Garantizada (propiedades Shapley)          | No garantizada             |
+| **Velocidad**       | Lento (especialmente KernelExplainer)      | Rápido                     |
+| **Global vs Local** | Ambos                                      | Solo local                 |
+| **Model-agnostic**  | Sí (KernelExplainer), optimized para trees | Sí                         |
+| **Interpretación**  | Contribución aditiva                       | Peso en modelo local       |
 
 ### 🎯 Cuándo usar cada uno
 
 **SHAP:**
+
 - ✅ Necesitas explicaciones globales + locales
 - ✅ Modelo basado en árboles (TreeExplainer es rápido)
 - ✅ Consistencia matemática crítica (regulación, legal)
 - ✅ Análisis de interacciones entre features
 
 **LIME:**
+
 - ✅ Explicaciones rápidas en producción
 - ✅ Modelos arbitrarios (incluso APIs externas)
 - ✅ Interpretabilidad sencilla para stakeholders

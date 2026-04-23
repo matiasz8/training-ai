@@ -8,7 +8,7 @@ Matrix Factorization descompone la matriz user-item en matrices de menor dimensi
 
 Construir sistema de recomendación usando SVD (usado por Netflix Prize winners).
 
----
+______________________________________________________________________
 
 ## 🚀 Setup
 
@@ -22,7 +22,7 @@ import matplotlib.pyplot as plt
 np.random.seed(42)
 ```
 
----
+______________________________________________________________________
 
 ## 📦 Generar datos
 
@@ -35,7 +35,7 @@ for user in range(n_users):
     n_ratings = np.random.randint(5, 30)
     movies = np.random.choice(n_movies, size=n_ratings, replace=False)
     ratings = np.random.randint(1, 6, size=n_ratings)
-    
+
     for movie, rating in zip(movies, ratings):
         ratings_data.append([user, movie, rating])
 
@@ -45,7 +45,7 @@ print(f"Total ratings: {len(df)}")
 print(f"Sparsity: {100*(1 - len(df)/(n_users*n_movies)):.2f}%")
 ```
 
----
+______________________________________________________________________
 
 ## 🏗️ Matrix Factorization con SVD
 
@@ -85,8 +85,8 @@ predictions_centered = np.dot(np.dot(U, sigma_diag), Vt)
 # Añadir media de vuelta
 predictions = predictions_centered + user_ratings_mean.values.reshape(-1, 1)
 
-predictions_df = pd.DataFrame(predictions, 
-                              index=user_item_matrix.index, 
+predictions_df = pd.DataFrame(predictions,
+                              index=user_item_matrix.index,
                               columns=user_item_matrix.columns)
 
 print(f"\nMatriz predicha shape: {predictions_df.shape}")
@@ -94,12 +94,13 @@ print(f"Ejemplo de predicción para user 0, movie 10: {predictions_df.loc[0, 10]
 ```
 
 **Salida:**
+
 ```
 Matriz predicha shape: (500, 200)
 Ejemplo de predicción para user 0, movie 10: 3.45
 ```
 
----
+______________________________________________________________________
 
 ## 🎯 Función de recomendación
 
@@ -110,17 +111,17 @@ def recommend_movies_svd(user_id, predictions_df, user_item_matrix, top_n=5):
     """
     # Ratings predichos para el usuario
     user_predictions = predictions_df.loc[user_id]
-    
+
     # Películas ya vistas
     user_ratings = user_item_matrix.loc[user_id]
     watched_movies = user_ratings[user_ratings > 0].index
-    
+
     # Filtrar películas no vistas
     unwatched_predictions = user_predictions.drop(watched_movies)
-    
+
     # Top N
     top_recommendations = unwatched_predictions.sort_values(ascending=False).head(top_n)
-    
+
     return list(zip(top_recommendations.index, top_recommendations.values))
 
 # Recomendar para user 0
@@ -131,7 +132,7 @@ for movie_id, predicted_rating in recommendations:
     print(f"Movie ID: {movie_id}, Predicted Rating: {predicted_rating:.2f}")
 ```
 
----
+______________________________________________________________________
 
 ## 📊 Evaluación
 
@@ -146,8 +147,8 @@ train_df, test_df = train_test_split(df, test_size=0.2, random_state=42)
 train_matrix = train_df.pivot_table(index='user_id', columns='movie_id', values='rating').fillna(0)
 
 # Reindex para tener mismas dimensiones que la original
-train_matrix = train_matrix.reindex(index=user_item_matrix.index, 
-                                      columns=user_item_matrix.columns, 
+train_matrix = train_matrix.reindex(index=user_item_matrix.index,
+                                      columns=user_item_matrix.columns,
                                       fill_value=0)
 
 # Aplicar SVD en train
@@ -175,7 +176,7 @@ test_actuals = []
 for _, row in test_df.iterrows():
     user_id = row['user_id']
     movie_id = row['movie_id']
-    
+
     if user_id in predictions_train_df.index and movie_id in predictions_train_df.columns:
         pred = predictions_train_df.loc[user_id, movie_id]
         test_predictions.append(pred)
@@ -191,6 +192,7 @@ print(f"RMSE: {rmse:.3f}")
 ```
 
 **Salida:**
+
 ```
 === Evaluación en Test Set ===
 
@@ -198,7 +200,7 @@ MAE:  0.756
 RMSE: 0.987
 ```
 
----
+______________________________________________________________________
 
 ## 🔍 Análisis de factores latentes
 
@@ -239,7 +241,7 @@ for idx in similar_users_idx:
     print(f"User {idx}: Similarity = {user_similarity_latent[user_id_target, idx]:.3f}")
 ```
 
----
+______________________________________________________________________
 
 ## 📈 Tuning: Número óptimo de factores (k)
 
@@ -251,12 +253,12 @@ for k in k_values:
     # SVD con k factores
     U_k, sigma_k, Vt_k = svds(train_centered.values, k=k)
     sigma_diag_k = np.diag(sigma_k)
-    
+
     predictions_k = np.dot(np.dot(U_k, sigma_diag_k), Vt_k) + train_mean.values.reshape(-1, 1)
-    predictions_k_df = pd.DataFrame(predictions_k, 
-                                     index=train_matrix.index, 
+    predictions_k_df = pd.DataFrame(predictions_k,
+                                     index=train_matrix.index,
                                      columns=train_matrix.columns)
-    
+
     # Evaluar
     preds = []
     actuals = []
@@ -264,7 +266,7 @@ for k in k_values:
         if row['user_id'] in predictions_k_df.index and row['movie_id'] in predictions_k_df.columns:
             preds.append(predictions_k_df.loc[row['user_id'], row['movie_id']])
             actuals.append(row['rating'])
-    
+
     rmse = np.sqrt(mean_squared_error(actuals, preds))
     rmse_values.append(rmse)
     print(f"k={k:3d}: RMSE = {rmse:.4f}")
@@ -281,38 +283,41 @@ plt.show()
 print(f"\nMejor k: {k_values[np.argmin(rmse_values)]} (RMSE = {min(rmse_values):.4f})")
 ```
 
----
+______________________________________________________________________
 
 ## 📝 Resumen
 
 ### ✅ Matrix Factorization vs Collaborative Filtering
 
-| Aspecto | Collaborative Filtering | Matrix Factorization (SVD) |
-|---------|-------------------------|----------------------------|
-| **Complejidad computacional** | O(n²) usuarios | O(k × n) factores |
-| **Escalabilidad** | Pobre (n usuarios grande) | Excelente |
-| **Sparsity** | Sensible | Maneja bien |
-| **Interpretabilidad** | Alta (similitud directa) | Media (factores latentes) |
-| **Accuracy** | Buena | **Mejor** |
+| Aspecto                       | Collaborative Filtering   | Matrix Factorization (SVD) |
+| ----------------------------- | ------------------------- | -------------------------- |
+| **Complejidad computacional** | O(n²) usuarios            | O(k × n) factores          |
+| **Escalabilidad**             | Pobre (n usuarios grande) | Excelente                  |
+| **Sparsity**                  | Sensible                  | Maneja bien                |
+| **Interpretabilidad**         | Alta (similitud directa)  | Media (factores latentes)  |
+| **Accuracy**                  | Buena                     | **Mejor**                  |
 
 ### 🎯 Ventajas de SVD
 
 1. **Reducción de dimensionalidad:** 500 usuarios × 200 películas → 500 × 20 + 20 × 200 = 14,000 parámetros (vs 100,000 original)
-2. **Captura patrones latentes:** Géneros, actores, décadas automáticamente
-3. **Maneja sparsity:** Fill NaN implícitamente
-4. **Escalable:** Puede actualizar factores incrementalmente
+1. **Captura patrones latentes:** Géneros, actores, décadas automáticamente
+1. **Maneja sparsity:** Fill NaN implícitamente
+1. **Escalable:** Puede actualizar factores incrementalmente
 
 ### 💡 Alternativas y mejoras
 
 1. **ALS (Alternating Least Squares):**
+
    - Optimiza U y V iterativamente
    - Más usado en producción (Spark MLlib)
 
-2. **Neural Matrix Factorization:**
+1. **Neural Matrix Factorization:**
+
    - Reemplaza producto punto U × V con red neuronal
    - Captura relaciones no lineales
 
-3. **Factorization Machines:**
+1. **Factorization Machines:**
+
    - Generaliza MF para incluir features adicionales
    - Útil para contextual recommendations
 

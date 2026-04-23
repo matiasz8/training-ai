@@ -22,24 +22,24 @@ class LLMLogger:
     """
     Logger estructurado para LLM calls.
     """
-    
+
     def __init__(self, log_file: str = "llm_logs.jsonl"):
         self.log_file = log_file
-        
+
         # Setup logger
         self.logger = logging.get Logger("llm_app")
         self.logger.setLevel(logging.INFO)
-        
+
         # JSON formatter
         handler = logging.FileHandler(log_file)
         handler.setFormatter(logging.Formatter('%(message)s'))
         self.logger.addHandler(handler)
-        
+
         # Console handler
         console = logging.StreamHandler()
         console.setFormatter(logging.Formatter('%(asctime)s - %(message)s'))
         self.logger.addHandler(console)
-    
+
     def log_llm_call(
         self,
         user_id: str,
@@ -72,9 +72,9 @@ class LLMLogger:
             "cost_usd": cost_usd,
             "metadata": metadata or {}
         }
-        
+
         self.logger.info(json.dumps(log_entry))
-    
+
     def log_error(
         self,
         user_id: str,
@@ -95,7 +95,7 @@ class LLMLogger:
             "prompt": prompt[:200] if prompt else None,
             "metadata": metadata or {}
         }
-        
+
         self.logger.error(json.dumps(log_entry))
 
 
@@ -108,22 +108,22 @@ def mock_llm_with_logging(prompt: str, model: str = "gpt-3.5-turbo") -> Dict:
     Mock LLM que simula latency y retorna metadata.
     """
     start_time = time.time()
-    
+
     # Simulate API call
     time.sleep(0.1)  # Simulate latency
-    
+
     # Mock response
     completion = "This is a mock response for: " + prompt[:30]
-    
+
     # Calculate metadata
     input_tokens = len(prompt.split()) * 1.3  # Aproximación
     output_tokens = len(completion.split()) * 1.3
     latency_ms = (time.time() - start_time) * 1000
-    
+
     # Cost (simplified)
     cost_per_1k_tokens = 0.002 if model == "gpt-3.5-turbo" else 0.03
     cost_usd = ((input_tokens + output_tokens) / 1000) * cost_per_1k_tokens
-    
+
     return {
         "completion": completion,
         "model": model,
@@ -143,22 +143,22 @@ def demo_basic_logging():
     print("="*70)
     print("DEMO 1: Basic LLM Logging")
     print("="*70 + "\n")
-    
+
     logger = LLMLogger("demo_logs.jsonl")
-    
+
     # Simular varias llamadas
     prompts = [
         "What is the capital of France?",
         "Explain quantum computing in simple terms",
         "Write a haiku about AI",
     ]
-    
+
     for i, prompt in enumerate(prompts, 1):
         print(f"📞 Call {i}: {prompt[:40]}...")
-        
+
         # Call LLM
         result = mock_llm_with_logging(prompt)
-        
+
         # Log it
         logger.log_llm_call(
             user_id="user_123",
@@ -172,7 +172,7 @@ def demo_basic_logging():
             cost_usd=result["cost_usd"],
             metadata={"endpoint": "/chat"}
         )
-        
+
         print(f"   ✅ Logged: {result['latency_ms']:.0f}ms, ${result['cost_usd']:.4f}\n")
 
 
@@ -181,20 +181,20 @@ def demo_error_logging():
     print("="*70)
     print("DEMO 2: Error Logging")
     print("="*70 + "\n")
-    
+
     logger = LLMLogger("demo_logs.jsonl")
-    
+
     # Simular errores
     errors = [
         ("rate_limit", "Rate limit exceeded: 60 requests/min", "Hello"),
         ("timeout", "Request timed out after 30s", "Explain universe"),
         ("invalid_prompt", "Prompt contains prohibited content", "How to hack"),
     ]
-    
+
     for error_type, error_msg, prompt in errors:
         print(f"❌ Error: {error_type}")
         print(f"   Message: {error_msg}\n")
-        
+
         logger.log_error(
             user_id="user_456",
             error_type=error_type,
@@ -209,24 +209,24 @@ def demo_aggregation_queries():
     print("="*70)
     print("DEMO 3: Log Aggregation Queries")
     print("="*70 + "\n")
-    
+
     print("💡 Queries útiles con jq o SQL:\n")
-    
+
     print("1️⃣ Total de requests por usuario:")
     print("   jq -r '.user_id' llm_logs.jsonl | sort | uniq -c\n")
-    
+
     print("2️⃣ Costo total por día:")
     print("   jq -r '[.timestamp, .cost_usd] | @csv' llm_logs.jsonl | \\\n")
     print("     awk -F, '{sum[$1]+=$2} END {for(d in sum) print d, sum[d]}'\n")
-    
+
     print("3️⃣ P95 latency:")
     print("   jq -r '.latency_ms' llm_logs.jsonl | sort -n | \\\n")
     print("     awk '{a[NR]=$1} END {print a[int(NR*0.95)]}'\n")
-    
+
     print("4️⃣ Errores más comunes:")
     print("   jq -r 'select(.level==\"ERROR\") | .error_type' llm_logs.jsonl | \\\n")
     print("     sort | uniq -c | sort -rn\n")
-    
+
     print("5️⃣ Average tokens por modelo:")
     print("   jq -r 'select(.model) | [.model, .tokens.total] | @csv' llm_logs.jsonl | \\\n")
     print("     awk -F, '{sum[$1]+=$2; cnt[$1]++} END {for(m in sum) print m, sum[m]/cnt[m]}'\n")
@@ -237,7 +237,7 @@ def demo_log_analysis_script():
     print("="*70)
     print("DEMO 4: Log Analysis Script")
     print("="*70 + "\n")
-    
+
     print("📊 analyze_logs.py:\n")
     print("""
 import json
@@ -257,28 +257,28 @@ def analyze_logs(log_file: str):
         'users': set(),
         'models': defaultdict(int),
     }
-    
+
     with open(log_file) as f:
         for line in f:
             entry = json.loads(line)
-            
+
             if entry.get('level') == 'ERROR':
                 stats['errors'] += 1
                 continue
-            
+
             stats['total_requests'] += 1
             stats['total_cost'] += entry.get('cost_usd', 0)
             stats['total_tokens'] += entry.get('tokens', {}).get('total', 0)
             stats['latencies'].append(entry.get('latency_ms', 0))
             stats['users'].add(entry.get('user_id'))
             stats['models'][entry.get('model')] += 1
-    
+
     # Calculate percentiles
     latencies_sorted = sorted(stats['latencies'])
     p50 = latencies_sorted[int(len(latencies_sorted) * 0.50)]
     p95 = latencies_sorted[int(len(latencies_sorted) * 0.95)]
     p99 = latencies_sorted[int(len(latencies_sorted) * 0.99)]
-    
+
     # Print report
     print(f"Total Requests: {stats['total_requests']}")
     print(f"Total Cost: ${stats['total_cost']:.2f}")
@@ -303,7 +303,7 @@ def demo_best_practices():
     print("\n" + "="*70)
     print("DEMO 5: Logging Best Practices")
     print("="*70 + "\n")
-    
+
     print("✅ DO:")
     print("  • Log EVERY LLM call")
     print("  • Include timestamp, user_id, cost, latency")
@@ -312,19 +312,19 @@ def demo_best_practices():
     print("  • Log errors with context")
     print("  • Async logging (don't block requests)")
     print("  • Rotate log files (daily/weekly)\n")
-    
+
     print("❌ DON'T:")
     print("  • Log full PII (emails, passwords, SSNs)")
     print("  • Log API keys")
     print("  • Ignore errors")
     print("  • Use unstructured logs (hard to query)")
     print("  • Log synchronously (adds latency)\n")
-    
+
     print("📁 LOG RETENTION:")
     print("  • Hot: Last 7 days (fast access)")
     print("  • Warm: 8-30 days (slower access)")
     print("  • Cold: 30+ days (archive, compliance)\n")
-    
+
     print("🔍 QUERYABLE STORAGE:")
     print("  • Files: jq, grep (simple, cheap)")
     print("  • Elasticsearch: Full-text search")
@@ -335,13 +335,13 @@ def demo_best_practices():
 if __name__ == "__main__":
     print("\n🎯 BASIC LLM LOGGING")
     print("📝 Track every LLM call for observability\n")
-    
+
     demo_basic_logging()
     demo_error_logging()
     demo_aggregation queries()
     demo_log_analysis_script()
     demo_best_practices()
-    
+
     print("\n" + "="*70)
     print("🚀 NEXT STEPS:")
     print("="*70)

@@ -1,17 +1,20 @@
 # Evaluation — Computer Vision
 
 ## Ponderación
+
 - Teoría: 20%
 - Prácticas: 40%
 - Mini-proyecto: 40%
 
 ## Rúbrica
+
 - Comprensión de conceptos visuales y CNN.
 - Calidad de implementación y reproducibilidad.
 - Análisis de errores y mejora del modelo.
 - Claridad en conclusiones técnicas.
 
 ## Checklist final
+
 - [ ] Preprocesamiento correcto de imágenes.
 - [ ] CNN baseline entrenada.
 - [ ] Uso de augmentación o ajuste equivalente.
@@ -20,4 +23,9 @@
 - [ ] Propuesta de siguiente iteración.
 
 ## Criterio de aprobación
+
 - Puntaje mínimo: 70/100.
+
+## Evaluacion final
+
+Pendiente de completar este apartado.

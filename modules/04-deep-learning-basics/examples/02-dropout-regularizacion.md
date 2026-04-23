@@ -8,16 +8,17 @@ Detectaste overfitting en el Ejemplo 01 (train acc 99.3%, test acc 97.9%). Apren
 
 Reducir el gap entre train y test accuracy implementando técnicas de regularización.
 
----
+______________________________________________________________________
 
 ## 🔄 Comparación: Modelo sin vs con regularización
 
 Entrenaremos 3 versiones:
-1. **Baseline:** Red simple (Ejemplo 01)
-2. **Con Dropout:** Agregar dropout
-3. **Con Dropout + L2:** Dropout + weight decay
 
----
+1. **Baseline:** Red simple (Ejemplo 01)
+1. **Con Dropout:** Agregar dropout
+1. **Con Dropout + L2:** Dropout + weight decay
+
+______________________________________________________________________
 
 ## 🚀 Paso 1: Setup
 
@@ -47,7 +48,7 @@ train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
 test_loader = DataLoader(test_dataset, batch_size=64, shuffle=False)
 ```
 
----
+______________________________________________________________________
 
 ## 🏗️ Paso 2: Definir arquitecturas
 
@@ -62,7 +63,7 @@ class BaselineNN(nn.Module):
         self.fc2 = nn.Linear(128, 64)
         self.fc3 = nn.Linear(64, 10)
         self.relu = nn.ReLU()
-        
+
     def forward(self, x):
         x = x.view(x.size(0), -1)
         x = self.relu(self.fc1(x))
@@ -83,7 +84,7 @@ class DropoutNN(nn.Module):
         self.fc3 = nn.Linear(64, 10)
         self.relu = nn.ReLU()
         self.dropout = nn.Dropout(dropout_rate)  # 👈 Dropout
-        
+
     def forward(self, x):
         x = x.view(x.size(0), -1)
         x = self.relu(self.fc1(x))
@@ -95,82 +96,83 @@ class DropoutNN(nn.Module):
 ```
 
 **¿Qué es Dropout?**
+
 - Durante entrenamiento: Desactiva aleatoriamente el `p%` de neuronas (ej: p=0.5 = 50%)
 - Durante evaluación: Usa todas las neuronas (pero escala outputs por `1-p`)
 - **Efecto:** Previene co-adaptación de neuronas → reduce overfitting
 
----
+______________________________________________________________________
 
 ## 🧪 Paso 3: Función de entrenamiento con Early Stopping
 
 ```python
-def train_with_validation(model, train_loader, test_loader, criterion, optimizer, 
+def train_with_validation(model, train_loader, test_loader, criterion, optimizer,
                           num_epochs=20, patience=5, model_name="Model"):
     """
     Entrenar con early stopping
-    
+
     patience: cuántas épocas esperar sin mejora antes de parar
     """
     train_losses, train_accs = [], []
     test_losses, test_accs = [], []
-    
+
     best_test_loss = float('inf')
     best_model_weights = None
     epochs_without_improvement = 0
-    
+
     for epoch in range(num_epochs):
         # === ENTRENAMIENTO ===
         model.train()
         running_loss = 0.0
         correct = 0
         total = 0
-        
+
         for images, labels in train_loader:
             images, labels = images.to(device), labels.to(device)
-            
+
             # Forward
             outputs = model(images)
             loss = criterion(outputs, labels)
-            
+
             # Backward
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
-            
+
             # Métricas
             running_loss += loss.item()
             _, predicted = torch.max(outputs, 1)
             total += labels.size(0)
             correct += (predicted == labels).sum().item()
-        
+
         train_loss = running_loss / len(train_loader)
         train_acc = 100 * correct / total
         train_losses.append(train_loss)
         train_accs.append(train_acc)
-        
+
         # === EVALUACIÓN ===
         model.eval()
         running_loss = 0.0
         correct = 0
         total = 0
-        
+
         with torch.no_grad():
             for images, labels in test_loader:
                 images, labels = images.to(device), labels.to(device)
-                
+
                 outputs = model(images)
                 loss = criterion(outputs, labels)
-                
+
                 running_loss += loss.item()
                 _, predicted = torch.max(outputs, 1)
                 total += labels.size(0)
                 correct += (predicted == labels).sum().item()
-        
+
         test_loss = running_loss / len(test_loader)
         test_acc = 100 * correct / total
         test_losses.append(test_loss)
         test_accs.append(test_acc)
-        
+
         # === EARLY STOPPING ===
         if test_loss < best_test_loss:
             best_test_loss = test_loss
@@ -180,19 +182,19 @@ def train_with_validation(model, train_loader, test_loader, criterion, optimizer
         else:
             epochs_without_improvement += 1
             print(f"[{model_name}] Epoch {epoch+1}/{num_epochs} | Train Loss: {train_loss:.4f}, Train Acc: {train_acc:.2f}% | Test Loss: {test_loss:.4f}, Test Acc: {test_acc:.2f}%")
-        
+
         # Parar si no mejora
         if epochs_without_improvement >= patience:
             print(f"⚠️ Early stopping en época {epoch+1} (sin mejora por {patience} épocas)")
             break
-    
+
     # Restaurar mejores pesos
     model.load_state_dict(best_model_weights)
-    
+
     return train_losses, train_accs, test_losses, test_accs
 ```
 
----
+______________________________________________________________________
 
 ## 🏋️ Paso 4: Entrenar los 3 modelos
 
@@ -214,6 +216,7 @@ train_losses1, train_accs1, test_losses1, test_accs1 = history1
 ```
 
 **Salida esperada:**
+
 ```
 === MODELO 1: BASELINE (Sin Regularización) ===
 
@@ -244,6 +247,7 @@ train_losses2, train_accs2, test_losses2, test_accs2 = history2
 ```
 
 **Salida esperada:**
+
 ```
 === MODELO 2: CON DROPOUT ===
 
@@ -273,11 +277,12 @@ train_losses3, train_accs3, test_losses3, test_accs3 = history3
 ```
 
 **¿Qué es Weight Decay?**
+
 - Penaliza pesos grandes agregando término `λ * ||w||²` a loss
 - Equivalente a L2 regularization en optimizadores de PyTorch
 - **Efecto:** Pesos más pequeños → modelo más simple → menos overfitting
 
----
+______________________________________________________________________
 
 ## 📊 Paso 5: Comparar resultados
 
@@ -299,6 +304,7 @@ print(results.to_string(index=False))
 ```
 
 **Salida esperada:**
+
 ```
             Modelo  Train Acc (%)  Test Acc (%)  Train Loss  Test Loss  Gap (Train - Test)
           Baseline          99.32         97.89       0.0234     0.0856                1.43
@@ -307,6 +313,7 @@ print(results.to_string(index=False))
 ```
 
 **📊 Interpretación:**
+
 - **Baseline:** Gap positivo (+1.43%) → overfitting
 - **Dropout:** Gap negativo (-0.23%) → buena generalización
 - **Dropout + L2:** Gap más negativo (-0.79%) → mejor generalización + test acc más alto
@@ -365,12 +372,13 @@ plt.show()
 ```
 
 **Observaciones visuales:**
+
 - **Train Loss:** Modelos regularizados tienen loss más alto (esperado)
 - **Test Loss:** Modelos regularizados tienen loss más bajo (mejor generalización)
 - **Train Acc:** Baseline llega a 99% rápido; regularizados más lentos pero estables
 - **Test Acc:** Regularizados superan baseline (~98.2% vs 97.9%)
 
----
+______________________________________________________________________
 
 ## 🔬 Paso 6: Experimento con diferentes dropout rates
 
@@ -384,14 +392,14 @@ for rate in dropout_rates:
     model_temp = DropoutNN(dropout_rate=rate).to(device)
     criterion_temp = nn.CrossEntropyLoss()
     optimizer_temp = optim.Adam(model_temp.parameters(), lr=0.001, weight_decay=1e-4)
-    
+
     history_temp = train_with_validation(
         model_temp, train_loader, test_loader, criterion_temp, optimizer_temp,
         num_epochs=15, patience=5, model_name=f"Dropout-{rate}"
     )
-    
+
     train_losses_temp, train_accs_temp, test_losses_temp, test_accs_temp = history_temp
-    
+
     results_dropout.append({
         'Dropout Rate': rate,
         'Train Acc': train_accs_temp[-1],
@@ -417,6 +425,7 @@ plt.show()
 ```
 
 **Salida esperada:**
+
 ```
 === Comparación de Dropout Rates ===
  Dropout Rate  Train Acc  Test Acc    Gap
@@ -428,42 +437,46 @@ plt.show()
 
 **Conclusión:** Dropout = 0.5 ofrece mejor balance
 
----
+______________________________________________________________________
 
 ## 📝 Resumen ejecutivo
 
 ### ✅ Comparación final
 
-| Métrica | Baseline | Dropout | Dropout + L2 | Mejora |
-|---------|----------|---------|--------------|--------|
-| **Test Acc** | 97.89% | 98.12% | **98.24%** | +0.35% |
-| **Overfitting Gap** | +1.43% | -0.23% | **-0.79%** | ✅ |
-| **Test Loss** | 0.0856 | 0.0723 | **0.0689** | -19.5% |
+| Métrica             | Baseline | Dropout | Dropout + L2 | Mejora |
+| ------------------- | -------- | ------- | ------------ | ------ |
+| **Test Acc**        | 97.89%   | 98.12%  | **98.24%**   | +0.35% |
+| **Overfitting Gap** | +1.43%   | -0.23%  | **-0.79%**   | ✅     |
+| **Test Loss**       | 0.0856   | 0.0723  | **0.0689**   | -19.5% |
 
 ### 🎯 Técnicas implementadas
 
 1. **Dropout (p=0.5):**
+
    - Desactiva 50% de neuronas aleatoriamente durante entrenamiento
    - Reduce co-adaptación de neuronas
    - **Resultado:** +0.23% en test acc
 
-2. **L2 Regularization (weight_decay=1e-4):**
+1. **L2 Regularization (weight_decay=1e-4):**
+
    - Penaliza pesos grandes
    - Simplifica modelo
    - **Resultado:** +0.12% adicional en test acc
 
-3. **Early Stopping (patience=5):**
+1. **Early Stopping (patience=5):**
+
    - Detiene entrenamiento cuando test loss deja de mejorar
    - Previene overtraining
    - **Resultado:** Ahorra ~5-7 épocas
 
----
+______________________________________________________________________
 
 ## 🎓 Lecciones aprendidas
 
 ### ✅ Dropout
 
 **Funcionamiento:**
+
 ```python
 # Durante TRAIN
 x = [1.0, 2.0, 3.0, 4.0]
@@ -475,11 +488,13 @@ Dropout(p=0.5) → [1.0, 2.0, 3.0, 4.0]  # Sin dropout (pero implícitamente esc
 ```
 
 **Dónde aplicar:**
+
 - ✅ Después de activaciones (ReLU, Tanh)
 - ✅ En capas fully connected
 - ❌ No aplicar en última capa (antes de output)
 
 **Valores típicos:**
+
 - p=0.2-0.3: Capas tempranas (features más simples)
 - p=0.5: Capas profundas (features complejas)
 - p=0.7-0.8: Demasiado agresivo (underfitting)
@@ -487,17 +502,20 @@ Dropout(p=0.5) → [1.0, 2.0, 3.0, 4.0]  # Sin dropout (pero implícitamente esc
 ### ✅ Weight Decay / L2 Regularization
 
 **Matemática:**
+
 ```
 Loss_regularized = Loss_original + λ * Σ(w²)
 ```
 
 **En PyTorch:**
+
 ```python
 # weight_decay = λ
 optimizer = optim.Adam(model.parameters(), lr=0.001, weight_decay=1e-4)
 ```
 
 **Valores típicos:**
+
 - 1e-4 a 1e-3: Regularización moderada
 - 1e-5: Regularización ligera
 - 1e-2: Regularización agresiva (puede causar underfitting)
@@ -505,11 +523,13 @@ optimizer = optim.Adam(model.parameters(), lr=0.001, weight_decay=1e-4)
 ### ✅ Early Stopping
 
 **Criterios:**
+
 - **Patience:** Número de épocas sin mejora antes de parar
 - **Métrica:** Validation loss (no accuracy)
 - **Checkpoint:** Guardar mejores pesos, restaurar al final
 
 **Implementación:**
+
 ```python
 if val_loss < best_val_loss:
     best_val_loss = val_loss
@@ -531,11 +551,11 @@ else:
 ### 💡 Mejoras adicionales
 
 1. **Batch Normalization:** Normalizar activaciones entre capas
-2. **Data Augmentation:** Rotaciones, traslaciones, ruido
-3. **Ensemble:** Combinar múltiples modelos
-4. **Learning Rate Scheduling:** Reducir lr durante entrenamiento
+1. **Data Augmentation:** Rotaciones, traslaciones, ruido
+1. **Ensemble:** Combinar múltiples modelos
+1. **Learning Rate Scheduling:** Reducir lr durante entrenamiento
 
----
+______________________________________________________________________
 
 ## 🔧 Código completo para producción
 

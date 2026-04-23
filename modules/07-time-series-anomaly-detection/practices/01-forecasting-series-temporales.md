@@ -7,7 +7,7 @@
 - Validar forecasts con métricas
 - Detectar estacionalidad
 
----
+______________________________________________________________________
 
 ## 📚 Parte 1: Ejercicios Guiados
 
@@ -40,23 +40,25 @@ plt.tight_layout()
 plt.savefig('decomposition.png')
 ```
 
----
+______________________________________________________________________
 
 ## 🚀 Parte 2: Ejercicios Propuestos
 
 ### Ejercicio 2.1: ARIMA Manual
 
 **Enunciado:**
+
 1. Aplica ADF test para estacionariedad
-2. Diferencia serie si no estacionaria
-3. Determina (p,d,q) con ACF/PACF
-4. Entrena ARIMA manualmente
-5. Forecast 30 días
+1. Diferencia serie si no estacionaria
+1. Determina (p,d,q) con ACF/PACF
+1. Entrena ARIMA manualmente
+1. Forecast 30 días
 
 ### Ejercicio 2.2: Prophet con Holidays
 
 **Enunciado:**
 Usa Facebook Prophet:
+
 - Añade holidays personalizados
 - Modela cambios de tendencia
 - Evalúa forecast con MAE
@@ -65,6 +67,7 @@ Usa Facebook Prophet:
 
 **Enunciado:**
 Implementa LSTM en PyTorch:
+
 - Ventanas deslizantes (window=30)
 - Predict siguiente valor
 - Compara con ARIMA
@@ -73,6 +76,7 @@ Implementa LSTM en PyTorch:
 
 **Enunciado:**
 Implementa time series CV:
+
 - Training set creciente
 - Test set fijo
 - Rolling window validation
@@ -81,11 +85,12 @@ Implementa time series CV:
 
 **Enunciado:**
 Forecast múltiples pasos:
+
 - Direct multi-step
 - Recursive one-step
 - Compara ambos approaches
 
----
+______________________________________________________________________
 
 ## ✅ Checklist
 
@@ -95,7 +100,7 @@ Forecast múltiples pasos:
 - [ ] Cross-validation temporal
 - [ ] Multi-step forecasting
 
----
+______________________________________________________________________
 
 ## 📚 Recursos
 

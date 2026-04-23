@@ -7,7 +7,7 @@
 - Aplicar principios de storytelling con datos
 - Generar gráficos interactivos
 
----
+______________________________________________________________________
 
 ## 📚 Parte 1: Ejercicios Guiados
 
@@ -104,7 +104,7 @@ axes[1].grid(True, alpha=0.3)
 numeric_cols = ['sales', 'customers', 'satisfaction', 'revenue']
 corr_matrix = df[numeric_cols].corr()
 
-sns.heatmap(corr_matrix, annot=True, fmt='.2f', cmap='coolwarm', 
+sns.heatmap(corr_matrix, annot=True, fmt='.2f', cmap='coolwarm',
             center=0, ax=axes[2], square=True, linewidths=1)
 axes[2].set_title('Correlation Matrix')
 
@@ -129,7 +129,7 @@ df_ts = df.groupby('month').agg({
 fig, axes = plt.subplots(2, 1, figsize=(14, 8))
 
 # Line plot con área
-axes[0].plot(df_ts['month'], df_ts['sales'], marker='o', 
+axes[0].plot(df_ts['month'], df_ts['sales'], marker='o',
              linewidth=2, markersize=8, color='steelblue', label='Sales')
 axes[0].fill_between(df_ts['month'], df_ts['sales'], alpha=0.3, color='steelblue')
 axes[0].set_xlabel('Month')
@@ -144,7 +144,7 @@ ax1 = axes[1]
 ax2 = ax1.twinx()
 
 ax1.bar(df_ts['month'], df_ts['customers'], alpha=0.7, color='coral', label='Customers')
-ax2.plot(df_ts['month'], df_ts['satisfaction'], marker='s', 
+ax2.plot(df_ts['month'], df_ts['satisfaction'], marker='s',
          linewidth=2, color='green', label='Satisfaction', markersize=6)
 
 ax1.set_xlabel('Month')
@@ -178,7 +178,7 @@ gs = fig.add_gridspec(3, 3, hspace=0.3, wspace=0.3)
 # Panel 1: KPI (Sales)
 ax1 = fig.add_subplot(gs[0, 0])
 total_sales = df['sales'].sum()
-ax1.text(0.5, 0.5, f'${total_sales:,.0f}', 
+ax1.text(0.5, 0.5, f'${total_sales:,.0f}',
          ha='center', va='center', fontsize=32, fontweight='bold', color='steelblue')
 ax1.text(0.5, 0.2, 'Total Sales', ha='center', va='center', fontsize=14, color='gray')
 ax1.axis('off')
@@ -186,7 +186,7 @@ ax1.axis('off')
 # Panel 2: KPI (Customers)
 ax2 = fig.add_subplot(gs[0, 1])
 total_customers = df['customers'].sum()
-ax2.text(0.5, 0.5, f'{total_customers:,}', 
+ax2.text(0.5, 0.5, f'{total_customers:,}',
          ha='center', va='center', fontsize=32, fontweight='bold', color='coral')
 ax2.text(0.5, 0.2, 'Total Customers', ha='center', va='center', fontsize=14, color='gray')
 ax2.axis('off')
@@ -194,7 +194,7 @@ ax2.axis('off')
 # Panel 3: KPI (Satisfaction)
 ax3 = fig.add_subplot(gs[0, 2])
 avg_satisfaction = df['satisfaction'].mean()
-ax3.text(0.5, 0.5, f'{avg_satisfaction:.2f}/5', 
+ax3.text(0.5, 0.5, f'{avg_satisfaction:.2f}/5',
          ha='center', va='center', fontsize=32, fontweight='bold', color='green')
 ax3.text(0.5, 0.2, 'Avg Satisfaction', ha='center', va='center', fontsize=14, color='gray')
 ax3.axis('off')
@@ -218,7 +218,7 @@ ax5.grid(True, alpha=0.3, axis='y')
 # Panel 6: Monthly trend
 ax6 = fig.add_subplot(gs[2, :])
 monthly_sales = df.groupby('month')['sales'].sum()
-ax6.plot(monthly_sales.index, monthly_sales.values, marker='o', 
+ax6.plot(monthly_sales.index, monthly_sales.values, marker='o',
          linewidth=2, markersize=8, color='steelblue')
 ax6.fill_between(monthly_sales.index, monthly_sales.values, alpha=0.3, color='steelblue')
 ax6.set_xlabel('Month')
@@ -234,7 +234,7 @@ plt.show()
 print("✅ Dashboard completo creado")
 ```
 
----
+______________________________________________________________________
 
 ## 🚀 Parte 2: Ejercicios Propuestos
 
@@ -242,11 +242,13 @@ print("✅ Dashboard completo creado")
 
 **Enunciado:**
 Crea una visualización "small multiples" (facet grid) que muestre:
+
 - Sales distribution por cada categoría (4 subplots)
 - Usar misma escala en X para comparabilidad
 - Añadir media y mediana en cada subplot
 
 **Validación:**
+
 ```python
 # Debe generar 1 figura con 4 subplots (2x2)
 # Cada subplot debe tener título con nombre de categoría
@@ -257,6 +259,7 @@ Crea una visualización "small multiples" (facet grid) que muestre:
 
 **Enunciado:**
 Visualiza la composición de ventas por mes y categoría:
+
 - Eje X: meses (1-12)
 - Eje Y: total sales
 - Barras apiladas por categoría con colores diferentes
@@ -266,6 +269,7 @@ Visualiza la composición de ventas por mes y categoría:
 
 **Enunciado:**
 Crea un treemap que muestre:
+
 - Jerarquía: Category → Month → Sales
 - Tamaño de cada rectángulo proporcional a sales
 - Colores por categoría
@@ -275,21 +279,23 @@ Crea un treemap que muestre:
 
 **Enunciado:**
 Crea un panel de diagnóstico de outliers:
+
 1. Boxplot con puntos individuales de outliers marcados
-2. Scatter plot marcando outliers en rojo
-3. Histograma con outliers en barra diferente
-4. Tabla con top 5 outliers y sus valores
+1. Scatter plot marcando outliers en rojo
+1. Histograma con outliers en barra diferente
+1. Tabla con top 5 outliers y sus valores
 
 ### Ejercicio 2.5: Animated Plot (exportar frames)
 
 **Enunciado:**
 Crea una secuencia de gráficos que muestren evolución temporal:
+
 - Un PNG por mes mostrando sales acumuladas hasta ese mes
 - Barra progresiva o line plot incremental
 - Exportar 12 imágenes: `month_01.png` a `month_12.png`
 - Bonus: usar `imageio` para crear GIF
 
----
+______________________________________________________________________
 
 ## ✅ Checklist de Competencias
 
@@ -304,20 +310,23 @@ Después de completar esta práctica, deberías poder:
 - [ ] Exportar visualizaciones en alta resolución
 - [ ] Elegir tipo de gráfico apropiado para cada mensaje
 
----
+______________________________________________________________________
 
 ## 📚 Recursos Adicionales
 
 **Gallerías de inspiración:**
+
 - [Matplotlib Gallery](https://matplotlib.org/stable/gallery/index.html)
 - [Seaborn Gallery](https://seaborn.pydata.org/examples/index.html)
 - [Python Graph Gallery](https://python-graph-gallery.com/)
 
 **Librerías interactivas:**
+
 - `plotly`: Gráficos interactivos
 - `bokeh`: Dashboards web
 - `altair`: Grammar of graphics
 
 **Principios de diseño:**
+
 - [Data Visualization catalog](https://datavizcatalogue.com/)
 - [Color Brewer](https://colorbrewer2.org/) para paletas accesibles

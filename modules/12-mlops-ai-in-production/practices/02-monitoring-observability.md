@@ -7,7 +7,7 @@
 - Alerting automático
 - Performance monitoring
 
----
+______________________________________________________________________
 
 ## 📚 Parte 1: Ejercicios Guiados
 
@@ -27,13 +27,13 @@ logging.basicConfig(
 
 def predict_with_logging(model, features, user_id):
     start_time = time.time()
-    
+
     # Predicción
     prediction = model.predict([features])[0]
-    
+
     # Latencia
     latency = time.time() - start_time
-    
+
     # Log
     log_data = {
         'timestamp': datetime.now().isoformat(),
@@ -42,16 +42,16 @@ def predict_with_logging(model, features, user_id):
         'prediction': prediction,
         'latency_ms': latency * 1000
     }
-    
+
     logging.info(log_data)
-    
+
     return prediction
 
 # Uso
 prediction = predict_with_logging(model, [1.5, 2.3, 0.8], user_id='user123')
 ```
 
----
+______________________________________________________________________
 
 ## 🚀 Parte 2: Ejercicios Propuestos
 
@@ -59,6 +59,7 @@ prediction = predict_with_logging(model, [1.5, 2.3, 0.8], user_id='user123')
 
 **Enunciado:**
 Expón métricas en `/metrics`:
+
 ```python
 from prometheus_client import Counter, Histogram
 
@@ -75,6 +76,7 @@ def predict():
 
 **Enunciado:**
 Crea dashboard con:
+
 - Predictions per minute
 - Latency percentiles (p50, p95, p99)
 - Error rate
@@ -84,6 +86,7 @@ Crea dashboard con:
 
 **Enunciado:**
 Configura alerts:
+
 - Latency > 500ms por 5 min
 - Error rate > 5%
 - Data drift detected
@@ -93,6 +96,7 @@ Configura alerts:
 
 **Enunciado:**
 Monitorea accuracy en producción:
+
 - Colecta ground truth labels (delayed)
 - Calcula metrics diarios
 - Plot evolución temporal
@@ -102,12 +106,13 @@ Monitorea accuracy en producción:
 
 **Enunciado:**
 Track costos de inferencia:
+
 - Requests por segundo
 - Compute resources
 - API costs (si LLM)
 - Optimize para reducir
 
----
+______________________________________________________________________
 
 ## ✅ Checklist
 
@@ -117,7 +122,7 @@ Track costos de inferencia:
 - [ ] Model performance tracking
 - [ ] Cost monitoring
 
----
+______________________________________________________________________
 
 ## 📚 Recursos
 

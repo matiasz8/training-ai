@@ -7,7 +7,7 @@
 - Matrix factorization con SVD
 - Evaluar con RMSE y MAE
 
----
+______________________________________________________________________
 
 ## 📚 Parte 1: Ejercicios Guiados
 
@@ -44,19 +44,19 @@ def predict_rating(user_idx, item_idx, k=2):
     # Top k usuarios similares que rated item
     item_ratings = df.iloc[:, item_idx]
     similar_users = user_sim_df.iloc[user_idx].drop(users[user_idx])
-    
+
     # Usuarios que rated este item
     rated_mask = item_ratings > 0
     similar_users = similar_users[rated_mask]
-    
+
     top_k = similar_users.nlargest(k)
-    
+
     if len(top_k) == 0:
         return df.mean()[item_idx]
-    
+
     weighted_sum = sum(top_k * item_ratings[top_k.index])
     similarity_sum = top_k.sum()
-    
+
     return weighted_sum / similarity_sum if similarity_sum > 0 else df.mean()[item_idx]
 
 # Predecir Alice's rating para Movie3
@@ -64,7 +64,7 @@ pred = predict_rating(0, 2, k=2)
 print(f"\\nPredicted rating: {pred:.2f}")
 ```
 
----
+______________________________________________________________________
 
 ## 🚀 Parte 2: Ejercicios Propuestos
 
@@ -72,6 +72,7 @@ print(f"\\nPredicted rating: {pred:.2f}")
 
 **Enunciado:**
 Implementa item-based collaborative filtering:
+
 - Calcula similitud entre items
 - Predice basado en items similares ratings
 
@@ -79,6 +80,7 @@ Implementa item-based collaborative filtering:
 
 **Enunciado:**
 Usa SVD para matrix factorization:
+
 ```python
 from scipy.sparse.linalg import svds
 U, sigma, Vt = svds(ratings_matrix, k=2)
@@ -88,6 +90,7 @@ U, sigma, Vt = svds(ratings_matrix, k=2)
 
 **Enunciado:**
 Implementa Alternating Least Squares:
+
 - Optimiza user factors
 - Optimiza item factors
 - Itera hasta convergencia
@@ -96,6 +99,7 @@ Implementa Alternating Least Squares:
 
 **Enunciado:**
 Maneja nuevos usuarios:
+
 - Popularity-based recommendations
 - Feature-based (demographics)
 - Hybrid approach
@@ -104,11 +108,12 @@ Maneja nuevos usuarios:
 
 **Enunciado:**
 Evalúa diversidad de recommendations:
+
 - Intra-list diversity (ILD)
 - Coverage (% items recomendados)
 - Novelty (popularidad promedio inversa)
 
----
+______________________________________________________________________
 
 ## ✅ Checklist
 
@@ -118,7 +123,7 @@ Evalúa diversidad de recommendations:
 - [ ] Cold start solutions
 - [ ] RMSE y MAE evaluation
 
----
+______________________________________________________________________
 
 ## 📚 Recursos
 

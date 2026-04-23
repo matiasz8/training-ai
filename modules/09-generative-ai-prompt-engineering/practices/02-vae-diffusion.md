@@ -7,7 +7,7 @@
 - Explorar latent space
 - Introducción a diffusion models
 
----
+______________________________________________________________________
 
 ## 📚 Parte 1: Ejercicios Guiados
 
@@ -20,7 +20,7 @@ import torch.nn as nn
 class VAE(nn.Module):
     def __init__(self, input_dim=784, latent_dim=20):
         super().__init__()
-        
+
         # Encoder
         self.encoder = nn.Sequential(
             nn.Linear(input_dim, 400),
@@ -28,7 +28,7 @@ class VAE(nn.Module):
         )
         self.fc_mu = nn.Linear(400, latent_dim)
         self.fc_logvar = nn.Linear(400, latent_dim)
-        
+
         # Decoder
         self.decoder = nn.Sequential(
             nn.Linear(latent_dim, 400),
@@ -36,19 +36,19 @@ class VAE(nn.Module):
             nn.Linear(400, input_dim),
             nn.Sigmoid()
         )
-    
+
     def encode(self, x):
         h = self.encoder(x)
         return self.fc_mu(h), self.fc_logvar(h)
-    
+
     def reparameterize(self, mu, logvar):
         std = torch.exp(0.5 * logvar)
         eps = torch.randn_like(std)
         return mu + eps * std
-    
+
     def decode(self, z):
         return self.decoder(z)
-    
+
     def forward(self, x):
         mu, logvar = self.encode(x)
         z = self.reparameterize(mu, logvar)
@@ -58,17 +58,17 @@ class VAE(nn.Module):
 def vae_loss(recon_x, x, mu, logvar):
     # Reconstruction loss
     BCE = nn.functional.binary_cross_entropy(recon_x, x, reduction='sum')
-    
+
     # KL divergence
     KLD = -0.5 * torch.sum(1 + logvar - mu.pow(2) - logvar.exp())
-    
+
     return BCE + KLD
 
 model = VAE()
 print(model)
 ```
 
----
+______________________________________________________________________
 
 ## 🚀 Parte 2: Ejercicios Propuestos
 
@@ -76,6 +76,7 @@ print(model)
 
 **Enunciado:**
 Interpola entre dos imágenes:
+
 - Encode ambas a latent vectors
 - Interpola linealmente
 - Decode interpolaciones
@@ -85,15 +86,18 @@ Interpola entre dos imágenes:
 
 **Enunciado:**
 Implementa β-VAE para disentanglement:
+
 ```python
 loss = BCE + beta * KLD
 ```
+
 Varía beta (1, 4, 10) y compara.
 
 ### Ejercicio 2.3: Conditional VAE
 
 **Enunciado:**
 Genera condicionalmente:
+
 - Concatena label con input/latent
 - Controla generación por clase
 - Visualiza latent space por clase
@@ -102,6 +106,7 @@ Genera condicionalmente:
 
 **Enunciado:**
 Implementa forward diffusion:
+
 - Añade ruido gaussiano progresivamente
 - T pasos hasta ruido puro
 - Visualiza proceso
@@ -110,11 +115,12 @@ Implementa forward diffusion:
 
 **Enunciado:**
 Entrena denoiser simple:
+
 - U-Net que predice ruido
 - Entrena en múltiples timesteps
 - Sampling iterativo
 
----
+______________________________________________________________________
 
 ## ✅ Checklist
 
@@ -124,7 +130,7 @@ Entrena denoiser simple:
 - [ ] β-VAE para disentanglement
 - [ ] Diffusion basics
 
----
+______________________________________________________________________
 
 ## 📚 Recursos
 

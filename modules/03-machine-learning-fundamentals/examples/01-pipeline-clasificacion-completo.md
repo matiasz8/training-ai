@@ -8,7 +8,7 @@ Construirás un pipeline completo de Machine Learning desde cero: desde datos cr
 
 Predecir la especie de flor Iris basándose en mediciones de sépalos y pétalos.
 
----
+______________________________________________________________________
 
 ## 🚀 Paso 1: Importar librerías y cargar datos
 
@@ -43,6 +43,7 @@ print(y.value_counts())
 ```
 
 **Salida:**
+
 ```
 === DATASET IRIS ===
 Dimensiones: (150, 4)
@@ -61,7 +62,7 @@ Distribución de clases:
 2    50
 ```
 
----
+______________________________________________________________________
 
 ## 📊 Paso 2: Análisis Exploratorio (EDA)
 
@@ -100,12 +101,13 @@ plt.show()
 ```
 
 **Insights del EDA:**
+
 - **Setosa** se separa claramente (petal length/width más cortos)
 - **Versicolor y Virginica** tienen overlap (más difíciles de distinguir)
 - No hay valores nulos ni outliers extremos
 - Dataset balanceado (no requiere re-balanceo)
 
----
+______________________________________________________________________
 
 ## 🔧 Paso 3: Preparación de datos
 
@@ -124,6 +126,7 @@ print(y_train.value_counts())
 ```
 
 **Salida:**
+
 ```
 Train set: (120, 4)
 Test set: (30, 4)
@@ -154,6 +157,7 @@ print(X_train_scaled.describe().loc[['mean', 'std']])
 ```
 
 **Salida:**
+
 ```
 Después del escalado:
        sepal length (cm)  sepal width (cm)  petal length (cm)  petal width (cm)
@@ -162,7 +166,7 @@ std            1.008403         1.008403             1.008403          1.008403
 ✅ Media ≈ 0, std ≈ 1 (escalado correcto)
 ```
 
----
+______________________________________________________________________
 
 ## 🤖 Paso 4: Entrenamiento de modelos
 
@@ -185,6 +189,7 @@ print(classification_report(y_test, y_pred_lr, target_names=iris.target_names))
 ```
 
 **Salida:**
+
 ```
 === LOGISTIC REGRESSION ===
 Accuracy: 1.0000
@@ -225,7 +230,7 @@ print(f"\n=== RANDOM FOREST ===")
 print(f"Accuracy: {acc_rf:.4f}")
 ```
 
----
+______________________________________________________________________
 
 ## 📈 Paso 5: Comparación de modelos
 
@@ -250,6 +255,7 @@ for name, model in models.items():
 ```
 
 **Salida:**
+
 ```
 === CROSS-VALIDATION (5-FOLD) ===
 Logistic Regression:
@@ -299,7 +305,7 @@ plt.tight_layout()
 plt.show()
 ```
 
----
+______________________________________________________________________
 
 ## 🎯 Paso 6: Análisis detallado del mejor modelo
 
@@ -311,7 +317,7 @@ best_model = rf  # Elegimos RF por robustez
 cm = confusion_matrix(y_test, y_pred_rf)
 
 plt.figure(figsize=(8, 6))
-sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', 
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues',
             xticklabels=iris.target_names, yticklabels=iris.target_names)
 plt.title('Confusion Matrix - Random Forest')
 plt.ylabel('Actual')
@@ -338,6 +344,7 @@ plt.show()
 ```
 
 **Salida:**
+
 ```
 === FEATURE IMPORTANCE ===
               feature  importance
@@ -347,11 +354,12 @@ plt.show()
 1   sepal width (cm)    0.040258
 ```
 
-**Insight:** 
+**Insight:**
+
 - Dimensiones de **pétalo** son mucho más predictivas que sépalos
 - Esto confirma observaciones del EDA
 
----
+______________________________________________________________________
 
 ## 🚀 Paso 7: Pipeline reproducible con scikit-learn
 
@@ -380,7 +388,7 @@ prediction = pipeline.predict(new_sample)
 print(f"\nPredicción para muestra nueva: {iris.target_names[prediction[0]]}")
 ```
 
----
+______________________________________________________________________
 
 ## 💾 Paso 8: Guardar modelo
 
@@ -397,19 +405,20 @@ prediction_loaded = loaded_pipeline.predict(new_sample)
 print(f"Predicción con modelo cargado: {iris.target_names[prediction_loaded[0]]}")
 ```
 
----
+______________________________________________________________________
 
 ## 📝 Resumen ejecutivo
 
 ### ✅ Resultados
 
-| Modelo | Test Accuracy | CV Mean | CV Std |
-|--------|---------------|---------|---------|
-| Logistic Regression | 1.0000 | 0.9667 | 0.0316 |
-| Decision Tree | 1.0000 | 0.9583 | 0.0316 |
-| Random Forest | 1.0000 | 0.9667 | 0.0316 |
+| Modelo              | Test Accuracy | CV Mean | CV Std |
+| ------------------- | ------------- | ------- | ------ |
+| Logistic Regression | 1.0000        | 0.9667  | 0.0316 |
+| Decision Tree       | 1.0000        | 0.9583  | 0.0316 |
+| Random Forest       | 1.0000        | 0.9667  | 0.0316 |
 
 **Modelo seleccionado:** Random Forest
+
 - Accuracy perfecto en test set (1.00)
 - Robusto en cross-validation (0.9667 ± 0.0316)
 - Interpretable (feature importance)
@@ -417,9 +426,9 @@ print(f"Predicción con modelo cargado: {iris.target_names[prediction_loaded[0]]
 ### 🎯 Features clave
 
 1. **petal length** (44.5%) - Más importante
-2. **petal width** (42.5%)
-3. **sepal length** (8.9%)
-4. **sepal width** (4.0%)
+1. **petal width** (42.5%)
+1. **sepal length** (8.9%)
+1. **sepal width** (4.0%)
 
 ### 🔍 Observaciones
 
@@ -428,18 +437,18 @@ print(f"Predicción con modelo cargado: {iris.target_names[prediction_loaded[0]]
 - Versicolor/Virginica overlap mínimo
 - No hubo overfitting (CV y test performance similares)
 
----
+______________________________________________________________________
 
 ## 🎓 Lecciones aprendidas
 
 ### ✅ Buenas prácticas aplicadas
 
 1. **Train/test split estratificado** → Preserva distribución de clases
-2. **Escalado después de split** → Previene data leakage
-3. **Cross-validation** → Validación robusta (no confiar solo en test accuracy)
-4. **Comparación de múltiples modelos** → Baseline simple vs complejos
-5. **Pipeline de scikit-learn** → Reproducibilidad y prevenir errores
-6. **Feature importance** → Interpretabilidad
+1. **Escalado después de split** → Previene data leakage
+1. **Cross-validation** → Validación robusta (no confiar solo en test accuracy)
+1. **Comparación de múltiples modelos** → Baseline simple vs complejos
+1. **Pipeline de scikit-learn** → Reproducibilidad y prevenir errores
+1. **Feature importance** → Interpretabilidad
 
 ### 🚫 Errores comunes evitados
 
@@ -459,9 +468,10 @@ print(f"Predicción con modelo cargado: {iris.target_names[prediction_loaded[0]]
 ### 💡 Próximos pasos
 
 Para datasets reales más complejos:
+
 1. Manejo de missing values y outliers
-2. Feature engineering más sofisticado
-3. Hyperparameter tuning (Grid Search, Random Search)
-4. Análisis de errores (por qué el modelo falla)
-5. Calibración de probabilidades
-6. Threshold optimization (si costos de FP/FN difieren)
+1. Feature engineering más sofisticado
+1. Hyperparameter tuning (Grid Search, Random Search)
+1. Análisis de errores (por qué el modelo falla)
+1. Calibración de probabilidades
+1. Threshold optimization (si costos de FP/FN difieren)

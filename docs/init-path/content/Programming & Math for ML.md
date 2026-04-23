@@ -27,4 +27,3 @@ Understand why a model works, not just how to use it.
 Apply math concepts to evaluate performance and tune models.
 Build pipelines that are maintainable and reproducible.
 Start here to build a solid base before tackling model architecture or fine-tuning foundation models.
-

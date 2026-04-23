@@ -7,7 +7,7 @@
 - Fine-tuning de modelos pequeños
 - Evaluar outputs de LLMs
 
----
+______________________________________________________________________
 
 ## 📚 Parte 1: Ejercicios Guiados
 
@@ -45,7 +45,7 @@ for i, output in enumerate(outputs, 1):
     print(f"{i}. {output['generated_text']}\\n")
 ```
 
----
+______________________________________________________________________
 
 ## 🚀 Parte 2: Ejercicios Propuestos
 
@@ -53,9 +53,10 @@ for i, output in enumerate(outputs, 1):
 
 **Enunciado:**
 Crea prompts con 3 ejemplos para clasificación:
+
 ```
 Classify: "Great product!" → Positive
-Classify: "Worst ever" → Negative  
+Classify: "Worst ever" → Negative
 Classify: "It's fine" → Neutral
 Classify: "[NEW_TEXT]" → ?
 ```
@@ -64,6 +65,7 @@ Classify: "[NEW_TEXT]" → ?
 
 **Enunciado:**
 Implementa CoT prompting:
+
 - Pide al modelo razonar paso a paso
 - Compara con respuesta directa
 
@@ -71,24 +73,27 @@ Implementa CoT prompting:
 
 **Enunciado:**
 Fine-tune un modelo pequeño (DistilBERT) con LoRA:
+
 1. Carga modelo base
-2. Agrega adaptadores LoRA
-3. Entrena en dataset custom
-4. Evalúa mejora
+1. Agrega adaptadores LoRA
+1. Entrena en dataset custom
+1. Evalúa mejora
 
 ### Ejercicio 2.4: RAGpipeline
 
 **Enunciado:**
 Implementa pipeline RAG simple:
+
 1. Vectoriza documentos con embeddings
-2. Retrieve top-k documentos relevantes
-3. Construye prompt con contexto
-4. Genera respuesta con LLM
+1. Retrieve top-k documentos relevantes
+1. Construye prompt con contexto
+1. Genera respuesta con LLM
 
 ### Ejercicio 2.5: Prompt Templating
 
 **Enunciado:**
 Crea sistema de templates reutilizables:
+
 ```python
 templates = {
     'summarize': "Summarize the following: {text}",
@@ -97,7 +102,7 @@ templates = {
 }
 ```
 
----
+______________________________________________________________________
 
 ## ✅ Checklist
 
@@ -107,7 +112,7 @@ templates = {
 - [ ] Implementar RAG básico
 - [ ] Evaluar calidad de outputs (BLEU, ROUGE)
 
----
+______________________________________________________________________
 
 ## 📚 Recursos
 

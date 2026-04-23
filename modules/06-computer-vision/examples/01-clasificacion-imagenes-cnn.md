@@ -8,7 +8,7 @@ Aprenderás a construir una **Convolutional Neural Network (CNN)** desde cero pa
 
 Clasificar imágenes de CIFAR-10 (10 clases: aviones, autos, pájaros, gatos, etc.) usando una CNN custom.
 
----
+______________________________________________________________________
 
 ## 🚀 Paso 1: Setup e importaciones
 
@@ -27,7 +27,7 @@ print(f"Device: {device}")
 torch.manual_seed(42)
 ```
 
----
+______________________________________________________________________
 
 ## 📥 Paso 2: Cargar CIFAR-10
 
@@ -62,6 +62,7 @@ classes = ('avión', 'auto', 'pájaro', 'gato', 'ciervo', 'perro', 'rana', 'caba
 ```
 
 **Salida:**
+
 ```
 Train: 50000 imágenes
 Test: 10000 imágenes
@@ -83,7 +84,7 @@ axes = axes.ravel()
 for i in range(10):
     image, label = train_dataset[i]
     image_denorm = denormalize(image).permute(1, 2, 0).numpy().clip(0, 1)
-    
+
     axes[i].imshow(image_denorm)
     axes[i].set_title(f'{classes[label]}')
     axes[i].axis('off')
@@ -108,7 +109,7 @@ print(f"Batches en train: {len(train_loader)}")
 print(f"Batches en test: {len(test_loader)}")
 ```
 
----
+______________________________________________________________________
 
 ## 🏗️ Paso 3: Arquitectura de CNN
 
@@ -128,67 +129,67 @@ class SimpleCNN(nn.Module):
     """
     def __init__(self, num_classes=10):
         super(SimpleCNN, self).__init__()
-        
+
         # BLOQUE CONVOLUCIONAL 1
         self.conv1 = nn.Conv2d(in_channels=3, out_channels=32, kernel_size=3, padding=1)
         # Input: [batch, 3, 32, 32] → Output: [batch, 32, 32, 32]
         self.bn1 = nn.BatchNorm2d(32)  # Batch Normalization
         self.pool1 = nn.MaxPool2d(kernel_size=2, stride=2)
         # Output: [batch, 32, 16, 16]
-        
+
         # BLOQUE CONVOLUCIONAL 2
         self.conv2 = nn.Conv2d(32, 64, kernel_size=3, padding=1)
         # Output: [batch, 64, 16, 16]
         self.bn2 = nn.BatchNorm2d(64)
         self.pool2 = nn.MaxPool2d(2, 2)
         # Output: [batch, 64, 8, 8]
-        
+
         # BLOQUE CONVOLUCIONAL 3
         self.conv3 = nn.Conv2d(64, 128, kernel_size=3, padding=1)
         # Output: [batch, 128, 8, 8]
         self.bn3 = nn.BatchNorm2d(128)
-        
+
         # FULLY CONNECTED LAYERS
         self.fc1 = nn.Linear(128 * 8 * 8, 256)
         self.fc2 = nn.Linear(256, 128)
         self.fc3 = nn.Linear(128, num_classes)
-        
+
         # REGULARIZACIÓN
         self.dropout = nn.Dropout(0.5)
         self.relu = nn.ReLU()
-    
+
     def forward(self, x):
         # Block 1
         x = self.conv1(x)
         x = self.bn1(x)
         x = self.relu(x)
         x = self.pool1(x)
-        
+
         # Block 2
         x = self.conv2(x)
         x = self.bn2(x)
         x = self.relu(x)
         x = self.pool2(x)
-        
+
         # Block 3
         x = self.conv3(x)
         x = self.bn3(x)
         x = self.relu(x)
-        
+
         # Flatten: [batch, 128, 8, 8] → [batch, 128*8*8]
         x = x.view(x.size(0), -1)
-        
+
         # FC layers
         x = self.fc1(x)
         x = self.relu(x)
         x = self.dropout(x)
-        
+
         x = self.fc2(x)
         x = self.relu(x)
         x = self.dropout(x)
-        
+
         x = self.fc3(x)  # No activation (logits)
-        
+
         return x
 
 model = SimpleCNN().to(device)
@@ -200,6 +201,7 @@ print(f"\nTotal de parámetros: {total_params:,}")
 ```
 
 **Salida:**
+
 ```
 SimpleCNN(
   (conv1): Conv2d(3, 32, kernel_size=(3, 3), padding=(1, 1))
@@ -213,13 +215,14 @@ Total de parámetros: 1,439,946
 ```
 
 **¿Por qué esta arquitectura?**
+
 - **Conv layers:** Detectan features (bordes, texturas, formas)
 - **BatchNorm:** Normaliza activaciones → entrenamiento más estable
 - **MaxPool:** Reduce dimensionalidad, invarianza a traslaciones
 - **Dropout:** Previene overfitting
 - **FC layers:** Combinan features para clasificación final
 
----
+______________________________________________________________________
 
 ## 🔧 Paso 4: Loss function y optimizador
 
@@ -231,7 +234,7 @@ optimizer = optim.Adam(model.parameters(), lr=0.001, weight_decay=5e-4)  # L2 re
 scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=3, verbose=True)
 ```
 
----
+______________________________________________________________________
 
 ## 🏋️ Paso 5: Entrenamiento
 
@@ -241,25 +244,25 @@ def train_epoch(model, loader, criterion, optimizer, device):
     running_loss = 0.0
     correct = 0
     total = 0
-    
+
     for images, labels in loader:
         images, labels = images.to(device), labels.to(device)
-        
+
         # Forward
         outputs = model(images)
         loss = criterion(outputs, labels)
-        
+
         # Backward
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
-        
+
         # Métricas
         running_loss += loss.item()
         _, predicted = torch.max(outputs, 1)
         total += labels.size(0)
         correct += (predicted == labels).sum().item()
-    
+
     epoch_loss = running_loss / len(loader)
     epoch_acc = 100 * correct / total
     return epoch_loss, epoch_acc
@@ -269,19 +272,19 @@ def evaluate(model, loader, criterion, device):
     running_loss = 0.0
     correct = 0
     total = 0
-    
+
     with torch.no_grad():
         for images, labels in loader:
             images, labels = images.to(device), labels.to(device)
-            
+
             outputs = model(images)
             loss = criterion(outputs, labels)
-            
+
             running_loss += loss.item()
             _, predicted = torch.max(outputs, 1)
             total += labels.size(0)
             correct += (predicted == labels).sum().item()
-    
+
     epoch_loss = running_loss / len(loader)
     epoch_acc = 100 * correct / total
     return epoch_loss, epoch_acc
@@ -296,15 +299,15 @@ print("=== ENTRENAMIENTO ===\n")
 for epoch in range(num_epochs):
     train_loss, train_acc = train_epoch(model, train_loader, criterion, optimizer, device)
     test_loss, test_acc = evaluate(model, test_loader, criterion, device)
-    
+
     train_losses.append(train_loss)
     train_accs.append(train_acc)
     test_losses.append(test_loss)
     test_accs.append(test_acc)
-    
+
     # Learning rate scheduling
     scheduler.step(test_loss)
-    
+
     print(f"Epoch [{epoch+1}/{num_epochs}] | "
           f"Train Loss: {train_loss:.4f}, Train Acc: {train_acc:.2f}% | "
           f"Test Loss: {test_loss:.4f}, Test Acc: {test_acc:.2f}%")
@@ -313,6 +316,7 @@ print("\n=== ENTRENAMIENTO COMPLETADO ===")
 ```
 
 **Salida esperada:**
+
 ```
 === ENTRENAMIENTO ===
 
@@ -324,7 +328,7 @@ Epoch [25/25] | Train Loss: 0.3421, Train Acc: 88.12% | Test Loss: 0.5678, Test 
 === ENTRENAMIENTO COMPLETADO ===
 ```
 
----
+______________________________________________________________________
 
 ## 📊 Paso 6: Visualizar curvas
 
@@ -354,10 +358,11 @@ plt.show()
 ```
 
 **Observaciones:**
+
 - Train acc (~88%) > Test acc (~79%) → overfitting moderado
 - Data augmentation + Dropout mitigan overfitting
 
----
+______________________________________________________________________
 
 ## 🔍 Paso 7: Predicción y matriz de confusión
 
@@ -374,7 +379,7 @@ with torch.no_grad():
         images = images.to(device)
         outputs = model(images)
         _, predicted = torch.max(outputs, 1)
-        
+
         all_preds.extend(predicted.cpu().numpy())
         all_labels.extend(labels.numpy())
 
@@ -392,7 +397,7 @@ import seaborn as sns
 cm = confusion_matrix(all_labels, all_preds)
 
 plt.figure(figsize=(10, 8))
-sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', 
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues',
             xticklabels=classes, yticklabels=classes)
 plt.ylabel('True Label')
 plt.xlabel('Predicted Label')
@@ -405,6 +410,7 @@ print(classification_report(all_labels, all_preds, target_names=classes))
 ```
 
 **Salida esperada:**
+
 ```
 === CLASSIFICATION REPORT ===
 
@@ -427,10 +433,11 @@ weighted avg       0.79      0.79      0.79     10000
 ```
 
 **Análisis:**
+
 - Gato y perro: Peor performance (se parecen visualmente)
 - Auto, camión, avión: Mejor performance (formas distintivas)
 
----
+______________________________________________________________________
 
 ## 🎨 Paso 8: Visualizar predicciones incorrectas
 
@@ -447,11 +454,11 @@ for i, idx in enumerate(incorrect_indices[:10]):
     # Obtener imagen del dataset
     image, true_label = test_dataset[idx]
     image_denorm = denormalize(image).permute(1, 2, 0).numpy().clip(0, 1)
-    
+
     pred_label = all_preds[idx]
-    
+
     axes[i].imshow(image_denorm)
-    axes[i].set_title(f'True: {classes[true_label]}\nPred: {classes[pred_label]}', 
+    axes[i].set_title(f'True: {classes[true_label]}\nPred: {classes[pred_label]}',
                       color='red', fontsize=10)
     axes[i].axis('off')
 
@@ -459,7 +466,7 @@ plt.tight_layout()
 plt.show()
 ```
 
----
+______________________________________________________________________
 
 ## 📝 Resumen ejecutivo
 
@@ -493,66 +500,80 @@ FC(10) → Logits
 ### 🎯 Técnicas aplicadas
 
 1. **Data Augmentation:**
+
    - RandomHorizontalFlip
    - RandomCrop con padding
    - **Efecto:** Reduce overfitting ~5-7%
 
-2. **Batch Normalization:**
+1. **Batch Normalization:**
+
    - Normaliza activaciones entre capas
    - **Efecto:** Entrenamiento más estable y rápido
 
-3. **Dropout (0.5):**
+1. **Dropout (0.5):**
+
    - Desactiva neuronas aleatoriamente
    - **Efecto:** Previene overfitting
 
-4. **Learning Rate Scheduling:**
+1. **Learning Rate Scheduling:**
+
    - Reduce LR cuando test loss estanca
    - **Efecto:** Mejora convergencia final
 
-5. **L2 Regularization (weight_decay=5e-4):**
+1. **L2 Regularization (weight_decay=5e-4):**
+
    - Penaliza pesos grandes
    - **Efecto:** Generalización mejorada
 
----
+______________________________________________________________________
 
 ## 🎓 Lecciones aprendidas
 
 ### ✅ Componentes de CNNs
 
 **Convolutional Layer:**
+
 - **Parámetros:** `(kernel_size × kernel_size × in_channels + 1) × out_channels`
 - **Ejemplo:** Conv2d(3, 32, kernel_size=3) → (3×3×3 + 1) × 32 = 896 parámetros
 - **Función:** Detectar features locales (bordes, texturas)
 
 **MaxPooling:**
+
 - **¿Por qué?** Reduce dimensionalidad, añade invarianza espacial
 - **Trade-off:** Pierde información de ubicación exacta
 
 **Batch Normalization:**
+
 - **Ventajas:** Acelera entrenamiento, permite LR más altos, reduce overfitting leve
 - **Ubicación:** Antes o después de activación (experimentar)
 
 **Dropout:**
+
 - **En CNNs:** Típicamente en FC layers, no en Conv layers
 - **Alternativa:** DropBlock para Conv layers
 
 ### 💡 Mejoras posibles
 
 1. **Arquitectura más profunda:**
+
    - Agregar más bloques Conv
    - Usar residual connections (ResNet)
-   
-2. **Data augmentation avanzada:**
+
+1. **Data augmentation avanzada:**
+
    - ColorJitter, RandomRotation, Cutout
-   
-3. **Transfer Learning:**
+
+1. **Transfer Learning:**
+
    - Usar modelo preentrenado (ResNet50, EfficientNet)
    - Fine-tuning en CIFAR-10
-   
-4. **Mixup / CutMix:**
+
+1. **Mixup / CutMix:**
+
    - Técnicas de augmentation a nivel de batch
-   
-5. **Optimizador avanzado:**
+
+1. **Optimizador avanzado:**
+
    - SGD con momentum
    - AdamW
 
@@ -564,7 +585,7 @@ FC(10) → Logits
 - ❌ **Dropout en últimas capas conv:** Puede dañar features espaciales
 - ❌ **LR muy alto:** Diverge (especialmente sin BN)
 
----
+______________________________________________________________________
 
 ## 🔧 Guardar y cargar modelo
 

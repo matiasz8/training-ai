@@ -7,7 +7,7 @@
 - Evaluar con mAP e IoU
 - Deploy en tiempo real
 
----
+______________________________________________________________________
 
 ## 📚 Parte 1: Ejercicios Guiados
 
@@ -32,7 +32,7 @@ detections = results.xyxy[0]  # x1, y1, x2, y2, confidence, class
 print(detections)
 ```
 
----
+______________________________________________________________________
 
 ## 🚀 Parte 2: Ejercicios Propuestos
 
@@ -40,6 +40,7 @@ print(detections)
 
 **Enunciado:**
 Fine-tune YOLO en dataset custom:
+
 - Anota imágenes con bounding boxes
 - Entrena YOLOv5
 - Evalúa mAP@0.5 y mAP@0.5:0.95
@@ -48,6 +49,7 @@ Fine-tune YOLO en dataset custom:
 
 **Enunciado:**
 Usa Mask R-CNN pre-entrenado:
+
 - Detecta y segmenta instancias
 - Dibuja máscaras por objeto
 - Calcula IoU
@@ -56,6 +58,7 @@ Usa Mask R-CNN pre-entrenado:
 
 **Enunciado:**
 Procesa video frame-by-frame:
+
 - Detecta objetos en cada frame
 - Dibuja bounding boxes
 - Calcula FPS (frames per second)
@@ -64,6 +67,7 @@ Procesa video frame-by-frame:
 
 **Enunciado:**
 Implementa NMS desde cero:
+
 - Filtra bounding boxes overlapping
 - Usa IoU threshold (0.5)
 - Mantiene solo detecciones con mayor confidence
@@ -72,11 +76,12 @@ Implementa NMS desde cero:
 
 **Enunciado:**
 Implementa tracker simple:
+
 - Asigna IDs a objetos detectados
 - Trackea movimiento entre frames
 - Visualiza trayectorias
 
----
+______________________________________________________________________
 
 ## ✅ Checklist
 
@@ -86,7 +91,7 @@ Implementa tracker simple:
 - [ ] Procesar video en tiempo real
 - [ ] Implementar NMS y tracking
 
----
+______________________________________________________________________
 
 ## 📚 Recursos
 

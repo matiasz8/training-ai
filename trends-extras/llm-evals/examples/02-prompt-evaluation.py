@@ -39,7 +39,7 @@ def mock_llm(prompt: str, model: str = "gpt-3.5-turbo") -> str:
             "The capital of France is Paris, which is a beautiful city...",
             "Paris is the capital.",
         ]
-    
+
     return random.choice(responses)
 
 
@@ -61,41 +61,41 @@ class PromptEvaluator:
     """
     Evalúa prompts automáticamente.
     """
-    
+
     def __init__(self, test_questions: List[str]):
         self.test_questions = test_questions
-    
+
     def evaluate_prompt(self, prompt_template: str, prompt_id: str) -> EvalResult:
         """
         Evalúa un prompt en el test set.
         """
         responses = []
-        
+
         for question in self.test_questions:
             prompt = prompt_template.format(question=question)
             response = mock_llm(prompt)
             responses.append(response)
-        
+
         # Calculate metrics
         avg_length = sum(len(r.split()) for r in responses) / len(responses)
-        
+
         # Check if Spanish
         spanish_words = ["es", "la", "de", "el", "una"]
         correct_language = sum(
             any(word in r.lower() for word in spanish_words)
             for r in responses
         ) / len(responses)
-        
+
         # Check conciseness (< 15 words)
         concise = sum(len(r.split()) <= 15 for r in responses) / len(responses)
-        
+
         # Overall score (weighted)
         overall = (
             correct_language * 0.5 +
             concise * 0.3 +
             (1 - min(avg_length / 20, 1.0)) * 0.2  # Penalize verbosity
         )
-        
+
         return EvalResult(
             prompt_id=prompt_id,
             avg_length=avg_length,
@@ -116,32 +116,32 @@ def ab_test_prompts(
 ) -> Dict[str, Any]:
     """
     A/B test multiple prompts.
-    
+
     Args:
         prompts: {prompt_id: prompt_template}
         test_set: List of test questions
         metrics: Metrics to report
-    
+
     Returns:
         Results dict with winner
     """
     evaluator = PromptEvaluator(test_set)
     results = {}
-    
+
     print("🧪 Running A/B Test...\n")
-    
+
     for prompt_id, prompt_template in prompts.items():
         print(f"📝 Testing Prompt {prompt_id}:")
         print(f"   {prompt_template[:80]}...")
-        
+
         result = evaluator.evaluate_prompt(prompt_template, prompt_id)
         results[prompt_id] = result
-        
+
         print(f"   ✅ Overall Score: {result.overall_score:.3f}\n")
-    
+
     # Determine winner
     winner = max(results.items(), key=lambda x: x[1].overall_score)
-    
+
     return {
         "results": results,
         "winner": winner[0],
@@ -162,7 +162,7 @@ def evaluate_prompt_real(prompt_template: str, test_set: List[str]) -> float:
     Evalúa prompt con LLM real.
     '''
     scores = []
-    
+
     for question in test_set:
         # 1. Generate response
         prompt = prompt_template.format(question=question)
@@ -170,25 +170,25 @@ def evaluate_prompt_real(prompt_template: str, test_set: List[str]) -> float:
             model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": prompt}]
         ).choices[0].message.content
-        
+
         # 2. Evaluate with GPT-4 as judge
         eval_prompt = f'''
         Evalúa esta respuesta en escala 1-5:
-        
+
         Pregunta: {question}
         Respuesta: {response}
-        
+
         Criterios: claridad, concisión, corrección
         Responde solo el número.
         '''
-        
+
         score = float(openai.ChatCompletion.create(
             model="gpt-4",
             messages=[{"role": "user", "content": eval_prompt}]
         ).choices[0].message.content.strip())
-        
+
         scores.append(score)
-    
+
     return sum(scores) / len(scores)
 
 
@@ -219,27 +219,27 @@ def demo_basic_ab_test():
     print("="*70)
     print("DEMO 1: Basic A/B Test")
     print("="*70 + "\n")
-    
+
     # Test set
     test_questions = [
         "¿Cuál es la capital de Francia?",
         "¿Cuál es la capital de España?",
         "¿Cuál es la capital de Italia?",
     ]
-    
+
     # Prompts to test
     prompts = {
         "A_baseline": "Responde: {question}",
         "B_role": "Eres un asistente útil. Responde: {question}",
         "C_detailed": "Eres un asistente útil. Responde en español de forma concisa: {question}",
     }
-    
+
     results = ab_test_prompts(prompts, test_questions)
-    
+
     print("🏆 RESULTS:")
     print(f"   Winner: Prompt {results['winner']}")
     print(f"   Score:  {results['winner_score']:.3f}\n")
-    
+
     # Detailed comparison
     print("📊 Detailed Comparison:")
     for prompt_id, result in results['results'].items():
@@ -255,32 +255,32 @@ def demo_iterative_improvement():
     print("\n" + "="*70)
     print("DEMO 2: Iterative Prompt Improvement")
     print("="*70 + "\n")
-    
+
     test_questions = [
         "¿Cuál es la capital de Francia?",
         "¿Quién escribió Don Quijote?",
     ]
-    
+
     iterations = [
         ("v1_basic", "Responde: {question}"),
         ("v2_role", "Eres un experto. Responde: {question}"),
         ("v3_constraints", "Eres un experto. Responde en español, máximo 10 palabras: {question}"),
         ("v4_format", "Eres un experto. Responde en español de forma concisa y clara: {question}"),
     ]
-    
+
     print("🔄 Iterative Improvement:\n")
-    
+
     previous_score = 0
     for version, prompt in iterations:
         evaluator = PromptEvaluator(test_questions)
         result = evaluator.evaluate_prompt(prompt, version)
-        
+
         improvement = result.overall_score - previous_score
         emoji = "📈" if improvement > 0 else "📉"
-        
+
         print(f"{emoji} {version}: {result.overall_score:.3f} (Δ {improvement:+.3f})")
         previous_score = result.overall_score
-    
+
     print("\n💡 Iterate until convergence or diminishing returns")
 
 
@@ -289,23 +289,23 @@ def demo_statistical_significance():
     print("\n" + "="*70)
     print("DEMO 3: Statistical Significance")
     print("="*70 + "\n")
-    
+
     print("⚠️  Common Mistake: Declaring winner too early!\n")
-    
+
     # Small test set
     print("🔸 Test with 3 questions:")
     print("   Prompt A: 0.85")
     print("   Prompt B: 0.87")
     print("   Difference: 0.02")
     print("   ❌ NOT statistically significant (too few samples)\n")
-    
+
     # Large test set
     print("🔸 Test with 100 questions:")
     print("   Prompt A: 0.85 ± 0.03")
     print("   Prompt B: 0.87 ± 0.02")
     print("   p-value: 0.03")
     print("   ✅ Statistically significant (p < 0.05)\n")
-    
+
     print("💡 Best Practices:")
     print("   • Use ≥50 test questions")
     print("   • Run multiple trials")
@@ -318,21 +318,21 @@ def demo_multidimensional_evaluation():
     print("\n" + "="*70)
     print("DEMO 4: Multi-Dimensional Evaluation")
     print("="*70 + "\n")
-    
+
     print("📊 Don't just optimize for ONE metric!\n")
-    
+
     print("Prompt A:")
     print("  Accuracy:  ████████░░ 80%")
     print("  Latency:   ██░░░░░░░░ 2.5s")
     print("  Cost:      ████████░░ $0.05")
     print("  Concise:   ███████░░░ 70%\n")
-    
+
     print("Prompt B:")
     print("  Accuracy:  ██████░░░░ 60%")
     print("  Latency:   █████████░ 0.8s")
     print("  Cost:      ██░░░░░░░░ $0.01")
     print("  Concise:   █████████░ 90%\n")
-    
+
     print("💡 Choose based on priorities:")
     print("   • Production app → Optimize latency + cost")
     print("   • Critical QA → Optimize accuracy")
@@ -344,7 +344,7 @@ def demo_prompt_versioning():
     print("\n" + "="*70)
     print("DEMO 5: Prompt Versioning")
     print("="*70 + "\n")
-    
+
     print("📝 PROMPT VERSIONING SYSTEM:\n")
     print("""
     prompts/
@@ -366,7 +366,7 @@ def demo_prompt_versioning():
             Score: 0.83 (↓ 2.4%)
             ❌ Rejected
     """)
-    
+
     print("💡 Benefits:")
     print("   • Reproducibility")
     print("   • Rollback capability")
@@ -376,13 +376,13 @@ def demo_prompt_versioning():
 if __name__ == "__main__":
     print("\n🎯 PROMPT EVALUATION & A/B TESTING")
     print("📊 Data-driven prompt engineering\n")
-    
+
     demo_basic_ab_test()
     demo_iterative_improvement()
     demo_statistical_significance()
     demo_multidimensional_evaluation()
     demo_prompt_versioning()
-    
+
     print("\n" + "="*70)
     print("💡 BEST PRACTICES:")
     print("="*70)
@@ -393,7 +393,7 @@ if __name__ == "__main__":
     print("  ✅ A/B test in production (slowly)")
     print("  ✅ Monitor for regressions")
     print("  ✅ Document why changes were made")
-    
+
     print("\n" + "="*70)
     print("CÓDIGO REAL (con OpenAI):")
     print("="*70)

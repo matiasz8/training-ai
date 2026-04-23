@@ -74,27 +74,27 @@ class MMLUEvaluator:
     Evalúa modelo en MMLU benchmark.
     Mide conocimiento general en 57 subjects.
     """
-    
+
     def __init__(self):
         self.questions = MMLU_SAMPLE
-    
+
     def evaluate(self, model_fn) -> Dict:
         """
         Evalúa modelo.
-        
+
         Args:
             model_fn: Función que toma (question, choices) y retorna índice
         """
         correct = 0
         total = len(self.questions)
-        
+
         for q in self.questions:
             prediction = model_fn(q["question"], q["choices"])
             if prediction == q["answer"]:
                 correct += 1
-        
+
         accuracy = correct / total
-        
+
         return {
             "accuracy": accuracy,
             "correct": correct,
@@ -106,10 +106,10 @@ class HellaSwagEvaluator:
     """
     Evalúa common sense reasoning.
     """
-    
+
     def __init__(self):
         self.examples = HELLASWAG_SAMPLE
-    
+
     def evaluate(self, model_fn) -> Dict:
         """
         Args:
@@ -117,14 +117,14 @@ class HellaSwagEvaluator:
         """
         correct = 0
         total = len(self.examples)
-        
+
         for ex in self.examples:
             prediction = model_fn(ex["context"], ex["endings"])
             if prediction == ex["answer"]:
                 correct += 1
-        
+
         accuracy = correct / total
-        
+
         return {
             "accuracy": accuracy,
             "correct": correct,
@@ -150,13 +150,13 @@ def model_smart(question: str, choices: List[str]) -> int:
     """Mock smart model (simulates reasoning)."""
     # Simple heuristic: pick choice with most matches to question words
     question_words = set(question.lower().split())
-    
+
     scores = []
     for choice in choices:
         choice_words = set(choice.lower().split())
         overlap = len(question_words & choice_words)
         scores.append(overlap)
-    
+
     return scores.index(max(scores))
 
 
@@ -180,35 +180,35 @@ def evaluate_mmlu(model_name: str, subject: str = "college_mathematics"):
     Evalúa modelo en MMLU.
     '''
     test_data = dataset["test"].filter(lambda x: x["subject"] == subject)
-    
+
     correct = 0
     total = len(test_data)
-    
+
     for example in test_data:
         # Format prompt
         prompt = f'''
         Question: {example["question"]}
-        
+
         A) {example["choices"][0]}
         B) {example["choices"][1]}
         C) {example["choices"][2]}
         D) {example["choices"][3]}
-        
+
         Answer (A/B/C/D):
         '''
-        
+
         # Get prediction
         response = openai.ChatCompletion.create(
             model=model_name,
             messages=[{"role": "user", "content": prompt}],
             max_tokens=1
         ).choices[0].message.content.strip()
-        
+
         # Check correctness
         prediction = ord(response.upper()) - ord('A')
         if prediction == example["answer"]:
             correct += 1
-    
+
     accuracy = correct / total
     print(f"{subject}: {accuracy:.1%}")
     return accuracy
@@ -225,27 +225,27 @@ def evaluate_hellaswag(model_name: str):
     Evalúa common sense reasoning.
     '''
     test_data = dataset["validation"][:100]  # Sample
-    
+
     correct = 0
     for example in test_data:
         context = example["ctx"]
         endings = example["endings"]
-        
+
         # Score each ending
         scores = []
         for ending in endings:
             prompt = f"{context} {ending}"
-            
+
             # Get log probability (mejor que generar texto)
             # Usar model.score() o similar
             score = get_log_prob(model_name, prompt)
             scores.append(score)
-        
+
         # Most likely ending
         prediction = scores.index(max(scores))
         if prediction == example["label"]:
             correct += 1
-    
+
     accuracy = correct / len(test_data)
     return accuracy
 
@@ -293,27 +293,27 @@ def demo_mmlu():
     print("="*70)
     print("DEMO 1: MMLU (Multi-task Language Understanding)")
     print("="*70 + "\n")
-    
+
     evaluator = MMLUEvaluator()
-    
+
     print("📚 MMLU: 57 subjects, 14,000+ questions")
     print("   • STEM: math, physics, chemistry, biology")
     print("   • Humanities: history, philosophy, law")
     print("   • Social Sciences: psychology, economics\n")
-    
+
     # Evaluate models
     models = {
         "Random Baseline": model_random,
         "First Choice Baseline": model_first,
         "Smart Model": model_smart,
     }
-    
+
     print("🔬 Evaluating models...\n")
-    
+
     for name, model_fn in models.items():
         result = evaluator.evaluate(model_fn)
         print(f"{name:25s}: {result['accuracy']:.1%} ({result['correct']}/{result['total']})")
-    
+
     print("\n💡 Random guessing: ~25% (4 choices)")
     print("💡 GPT-3.5: ~70%")
     print("💡 GPT-4: ~86%")
@@ -324,18 +324,18 @@ def demo_hellaswag():
     print("\n" + "="*70)
     print("DEMO 2: HellaSwag (Common Sense Reasoning)")
     print("="*70 + "\n")
-    
+
     evaluator = HellaSwagEvaluator()
-    
+
     print("🤔 HellaSwag: Choose most plausible continuation\n")
-    
+
     example = HELLASWAG_SAMPLE[0]
     print(f"Context: {example['context']}\n")
     print("Endings:")
     for i, ending in enumerate(example['endings']):
         marker = "✅" if i == example['answer'] else "  "
         print(f"  {marker} {chr(65+i)}) {ending}")
-    
+
     print("\n💡 Requiere common sense reasoning")
     print("💡 Humanos: ~95%")
     print("💡 GPT-3: ~78%")
@@ -347,16 +347,16 @@ def demo_truthfulqa():
     print("\n" + "="*70)
     print("DEMO 3: TruthfulQA (Truthfulness)")
     print("="*70 + "\n")
-    
+
     print("🎯 TruthfulQA: Detect misconceptions and myths\n")
-    
+
     example = TRUTHFULQA_SAMPLE[0]
     print(f"Question: {example['question']}\n")
     print(f"✅ Truthful: {example['best_answer']}\n")
     print("❌ Common misconceptions:")
     for ans in example['incorrect_answers']:
         print(f"   • {ans}")
-    
+
     print("\n💡 Models often repeat popular misconceptions")
     print("💡 GPT-3: ~50% truthful")
     print("💡 GPT-4: ~75% truthful")
@@ -367,7 +367,7 @@ def demo_benchmark_leaderboard():
     print("\n" + "="*70)
     print("DEMO 4: Benchmark Leaderboard (2024)")
     print("="*70 + "\n")
-    
+
     print("📊 MODEL PERFORMANCE (aproximado):\n")
     print("╔════════════════════╦═══════╦═══════════╦══════════════╗")
     print("║ Model              ║ MMLU  ║ HellaSwag ║  HumanEval   ║")
@@ -379,7 +379,7 @@ def demo_benchmark_leaderboard():
     print("║ Llama-2-13B        ║ 54.8% ║   79.2%   ║    18.3%     ║")
     print("║ Random Baseline    ║ 25.0% ║   25.0%   ║     0.0%     ║")
     print("╚════════════════════╩═══════╩═══════════╩══════════════╝")
-    
+
     print("\n💡 Use benchmarks to:")
     print("   • Compare models objectively")
     print("   • Track progress over time")
@@ -392,7 +392,7 @@ def demo_creating_custom_benchmark():
     print("\n" + "="*70)
     print("DEMO 5: Creating Custom Benchmark")
     print("="*70 + "\n")
-    
+
     print("📝 CUSTOM BENCHMARK TEMPLATE:\n")
     print("""
     my_domain_benchmark/
@@ -417,7 +417,7 @@ def demo_creating_custom_benchmark():
             |-------|----------|---------|
             | ...   | ...      | ...     |
     """)
-    
+
     print("💡 Best Practices:")
     print("   ✅ Diverse test cases (≥100)")
     print("   ✅ Multiple difficulty levels")
@@ -430,13 +430,13 @@ def demo_creating_custom_benchmark():
 if __name__ == "__main__":
     print("\n🎯 BENCHMARK EVALUATION")
     print("📊 Evaluate LLMs on standard benchmarks\n")
-    
+
     demo_mmlu()
     demo_hellaswag()
     demo_truthfulqa()
     demo_benchmark_leaderboard()
     demo_creating_custom_benchmark()
-    
+
     print("\n" + "="*70)
     print("🌐 PUBLIC LEADERBOARDS:")
     print("="*70)
@@ -444,7 +444,7 @@ if __name__ == "__main__":
     print("  • Open LLM Leaderboard: https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard")
     print("  • Chatbot Arena: https://chat.lmsys.org/")
     print("  • AlpacaEval: https://tatsu-lab.github.io/alpaca_eval/")
-    
+
     print("\n" + "="*70)
     print("CÓDIGO REAL:")
     print("="*70)

@@ -16,7 +16,6 @@ Core Topics
 
 Advanced & Specialized Topics
 
-
 Each section provides learning materials, examples, use cases, and hands-on tools.
 
 📌 How to Use This Roadmap
@@ -25,5 +24,3 @@ Hands-on Learning: Apply each concept in real-world projects, notebooks, and pip
 Use Cases First: Focus on solving problems (e.g., fraud detection, chatbots) over theory.
 Certifications & Practice: Validate your skills with recognized certs (AWS, DeepLearning.AI).
 Stay Up-to-Date: Subscribe to newsletters, follow AI blogs, and explore open-source tools.
-
-

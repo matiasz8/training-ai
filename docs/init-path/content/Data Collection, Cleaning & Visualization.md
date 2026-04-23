@@ -28,5 +28,4 @@ Explore real-world datasets on Kaggle
 Perform data cleaning on UCI Machine Learning Repository
 Create visual dashboards with tools like Streamlit or Plotly Dash
 
-
 Effective data preparation ensures your models are built on solid ground. Mastering this step helps you identify patterns, detect issues early, and communicate insights clearly to stakeholders.

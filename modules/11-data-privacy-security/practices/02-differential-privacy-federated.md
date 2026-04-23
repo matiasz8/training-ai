@@ -7,7 +7,7 @@
 - Federated learning simulation
 - Trade-off privacy/accuracy
 
----
+______________________________________________________________________
 
 ## 📚 Parte 1: Ejercicios Guiados
 
@@ -19,7 +19,7 @@ import numpy as np
 def laplace_mechanism(true_value, sensitivity, epsilon):
     """
     Añade ruido Laplaciano para differential privacy.
-    
+
     Args:
         true_value: Valor real
         sensitivity: Sensibilidad de la query
@@ -46,7 +46,7 @@ for eps in epsilons:
     print(f"ε={eps:4.1f}: {private_mean:.2f} (error: {error:.2f})")
 ```
 
----
+______________________________________________________________________
 
 ## 🚀 Parte 2: Ejercicios Propuestos
 
@@ -54,6 +54,7 @@ for eps in epsilons:
 
 **Enunciado:**
 Implementa DP-SGD:
+
 - Clip gradients por sample
 - Añade ruido gaussiano a batch gradient
 - Track privacy budget (ε, δ)
@@ -62,6 +63,7 @@ Implementa DP-SGD:
 
 **Enunciado:**
 Sistema de accounting:
+
 - Composición de queries
 - Calculate cumulative ε
 - Stop cuando budget agotado
@@ -70,6 +72,7 @@ Sistema de accounting:
 
 **Enunciado:**
 Simula FL con 5 clientes:
+
 - Cada cliente entrena localmente
 - Servidor agrega pesos
 - FedAvg algorithm
@@ -79,6 +82,7 @@ Simula FL con 5 clientes:
 
 **Enunciado:**
 Agrega gradients sin revelar:
+
 - Secret sharing scheme
 - Servidor solo ve agregado
 - Clientes no ven gradients de otros
@@ -87,11 +91,12 @@ Agrega gradients sin revelar:
 
 **Enunciado:**
 Experimenta con ε:
+
 - Vary epsilon: [0.1, 0.5, 1.0, 5.0, 10.0]
 - Plot accuracy vs epsilon
 - Find acceptable trade-off
 
----
+______________________________________________________________________
 
 ## ✅ Checklist
 
@@ -101,7 +106,7 @@ Experimenta con ε:
 - [ ] Federated learning simulation
 - [ ] Privacy-utility trade-off analysis
 
----
+______________________________________________________________________
 
 ## 📚 Recursos
 

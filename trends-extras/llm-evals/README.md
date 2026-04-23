@@ -1,9 +1,11 @@
 # LLM Evals — Evaluación Sistemática de LLMs
 
 ## 🎯 Objetivo
+
 Implementar evaluaciones rigurosas para LLMs y AI systems: benchmarks, métricas automáticas, human feedback, y frameworks de evaluation.
 
 ## 💡 Qué aprenderás
+
 - Evaluation frameworks (LangChain Evals, PromptFoo, OpenAI Evals)
 - Métricas automáticas (BLEU, ROUGE, BERTScore, perplexity)
 - Human evaluation (RLHF basics, pairwise comparison, Likert scales)
@@ -15,6 +17,7 @@ Implementar evaluaciones rigurosas para LLMs y AI systems: benchmarks, métricas
 ## 📂 Contenido
 
 ### Examples
+
 - **01-automatic-metrics.py**: BLEU, ROUGE, BERTScore para text generation
 - **02-prompt-evaluation.py**: Comparar múltiples prompts con métricas
 - **03-benchmark-evaluation.py**: Evaluar LLM en benchmarks estándar
@@ -23,6 +26,7 @@ Implementar evaluaciones rigurosas para LLMs y AI systems: benchmarks, métricas
 ## 🔑 Conceptos Clave
 
 ### Evaluation Pyramid
+
 ```
 ┌────────────────────────┐
 │   Human Evaluation     │ ← Gold standard, caro, lento
@@ -38,32 +42,36 @@ Implementar evaluaciones rigurosas para LLMs y AI systems: benchmarks, métricas
 ### Métricas por Tipo de Tarea
 
 **Text Generation:**
+
 - BLEU (n-gram overlap con referencia)
 - ROUGE (recall-oriented para summarization)
 - BERTScore (semantic similarity con embeddings)
 - METEOR (considera synonyms y stemming)
 
 **Question Answering:**
+
 - Exact Match (EM)
 - F1 Score (token-level)
 - Answer accuracy
 
 **Classification:**
+
 - Accuracy, Precision, Recall, F1
 - Confusion matrix
 
 **Code Generation:**
+
 - Pass@k (% tests passed)
 - Execution accuracy
 
 ## 📊 Frameworks Comparison
 
-| Framework | Pros | Cons | Best For |
-|-----------|------|------|----------|
-| **LangChain Evals** | Integrado con LangChain | Documentación dispersa | LangChain apps |
-| **PromptFoo** | CLI friendly, configs YAML | Menos programático | Prompt engineering |
-| **OpenAI Evals** | Community benchmarks | Requiere OpenAI | Comparing models |
-| **Evidently AI** | Drift detection | Más para monitoring | Production |
+| Framework           | Pros                       | Cons                   | Best For           |
+| ------------------- | -------------------------- | ---------------------- | ------------------ |
+| **LangChain Evals** | Integrado con LangChain    | Documentación dispersa | LangChain apps     |
+| **PromptFoo**       | CLI friendly, configs YAML | Menos programático     | Prompt engineering |
+| **OpenAI Evals**    | Community benchmarks       | Requiere OpenAI        | Comparing models   |
+| **Evidently AI**    | Drift detection            | Más para monitoring    | Production         |
 
 ## 💻 LLM-as-Judge Pattern
 
@@ -110,13 +118,13 @@ print(f"Winner: {'B' if results_b['avg_score'] > results_a['avg_score'] else 'A'
 
 ## 📈 Benchmark Datasets
 
-| Benchmark | Task | Evalúa | Datasets |
-|-----------|------|--------|----------|
-| **MMLU** | Multi-choice QA | Knowledge | 57 subjects |
-| **HellaSwag** | Completion | Common sense | 10k scenarios |
-| **TruthfulQA** | QA | Truthfulness | 817 questions |
-| **HumanEval** | Code gen | Coding ability | 164 problems |
-| **GSM8K** | Math | Reasoning | 8.5k problems |
+| Benchmark      | Task            | Evalúa         | Datasets      |
+| -------------- | --------------- | -------------- | ------------- |
+| **MMLU**       | Multi-choice QA | Knowledge      | 57 subjects   |
+| **HellaSwag**  | Completion      | Common sense   | 10k scenarios |
+| **TruthfulQA** | QA              | Truthfulness   | 817 questions |
+| **HumanEval**  | Code gen        | Coding ability | 164 problems  |
+| **GSM8K**      | Math            | Reasoning      | 8.5k problems |
 
 ## 🔬 Regression Testing
 
@@ -142,34 +150,40 @@ def test_factuality():
 ```
 
 ## 🧪 Ejercicio Rápido
+
 1. **Setup**: `pip install rouge-score bert-score`
-2. **Ground truth**: Crea 10 Q&A pairs manualmente
-3. **Generate**: Obtén respuestas de LLM
-4. **Evaluate**: Calcula ROUGE y BERTScore
-5. **Iterate**: Mejora prompt, re-evalúa
+1. **Ground truth**: Crea 10 Q&A pairs manualmente
+1. **Generate**: Obtén respuestas de LLM
+1. **Evaluate**: Calcula ROUGE y BERTScore
+1. **Iterate**: Mejora prompt, re-evalúa
 
 ## 📚 Recursos Curados
 
 **Frameworks:**
+
 - [LangChain Evaluation](https://python.langchain.com/docs/guides/evaluation/)
 - [PromptFoo](https://github.com/promptfoo/promptfoo)
 - [OpenAI Evals](https://github.com/openai/evals)
 - [Ragas (RAG evaluation)](https://github.com/explodinggradients/ragas)
 
 **Metrics Libraries:**
+
 - [ROUGE](https://github.com/google-research/google-research/tree/master/rouge)
 - [BERTScore](https://github.com/Tiiiger/bert_score)
 - [SacreBLEU](https://github.com/mjpost/sacrebleu)
 
 **Benchmarks:**
+
 - [HELM (Stanford)](https://crfm.stanford.edu/helm/)
 - [Chatbot Arena Leaderboard](https://huggingface.co/spaces/lmsys/chatbot-arena-leaderboard)
 
 **Papers:**
+
 - [Holistic Evaluation of Language Models](https://arxiv.org/abs/2211.09110)
 - [Judging LLM-as-a-Judge](https://arxiv.org/abs/2306.05685)
 
 ## ✅ Checklist de Aprendizaje
+
 - [ ] Calcular métricas automáticas (BLEU, ROUGE, BERTScore)
 - [ ] Implementar LLM-as-Judge evaluation
 - [ ] A/B testing de prompts con test set
@@ -179,13 +193,40 @@ def test_factuality():
 - [ ] Cost-quality analysis (GPT-4 vs GPT-3.5 precision/cost)
 
 ## 🎯 Impacto Real
+
 - **Prompt Engineering**: Data-driven prompt optimization
 - **Model Selection**: Comparar modelos objetivamente (GPT-4 vs Claude vs Llama)
 - **Quality Assurance**: Detectar regressions antes de deploy
 - **Research**: Cuantificar mejoras en papers/experiments
 
 ## 🚀 Próximos Pasos
+
 Combina con:
+
 - **ai-observability** para evaluar en producción (online metrics)
 - **agents** para evaluar agentes (task success rate, costs)
 - **guardrails** para medir efectividad de safety filters
+
+## Objetivo del modulo
+
+Pendiente de completar este apartado.
+
+## Que vas a lograr
+
+Pendiente de completar este apartado.
+
+## Estructura interna
+
+Pendiente de completar este apartado.
+
+## Ruta de niveles (L1-L4)
+
+Pendiente de completar este apartado.
+
+## Plan recomendado (por progreso, no por semanas)
+
+Pendiente de completar este apartado.
+
+## Criterio de modulo completado
+
+Pendiente de completar este apartado.

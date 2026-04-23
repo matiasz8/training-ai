@@ -7,7 +7,7 @@
 - Comparar arquitecturas (custom vs preentrenadas)
 - Optimizar performance
 
----
+______________________________________________________________________
 
 ## 📚 Parte 1: Ejercicios Guiados
 
@@ -43,7 +43,7 @@ print(f"Train samples: {len(trainset)}")
 print(f"Test samples: {len(testset)}")
 ```
 
----
+______________________________________________________________________
 
 ## 🚀 Parte 2: Ejercicios Propuestos
 
@@ -51,6 +51,7 @@ print(f"Test samples: {len(testset)}")
 
 **Enunciado:**
 Compara ResNet18 y VGG16 en CIFAR-10:
+
 - Accuracy
 - Training time
 - Number of parameters
@@ -59,6 +60,7 @@ Compara ResNet18 y VGG16 en CIFAR-10:
 
 **Enunciado:**
 Implementa U-Net simple para segmentación:
+
 - Encoder-decoder architecture
 - Skip connections
 - Evalúa con IoU metric
@@ -67,6 +69,7 @@ Implementa U-Net simple para segmentación:
 
 **Enunciado:**
 Usa YOLO pre-entrenado para detección:
+
 - Detecta objetos en imágenes
 - Dibuja bounding boxes
 - Calcula confidence scores
@@ -75,6 +78,7 @@ Usa YOLO pre-entrenado para detección:
 
 **Enunciado:**
 Implementa neural style transfer:
+
 - Content image + style image
 - Optimiza imagen para combinar ambos
 - Visualiza proceso
@@ -83,6 +87,7 @@ Implementa neural style transfer:
 
 **Enunciado:**
 Prueba diferentes augmentations:
+
 - Sin augmentation
 - Solo flips
 - Flips + rotations
@@ -90,7 +95,7 @@ Prueba diferentes augmentations:
 
 Compara accuracies.
 
----
+______________________________________________________________________
 
 ## ✅ Checklist
 
@@ -100,7 +105,7 @@ Compara accuracies.
 - [ ] Implementar segmentación
 - [ ] Evaluar con métricas apropiadas
 
----
+______________________________________________________________________
 
 ## 📚 Recursos
 

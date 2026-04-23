@@ -7,7 +7,7 @@
 - Entrenar modelos de clasificación de texto
 - Usar word embeddings pre-entrenados
 
----
+______________________________________________________________________
 
 ## 📚 Parte 1: Ejercicios Guiados
 
@@ -35,21 +35,21 @@ texts = [
 def preprocess_text(text):
     # Lowercase
     text = text.lower()
-    
+
     # Remover puntuación y números
     text = re.sub(r'[^a-zA-Z\\s]', '', text)
-    
+
     # Tokenizar
     tokens = text.split()
-    
+
     # Stopwords
     stop_words = set(stopwords.words('english'))
     tokens = [word for word in tokens if word not in stop_words]
-    
+
     # Stemming
     stemmer = PorterStemmer()
     tokens = [stemmer.stem(word) for word in tokens]
-    
+
     return ' '.join(tokens)
 
 # Aplicar
@@ -81,18 +81,19 @@ print("\\n=== TF-IDF ===")
 print(f"TF-IDF Matrix:\\n{tfidf_matrix.toarray()}")
 ```
 
----
+______________________________________________________________________
 
 ## 🚀 Parte 2: Ejercicios Propuestos
 
 ### Ejercicio 2.1: Clasificación de Sentimientos
 
 **Enunciado:**
+
 1. Carga dataset de reviews (IMDB o custom)
-2. Preprocesa textos
-3. Vectoriza con TF-IDF
-4. Entrena Logistic Regression y SVM
-5. Compara accuracy
+1. Preprocesa textos
+1. Vectoriza con TF-IDF
+1. Entrena Logistic Regression y SVM
+1. Compara accuracy
 
 ### Ejercicio 2.2: N-grams
 
@@ -103,27 +104,30 @@ Compara performance de unigrams vs unigrams+bigrams.
 ### Ejercicio 2.3: Word2Vec con Gensim
 
 **Enunciado:**
+
 1. Entrena Word2Vec con `gensim`
-2. Encuentra palabras similares: `model.most_similar('machine')`
-3. Visualiza embeddings con t-SNE
+1. Encuentra palabras similares: `model.most_similar('machine')`
+1. Visualiza embeddings con t-SNE
 
 ### Ejercicio 2.4: Embeddings Pre-entrenados
 
 **Enunciado:**
 Descarga GloVe embeddings:
+
 1. Carga vectores pre-entrenados
-2. Representa documentos como promedio de embeddings
-3. Clasifica con Random Forest
+1. Representa documentos como promedio de embeddings
+1. Clasifica con Random Forest
 
 ### Ejercicio 2.5: Topic Modeling con LDA
 
 **Enunciado:**
 Usa `sklearn.decomposition.LatentDirichletAllocation`:
-1. Extrae 5 topics de corpus
-2. Visualiza top words por topic
-3. Asigna documentos a topics
 
----
+1. Extrae 5 topics de corpus
+1. Visualiza top words por topic
+1. Asigna documentos a topics
+
+______________________________________________________________________
 
 ## ✅ Checklist
 
@@ -135,7 +139,7 @@ Usa `sklearn.decomposition.LatentDirichletAllocation`:
 - [ ] Visualizar embeddings
 - [ ] Aplicar topic modeling
 
----
+______________________________________________________________________
 
 ## 📚 Recursos
 

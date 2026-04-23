@@ -8,7 +8,7 @@ Las GANs (Generative Adversarial Networks) usan 2 redes neuronales que compiten:
 
 Entrenar GAN para generar dígitos sintéticos (MNIST) desde ruido aleatorio.
 
----
+______________________________________________________________________
 
 ## 🚀 Setup
 
@@ -33,7 +33,7 @@ num_epochs = 50
 lr = 0.0002
 ```
 
----
+______________________________________________________________________
 
 ## 📚 Cargar datos
 
@@ -63,12 +63,13 @@ print(f"Batches por época: {len(dataloader)}")
 ```
 
 **Salida:**
+
 ```
 Total imágenes: 60000
 Batches por época: 469
 ```
 
----
+______________________________________________________________________
 
 ## 🏗️ Arquitectura GAN
 
@@ -78,25 +79,25 @@ Batches por época: 469
 class Generator(nn.Module):
     def __init__(self, latent_dim=100, img_size=784):
         super(Generator, self).__init__()
-        
+
         # z (100) → 256 → 512 → 784 (imagen)
         self.model = nn.Sequential(
             nn.Linear(latent_dim, 256),
             nn.LeakyReLU(0.2),
             nn.BatchNorm1d(256),
-            
+
             nn.Linear(256, 512),
             nn.LeakyReLU(0.2),
             nn.BatchNorm1d(512),
-            
+
             nn.Linear(512, 1024),
             nn.LeakyReLU(0.2),
             nn.BatchNorm1d(1024),
-            
+
             nn.Linear(1024, img_size),
             nn.Tanh()  # Salida en [-1, 1]
         )
-    
+
     def forward(self, z):
         img = self.model(z)
         return img
@@ -109,6 +110,7 @@ print(f"Generator parámetros: {g_params:,}")
 ```
 
 **Salida:**
+
 ```
 Generator parámetros: 1,493,256
 ```
@@ -119,21 +121,21 @@ Generator parámetros: 1,493,256
 class Discriminator(nn.Module):
     def __init__(self, img_size=784):
         super(Discriminator, self).__init__()
-        
+
         # Imagen (784) → 512 → 256 → 1 (real/fake)
         self.model = nn.Sequential(
             nn.Linear(img_size, 512),
             nn.LeakyReLU(0.2),
             nn.Dropout(0.3),
-            
+
             nn.Linear(512, 256),
             nn.LeakyReLU(0.2),
             nn.Dropout(0.3),
-            
+
             nn.Linear(256, 1),
             nn.Sigmoid()  # Probabilidad [0, 1]
         )
-    
+
     def forward(self, img):
         validity = self.model(img)
         return validity
@@ -145,11 +147,12 @@ print(f"Discriminator parámetros: {d_params:,}")
 ```
 
 **Salida:**
+
 ```
 Discriminator parámetros: 533,505
 ```
 
----
+______________________________________________________________________
 
 ## 🎯 Loss y optimizadores
 
@@ -164,7 +167,7 @@ optimizer_D = optim.Adam(discriminator.parameters(), lr=lr, betas=(0.5, 0.999))
 print("Optimizadores configurados")
 ```
 
----
+______________________________________________________________________
 
 ## 🔄 Training Loop
 
@@ -178,50 +181,50 @@ fixed_noise = torch.randn(64, latent_dim, device=device)
 
 for epoch in range(num_epochs):
     for i, (real_imgs, _) in enumerate(dataloader):
-        
+
         batch_size = real_imgs.size(0)
         real_imgs = real_imgs.view(batch_size, -1).to(device)
-        
+
         # Labels
         real_labels = torch.ones(batch_size, 1, device=device)
         fake_labels = torch.zeros(batch_size, 1, device=device)
-        
+
         # =====================
         # Train Discriminator
         # =====================
         optimizer_D.zero_grad()
-        
+
         # Loss con imágenes reales
         real_output = discriminator(real_imgs)
         d_loss_real = criterion(real_output, real_labels)
-        
+
         # Loss con imágenes falsas
         z = torch.randn(batch_size, latent_dim, device=device)
         fake_imgs = generator(z)
         fake_output = discriminator(fake_imgs.detach())  # No gradientes al G
         d_loss_fake = criterion(fake_output, fake_labels)
-        
+
         # Total discriminator loss
         d_loss = d_loss_real + d_loss_fake
         d_loss.backward()
         optimizer_D.step()
-        
+
         # ==================
         # Train Generator
         # ==================
         optimizer_G.zero_grad()
-        
+
         # Generator intenta engañar al Discriminator
         fake_output = discriminator(fake_imgs)
         g_loss = criterion(fake_output, real_labels)  # Queremos que D diga "real"
-        
+
         g_loss.backward()
         optimizer_G.step()
-        
+
     # Guardar pérdidas
     g_losses.append(g_loss.item())
     d_losses.append(d_loss.item())
-    
+
     # Progreso
     if (epoch + 1) % 10 == 0:
         print(f"Epoch [{epoch+1}/{num_epochs}] | "
@@ -231,6 +234,7 @@ print("\nEntrenamiento completado")
 ```
 
 **Salida:**
+
 ```
 Epoch [10/50] | D Loss: 0.8234 | G Loss: 1.4521
 Epoch [20/50] | D Loss: 0.6432 | G Loss: 1.1234
@@ -239,7 +243,7 @@ Epoch [40/50] | D Loss: 0.4789 | G Loss: 0.8234
 Epoch [50/50] | D Loss: 0.4523 | G Loss: 0.7456
 ```
 
----
+______________________________________________________________________
 
 ## 📊 Visualización
 
@@ -282,7 +286,7 @@ plt.show()
 print("Imágenes generadas guardadas")
 ```
 
----
+______________________________________________________________________
 
 ## 🔄 Modos de falla de GANs
 
@@ -298,24 +302,24 @@ def check_mode_collapse(generator, n_samples=1000):
     """
     generator.eval()
     generated = []
-    
+
     with torch.no_grad():
         for _ in range(n_samples // 64):
             z = torch.randn(64, latent_dim, device=device)
             fake = generator(z)
             generated.append(fake)
-    
+
     generated = torch.cat(generated, dim=0)
-    
+
     # Calcular varianza promedio
     variance = generated.var(dim=0).mean().item()
-    
+
     print(f"Varianza promedio de outputs: {variance:.4f}")
     if variance < 0.01:
         print("⚠️ Posible Mode Collapse detectado")
     else:
         print("✅ Variedad adecuada")
-    
+
     return variance
 
 variance = check_mode_collapse(generator)
@@ -331,12 +335,12 @@ variance = check_mode_collapse(generator)
 def monitor_gradients():
     g_grads = [p.grad.abs().mean().item() for p in generator.parameters() if p.grad is not None]
     d_grads = [p.grad.abs().mean().item() for p in discriminator.parameters() if p.grad is not None]
-    
+
     print(f"G gradient mean: {np.mean(g_grads):.6f}")
     print(f"D gradient mean: {np.mean(d_grads):.6f}")
 ```
 
----
+______________________________________________________________________
 
 ## 💡 Mejoras avanzadas
 
@@ -346,17 +350,17 @@ def monitor_gradients():
 class DCGenerator(nn.Module):
     def __init__(self, latent_dim=100):
         super(DCGenerator, self).__init__()
-        
+
         # z (100) → 7x7x256 → 14x14x128 → 28x28x1
         self.model = nn.Sequential(
             # Proyecto y reshape
             nn.Linear(latent_dim, 256 * 7 * 7),
             nn.ReLU(),
-            
+
             # Reshape to (batch, 256, 7, 7)
             # Seguido de ConvTranspose2d para upsampling
         )
-    
+
     def forward(self, z):
         # Implementación completa requiere ConvTranspose2d
         pass
@@ -374,16 +378,16 @@ class DCGenerator(nn.Module):
 class ConditionalGenerator(nn.Module):
     def __init__(self, latent_dim=100, num_classes=10):
         super(ConditionalGenerator, self).__init__()
-        
+
         # z + label embedding → imagen
         self.label_emb = nn.Embedding(num_classes, latent_dim)
-        
+
         self.model = nn.Sequential(
             nn.Linear(latent_dim * 2, 256),  # z + label
             nn.LeakyReLU(0.2),
             # ... resto de capas
         )
-    
+
     def forward(self, z, labels):
         # Concatenar z con label embedding
         label_input = self.label_emb(labels)
@@ -396,7 +400,7 @@ class ConditionalGenerator(nn.Module):
 # img = cond_generator(z, label)
 ```
 
----
+______________________________________________________________________
 
 ## 📈 Métricas de evaluación
 
@@ -431,7 +435,7 @@ def frechet_inception_distance(real_images, fake_images):
     pass
 ```
 
----
+______________________________________________________________________
 
 ## 📝 Resumen
 
@@ -449,11 +453,13 @@ Training alternado:
 ### 🎯 Losses
 
 **Discriminator:**
+
 ```
 L_D = -[log(D(x_real)) + log(1 - D(G(z)))]
 ```
 
 **Generator:**
+
 ```
 L_G = -log(D(G(z)))
 ```
@@ -477,12 +483,12 @@ L_G = -log(D(G(z)))
 
 ### 🔧 Troubleshooting
 
-| Problema | Síntoma | Solución |
-|----------|---------|----------|
-| Mode Collapse | G genera siempre igual | Unrolled GAN, Minibatch Discrimination |
-| Vanishing Gradients | G Loss no baja | Wasserstein GAN, Least Squares GAN |
-| Oscilaciones | Losses suben/bajan mucho | Reducir LR, label smoothing |
-| Imágenes borrosas | G Loss baja pero mala calidad | Usar Progressive GAN, StyleGAN |
+| Problema            | Síntoma                       | Solución                               |
+| ------------------- | ----------------------------- | -------------------------------------- |
+| Mode Collapse       | G genera siempre igual        | Unrolled GAN, Minibatch Discrimination |
+| Vanishing Gradients | G Loss no baja                | Wasserstein GAN, Least Squares GAN     |
+| Oscilaciones        | Losses suben/bajan mucho      | Reducir LR, label smoothing            |
+| Imágenes borrosas   | G Loss baja pero mala calidad | Usar Progressive GAN, StyleGAN         |
 
 ### 📌 Checklist GAN
 

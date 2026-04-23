@@ -7,7 +7,7 @@
 - Visualizar feature importance
 - Generar explanations para usuarios
 
----
+______________________________________________________________________
 
 ## 📚 Parte 1: Ejercicios Guiados
 
@@ -41,7 +41,7 @@ instance = X.iloc[0]
 shap.force_plot(explainer.expected_value[0], shap_values[0][0], instance)
 ```
 
----
+______________________________________________________________________
 
 ## 🚀 Parte 2: Ejercicios Propuestos
 
@@ -49,6 +49,7 @@ shap.force_plot(explainer.expected_value[0], shap_values[0][0], instance)
 
 **Enunciado:**
 Explica predicciones de NN:
+
 - Usa `lime.lime_tabular.LimeTabularExplainer`
 - Genera explanation para instancia
 - Visualiza top features
@@ -58,6 +59,7 @@ Explica predicciones de NN:
 **Enunciado:**
 Genera counterfactuals:
 "Si feature X fuera Y, predicción cambiaría a Z"
+
 - Encuentra mínimos cambios necesarios
 - Mantén feasibilidad
 
@@ -65,6 +67,7 @@ Genera counterfactuals:
 
 **Enunciado:**
 Visualiza efecto de features:
+
 - `sklearn.inspection.partial_dependence`
 - PDPs para top 4 features
 - ICE plots para heterogeneidad
@@ -73,6 +76,7 @@ Visualiza efecto de features:
 
 **Enunciado:**
 Implementa Anchors algorithm:
+
 - Reglas suficientes para predicción
 - "SI edad > 50 AND income > 60k THEN approve"
 - Coverage y precision
@@ -81,11 +85,12 @@ Implementa Anchors algorithm:
 
 **Enunciado:**
 Interface interactiva:
+
 - Usuario selecciona instancia
 - Muestra SHAP + LIME + Counterfactuals
 - Permite "what-if" analysis
 
----
+______________________________________________________________________
 
 ## ✅ Checklist
 
@@ -95,7 +100,7 @@ Interface interactiva:
 - [ ] Counterfactual explanations
 - [ ] Anchors rules
 
----
+______________________________________________________________________
 
 ## 📚 Recursos
 

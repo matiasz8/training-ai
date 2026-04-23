@@ -8,7 +8,7 @@ Los modelos ML pueden perpetuar o amplificar sesgos presentes en datos de entren
 
 Detectar y medir bias en modelo de aprobación de crédito usando métricas de fairness.
 
----
+______________________________________________________________________
 
 ## 🚀 Setup
 
@@ -24,7 +24,7 @@ import seaborn as sns
 np.random.seed(42)
 ```
 
----
+______________________________________________________________________
 
 ## 📚 Generar datos sintéticos
 
@@ -51,15 +51,15 @@ def generate_approval(row):
     - Bias: penaliza a mujeres y Group_B
     """
     base_score = row['credit_score'] / 10 + row['income'] / 10000
-    
+
     # Bias de género (mujeres necesitan 10% más score)
     if row['gender'] == 'F':
         base_score *= 0.9
-    
+
     # Bias étnico (Group_B necesita 15% más score)
     if row['ethnicity'] == 'Group_B':
         base_score *= 0.85
-    
+
     # Threshold para aprobación
     return 1 if base_score > 100 else 0
 
@@ -72,6 +72,7 @@ print(df[['gender', 'ethnicity', 'approved']].value_counts())
 ```
 
 **Salida:**
+
 ```
 Dataset: 1000 solicitudes
 Tasa de aprobación: 52.30%
@@ -88,7 +89,7 @@ F       Group_A    1           125
                    0           118
 ```
 
----
+______________________________________________________________________
 
 ## 🤖 Entrenar modelo
 
@@ -123,11 +124,12 @@ print(f"Accuracy: {acc:.4f}")
 ```
 
 **Salida:**
+
 ```
 Accuracy: 0.8867
 ```
 
----
+______________________________________________________________________
 
 ## ⚖️ Métricas de Fairness
 
@@ -137,21 +139,21 @@ Accuracy: 0.8867
 def demographic_parity(y_pred, protected_attr):
     """
     P(Ŷ=1 | A=0) ≈ P(Ŷ=1 | A=1)
-    
+
     Aprobación similar entre grupos
     """
     groups = protected_attr.unique()
     approval_rates = {}
-    
+
     for group in groups:
         mask = protected_attr == group
         approval_rate = y_pred[mask].mean()
         approval_rates[group] = approval_rate
-    
+
     # Diferencia máxima
     rates = list(approval_rates.values())
     disparity = max(rates) - min(rates)
-    
+
     return approval_rates, disparity
 
 # Por género
@@ -176,6 +178,7 @@ print(f"Disparidad: {eth_disparity:.4f}")
 ```
 
 **Salida:**
+
 ```
 === Demographic Parity - Género ===
 M: 68.23% aprobación
@@ -194,37 +197,37 @@ Disparidad: 0.1613
 def equalized_odds(y_true, y_pred, protected_attr):
     """
     TPR y FPR deben ser iguales entre grupos
-    
+
     TPR: P(Ŷ=1 | Y=1, A=a)
     FPR: P(Ŷ=1 | Y=0, A=a)
     """
     groups = protected_attr.unique()
     metrics = {}
-    
+
     for group in groups:
         mask = protected_attr == group
         y_true_group = y_true[mask]
         y_pred_group = y_pred[mask]
-        
+
         # True Positive Rate
         tp = ((y_true_group == 1) & (y_pred_group == 1)).sum()
         fn = ((y_true_group == 1) & (y_pred_group == 0)).sum()
         tpr = tp / (tp + fn) if (tp + fn) > 0 else 0
-        
+
         # False Positive Rate
         fp = ((y_true_group == 0) & (y_pred_group == 1)).sum()
         tn = ((y_true_group == 0) & (y_pred_group == 0)).sum()
         fpr = fp / (fp + tn) if (fp + tn) > 0 else 0
-        
+
         metrics[group] = {'TPR': tpr, 'FPR': fpr}
-    
+
     # Disparidad
     tprs = [m['TPR'] for m in metrics.values()]
     fprs = [m['FPR'] for m in metrics.values()]
-    
+
     tpr_disparity = max(tprs) - min(tprs)
     fpr_disparity = max(fprs) - min(fprs)
-    
+
     return metrics, tpr_disparity, fpr_disparity
 
 # Por género
@@ -240,6 +243,7 @@ print(f"FPR Disparidad: {fpr_disp:.4f}")
 ```
 
 **Salida:**
+
 ```
 === Equalized Odds - Género ===
 M: TPR=0.9234, FPR=0.1523
@@ -254,25 +258,25 @@ FPR Disparidad: 0.0611
 def equal_opportunity(y_true, y_pred, protected_attr):
     """
     Solo TPR debe ser igual (subset de Equalized Odds)
-    
+
     Útil cuando False Positives son aceptables
     """
     groups = protected_attr.unique()
     tprs = {}
-    
+
     for group in groups:
         mask = protected_attr == group
         y_true_group = y_true[mask]
         y_pred_group = y_pred[mask]
-        
+
         tp = ((y_true_group == 1) & (y_pred_group == 1)).sum()
         fn = ((y_true_group == 1) & (y_pred_group == 0)).sum()
         tpr = tp / (tp + fn) if (tp + fn) > 0 else 0
-        
+
         tprs[group] = tpr
-    
+
     disparity = max(tprs.values()) - min(tprs.values())
-    
+
     return tprs, disparity
 
 tprs, eo_disparity = equal_opportunity(
@@ -286,6 +290,7 @@ print(f"Disparidad: {eo_disparity:.4f} (ideal < 0.1)")
 ```
 
 **Salida:**
+
 ```
 === Equal Opportunity - Género ===
 M: TPR=0.9234
@@ -293,7 +298,7 @@ F: TPR=0.8567
 Disparidad: 0.0667 (ideal < 0.1)
 ```
 
----
+______________________________________________________________________
 
 ## 📊 Visualización de Bias
 
@@ -341,13 +346,13 @@ groups = [('M', 'gender'), ('F', 'gender'), ('Group_A', 'ethnicity'), ('Group_B'
 
 for idx, (group, attr) in enumerate(groups):
     ax = axes[idx // 2, idx % 2]
-    
+
     mask = results_df[attr] == group
     y_true_group = results_df.loc[mask, 'y_true']
     y_pred_group = results_df.loc[mask, 'y_pred']
-    
+
     cm = confusion_matrix(y_true_group, y_pred_group)
-    
+
     sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', ax=ax)
     ax.set_xlabel('Predicción')
     ax.set_ylabel('Real')
@@ -358,7 +363,7 @@ plt.savefig('bias_confusion_matrices.png', dpi=150)
 plt.show()
 ```
 
----
+______________________________________________________________________
 
 ## 🛠️ Mitigación de Bias
 
@@ -370,7 +375,7 @@ def reweighting(X, y, protected_attr):
     Asigna pesos a muestras para balancear representación
     """
     weights = np.ones(len(y))
-    
+
     # Calcular frecuencias
     for group in protected_attr.unique():
         for label in [0, 1]:
@@ -379,10 +384,10 @@ def reweighting(X, y, protected_attr):
             if count > 0:
                 # Peso inversamente proporcional a frecuencia
                 weights[mask] = 1.0 / count
-    
+
     # Normalizar
     weights = weights / weights.sum() * len(weights)
-    
+
     return weights
 
 # Reentrenar con pesos
@@ -420,18 +425,18 @@ def optimize_thresholds(model, X_test, y_test, protected_attr):
     Encuentra thresholds diferentes por grupo para igualar TPR
     """
     y_proba = model.predict_proba(X_test)[:, 1]
-    
+
     thresholds = {}
     for group in protected_attr.unique():
         mask = protected_attr == group
-        
+
         fpr, tpr, thresh = roc_curve(y_test[mask], y_proba[mask])
-        
+
         # Threshold para TPR objetivo (ej: 0.85)
         target_tpr = 0.85
         idx = np.argmin(np.abs(tpr - target_tpr))
         thresholds[group] = thresh[idx]
-    
+
     return thresholds
 
 thresholds_opt = optimize_thresholds(
@@ -443,17 +448,17 @@ for group, thresh in thresholds_opt.items():
     print(f"{group}: {thresh:.4f}")
 ```
 
----
+______________________________________________________________________
 
 ## 📝 Resumen
 
 ### ✅ Métricas de Fairness
 
-| Métrica | Definición | Cuándo usar |
-|---------|-----------|-------------|
+| Métrica                | Definición                              | Cuándo usar                                       |
+| ---------------------- | --------------------------------------- | ------------------------------------------------- |
 | **Demographic Parity** | P(Ŷ=1\|A=a) igual para todos los grupos | Decisiones que no afectan proporción de población |
-| **Equalized Odds** | TPR y FPR iguales entre grupos | Errores (FP y FN) tienen mismo costo |
-| **Equal Opportunity** | Solo TPR igual entre grupos | FP menos grave que FN (ej: screening médico) |
+| **Equalized Odds**     | TPR y FPR iguales entre grupos          | Errores (FP y FN) tienen mismo costo              |
+| **Equal Opportunity**  | Solo TPR igual entre grupos             | FP menos grave que FN (ej: screening médico)      |
 
 ### 🎯 Trade-offs
 
@@ -485,15 +490,18 @@ Fairness ↑ ⟷ Accuracy ↓
 ### 🔧 Técnicas de mitigación
 
 **Pre-processing:**
+
 - Reweighting
 - Resampling (oversample grupos minoritarios)
 - Data augmentation
 
 **In-processing:**
+
 - Fairness constraints en loss function
 - Adversarial debiasing
 
 **Post-processing:**
+
 - Threshold optimization
 - Calibración por grupo
 

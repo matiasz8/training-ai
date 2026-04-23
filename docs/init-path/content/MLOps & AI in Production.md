@@ -1,31 +1,32 @@
 Deploying AI models into production requires more than just training a model — it demands robust pipelines, monitoring, scalability, and collaboration across teams. At NaNLABS, we implement MLOps practices to ensure AI systems are reliable, reproducible, and scalable.
 
 ✅ Topics Covered
+
 1. MLOps Foundations
-DevOps principles applied to ML
-Lifecycle stages: experimentation → deployment → monitoring
-CI/CD for ML pipelines (including data validation)
-Reproducibility, version control (datasets, models, code)
-2. Model Deployment Strategies
-Batch vs real-time vs streaming inference
-RESTful APIs, gRPC endpoints for serving models
-Serverless (Lambda, Cloud Functions) vs containerized (Docker, Kubernetes)
-Model registries and versioning
-3. Monitoring & Observability
-Model drift and data drift detection
-Logging predictions and feedback loops
-A/B testing and canary releases
-ML-specific metrics (latency, accuracy, input distribution)
-4. Tooling & Frameworks
-Pipeline orchestration: Airflow, Kubeflow, Prefect
-Model serving: MLflow, Seldon, BentoML, SageMaker
-Monitoring: Evidently AI, Arize, Prometheus, Grafana
-Infrastructure as Code: Terraform, Pulumi
-5. Governance, Compliance & Ethics
-Model explainability (SHAP, LIME)
-Auditing and rollback capabilities
-Role-based access, encryption, and secure endpoints
-Regulatory compliance (GDPR, HIPAA if relevant)
+   DevOps principles applied to ML
+   Lifecycle stages: experimentation → deployment → monitoring
+   CI/CD for ML pipelines (including data validation)
+   Reproducibility, version control (datasets, models, code)
+1. Model Deployment Strategies
+   Batch vs real-time vs streaming inference
+   RESTful APIs, gRPC endpoints for serving models
+   Serverless (Lambda, Cloud Functions) vs containerized (Docker, Kubernetes)
+   Model registries and versioning
+1. Monitoring & Observability
+   Model drift and data drift detection
+   Logging predictions and feedback loops
+   A/B testing and canary releases
+   ML-specific metrics (latency, accuracy, input distribution)
+1. Tooling & Frameworks
+   Pipeline orchestration: Airflow, Kubeflow, Prefect
+   Model serving: MLflow, Seldon, BentoML, SageMaker
+   Monitoring: Evidently AI, Arize, Prometheus, Grafana
+   Infrastructure as Code: Terraform, Pulumi
+1. Governance, Compliance & Ethics
+   Model explainability (SHAP, LIME)
+   Auditing and rollback capabilities
+   Role-based access, encryption, and secure endpoints
+   Regulatory compliance (GDPR, HIPAA if relevant)
 
 📌 Suggested Learning Resources
 📘 Guides & Articles

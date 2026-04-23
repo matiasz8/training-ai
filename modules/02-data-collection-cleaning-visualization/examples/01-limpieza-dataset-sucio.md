@@ -17,10 +17,10 @@ data = {
     'customer_id': [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112],
     'age': [25, 150, 35, np.nan, 42, 28, 'treinta', 55, 40, 32, 29, 38],  # Problema: outlier, NaN, string
     'income': [50000, 75000, 60000, 80000, np.nan, 55000, 70000, 65000, 72000, 58000, 62000, np.nan],  # NaN
-    'purchase_date': ['2024-01-15', '2024-01-20', '2024-01-25', '2024-01-30', 
+    'purchase_date': ['2024-01-15', '2024-01-20', '2024-01-25', '2024-01-30',
                       '2024/02/05', 'invalid', '2024-02-15', '2024-02-20',
                       '2024-02-25', '2024-03-01', '2024-03-05', '2024-03-10'],  # Formato inconsistente
-    'category': ['Electronics', 'electronics', 'FASHION', 'Fashion', 'Home', 'home', 
+    'category': ['Electronics', 'electronics', 'FASHION', 'Fashion', 'Home', 'home',
                  'Electronics', 'Fashion', 'Home', 'Electronics', 'fashion', 'Home'],  # Inconsistencia de case
     'total_spent': [1200, -500, 800, 1500, 2000, 1100, 900, 1300, 1600, 1000, 850, 1400],  # Negativo
     'email': ['user1@mail.com', 'user2@mail.com', 'user3@mail.com', 'user3@mail.com',  # Duplicado
@@ -55,7 +55,7 @@ Dataset original:
 Dimensiones: (12, 7)
 ```
 
----
+______________________________________________________________________
 
 ## 🔍 Paso 1: Diagnóstico inicial
 
@@ -72,20 +72,21 @@ print(f"Filas duplicadas (email): {df.duplicated(subset=['email']).sum()}")
 ```
 
 **Salida:**
+
 ```
 === INFORMACIÓN GENERAL ===
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 12 entries, 0 to 11
 Data columns (total 7 columns):
- #   Column         Non-Null Count  Dtype 
----  ------         --------------  ----- 
- 0   customer_id    12 non-null     int64 
+ #   Column         Non-Null Count  Dtype
+---  ------         --------------  -----
+ 0   customer_id    12 non-null     int64
  1   age            11 non-null     object  👈 debería ser int
  2   income         10 non-null     float64
  3   purchase_date  12 non-null     object  👈 debería ser datetime
- 4   category       12 non-null     object 
- 5   total_spent    12 non-null     int64 
- 6   email          12 non-null     object 
+ 4   category       12 non-null     object
+ 5   total_spent    12 non-null     int64
+ 6   email          12 non-null     object
 dtypes: float64(1), int64(2), object(4)
 
 === VALORES NULOS ===
@@ -104,14 +105,14 @@ Filas duplicadas (email): 1  👈 user3@mail.com aparece 2 veces
 ### Problemas detectados
 
 1. **age:** tipo object (debería ser int), tiene NaN y valor "treinta"
-2. **income:** 2 valores nulos
-3. **purchase_date:** formato inconsistente, valor "invalid"
-4. **category:** inconsistencia de mayúsculas/minúsculas
-5. **total_spent:** valor negativo (-500)
-6. **email:** email duplicado y formato inválido
-7. **Posible outlier:** age=150
+1. **income:** 2 valores nulos
+1. **purchase_date:** formato inconsistente, valor "invalid"
+1. **category:** inconsistencia de mayúsculas/minúsculas
+1. **total_spent:** valor negativo (-500)
+1. **email:** email duplicado y formato inválido
+1. **Posible outlier:** age=150
 
----
+______________________________________________________________________
 
 ## 🛠️ Paso 2: Limpieza sistemática
 
@@ -158,7 +159,8 @@ df_clean['age'].fillna(df_clean['age'].median(), inplace=True)
 print(f"\nNaN restantes en age: {df_clean['age'].isnull().sum()}")
 ```
 
-**Decisión:** 
+**Decisión:**
+
 - Outlier (150) reemplazado con mediana
 - NaN imputados con mediana
 
@@ -213,6 +215,7 @@ print(df_clean['category'].value_counts())
 ```
 
 **Salida:**
+
 ```
 Categorías únicas:
 Electronics    3
@@ -255,7 +258,7 @@ df_clean = df_clean[df_clean['email_valid']].drop('email_valid', axis=1)
 print(f"Dimensiones finales: {df_clean.shape}")
 ```
 
----
+______________________________________________________________________
 
 ## ✅ Paso 3: Dataset limpio final
 
@@ -271,6 +274,7 @@ print(f"Duplicados: {df_clean.duplicated().sum()}")
 ```
 
 **Salida limpia:**
+
 ```
 === DATASET LIMPIO ===
     customer_id   age   income purchase_date     category  total_spent            email
@@ -288,6 +292,7 @@ Dimensiones finales: (9, 7)
 ```
 
 **Resumen de transformaciones:**
+
 - Filas originales: 12 → Filas finales: 9 (3 eliminadas)
 - Nulos imputados: age (2), income (2)
 - Outliers corregidos: 1 (age=150)
@@ -297,7 +302,7 @@ Dimensiones finales: (9, 7)
 - Valores negativos eliminados: 1
 - Categorías normalizadas: 3 diferentes
 
----
+______________________________________________________________________
 
 ## 📊 Paso 4: Visualización de calidad
 
@@ -336,17 +341,17 @@ plt.tight_layout()
 plt.show()
 ```
 
----
+______________________________________________________________________
 
 ## 🎓 Lecciones aprendidas
 
 ### ✅ Buenas prácticas aplicadas
 
 1. **Diagnóstico antes de actuar:** `info()`, `describe()`, `isnull()`
-2. **Documentar decisiones:** ¿Por qué eliminar vs imputar?
-3. **Validación contextual:** IQR para outliers, regex para emails
-4. **Imputación inteligente:** Por grupo (category) en lugar de global
-5. **Preservar trazabilidad:** Dataset original intacto, transformaciones en copia
+1. **Documentar decisiones:** ¿Por qué eliminar vs imputar?
+1. **Validación contextual:** IQR para outliers, regex para emails
+1. **Imputación inteligente:** Por grupo (category) en lugar de global
+1. **Preservar trazabilidad:** Dataset original intacto, transformaciones en copia
 
 ### ⚠️ Consideraciones de negocio
 

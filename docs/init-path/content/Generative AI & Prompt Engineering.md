@@ -2,31 +2,32 @@ Generative AI unlocks powerful capabilities for content creation, summarization,
 At NaNLABS, we use Generative AI to build intelligent agents, streamline workflows, and personalize user experiences—always prioritizing data security and fast time-to-value.
 
 ✅ Topics Covered
+
 1. Generative AI Fundamentals
-What is Generative AI?
-Generative models: Text (LLMs), Images (Diffusion models), Audio, Code
-Use cases: summarization, content generation, coding, workflows, automation
-2. Prompt Engineering
-Prompt formats: Zero-shot, one-shot, few-shot, chain-of-thought (CoT)
-Prompt optimization: clarity, examples, structure
-Instruction following vs. open-ended generation
-System prompts vs. user prompts
-3. Tool Use & Agents
-Function calling (OpenAI, Anthropic, Bedrock)
-Tool use via LangChain agents or OpenAI functions
-Designing AI agents with memory, planning, and tool orchestration
-4. Fine-Tuning vs. Prompting
-When to prompt, when to fine-tune, when to retrieve
-Tuning via adapters (LoRA, QLoRA), PEFT techniques
-5. Advanced Prompt Techniques
-ReAct (Reasoning + Acting)
-Self-consistency prompting
-Dynamic prompt templates & prompt chaining
-Safety-aware prompting (e.g. instruction constraints, content filters)
-6. Building Prompt Workflows
-Prompt engineering in productized flows
-Evaluation of outputs (manual & automatic metrics)
-Guardrails and logging (e.g. Trulens, Guardrails AI)
+   What is Generative AI?
+   Generative models: Text (LLMs), Images (Diffusion models), Audio, Code
+   Use cases: summarization, content generation, coding, workflows, automation
+1. Prompt Engineering
+   Prompt formats: Zero-shot, one-shot, few-shot, chain-of-thought (CoT)
+   Prompt optimization: clarity, examples, structure
+   Instruction following vs. open-ended generation
+   System prompts vs. user prompts
+1. Tool Use & Agents
+   Function calling (OpenAI, Anthropic, Bedrock)
+   Tool use via LangChain agents or OpenAI functions
+   Designing AI agents with memory, planning, and tool orchestration
+1. Fine-Tuning vs. Prompting
+   When to prompt, when to fine-tune, when to retrieve
+   Tuning via adapters (LoRA, QLoRA), PEFT techniques
+1. Advanced Prompt Techniques
+   ReAct (Reasoning + Acting)
+   Self-consistency prompting
+   Dynamic prompt templates & prompt chaining
+   Safety-aware prompting (e.g. instruction constraints, content filters)
+1. Building Prompt Workflows
+   Prompt engineering in productized flows
+   Evaluation of outputs (manual & automatic metrics)
+   Guardrails and logging (e.g. Trulens, Guardrails AI)
 
 📌 Suggested Learning Resources
 📘 Readings & Guides

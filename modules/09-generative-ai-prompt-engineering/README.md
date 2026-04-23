@@ -1,9 +1,11 @@
 # Generative AI & Prompt Engineering
 
 ## 🎯 Objetivo del módulo
+
 Dominar técnicas de IA generativa (GANs, VAEs, Diffusion) y prompt engineering para crear contenido sintético y optimizar interacciones con LLMs.
 
 ## 💡 Qué vas a lograr
+
 - Implementar GANs (vanilla, DCGAN, conditional, WGAN) para generar imágenes
 - Construir Variational Autoencoders con reparameterization trick
 - Entender diffusion models y denoising process
@@ -12,6 +14,7 @@ Dominar técnicas de IA generativa (GANs, VAEs, Diffusion) y prompt engineering 
 - Explorar latent spaces y generar interpolaciones
 
 ## 📂 Estructura interna
+
 - **theory/**: fundamentos (GANs, VAEs, diffusion, prompt engineering strategies)
 - **examples/**: ejemplos guiados con PyTorch
 - **practices/**: ejercicios hands-on
@@ -22,6 +25,7 @@ Dominar técnicas de IA generativa (GANs, VAEs, Diffusion) y prompt engineering 
 - **notes/**: experimentos con arquitecturas generativas
 
 ## 📋 Prerrequisitos
+
 - Módulo 04: Deep Learning Basics (PyTorch, training loops)
 - Módulo 05: NLP & LLMs (para prompt engineering avanzado)
 - Familiaridad con backpropagation y optimización
@@ -29,15 +33,17 @@ Dominar técnicas de IA generativa (GANs, VAEs, Diffusion) y prompt engineering 
 ## 📅 Plan de Estudio Recomendado
 
 **Semana 1-2** (8-10 horas):
+
 1. Lee material de `/theory` sobre GANs y VAEs (2h)
-2. Ejecuta `/examples` (3h)
-3. Completa `/practices/01-gans.md` (4h)
+1. Ejecuta `/examples` (3h)
+1. Completa `/practices/01-gans.md` (4h)
 
 **Semana 3** (6-8 horas):
-4. Completa `/practices/02-vae-diffusion.md` (4h)
-5. Desarrolla mini-proyecto (3h)
+4\. Completa `/practices/02-vae-diffusion.md` (4h)
+5\. Desarrolla mini-proyecto (3h)
 
 ## ✅ Competencias Clave
+
 - [ ] Implementar Generator y Discriminator
 - [ ] Training loop adversarial (alternate updates)
 - [ ] Detectar mode collapse
@@ -46,6 +52,7 @@ Dominar técnicas de IA generativa (GANs, VAEs, Diffusion) y prompt engineering 
 - [ ] Prompt engineering efectivo
 
 ## ✅ Criterio de módulo completado
+
 - 2 prácticas resueltas y validadas
 - Mini-proyecto: generador funcional (samples realistas)
 - Evaluación final aprobada (>=70/100)
@@ -54,18 +61,46 @@ Dominar técnicas de IA generativa (GANs, VAEs, Diffusion) y prompt engineering 
 ## 📚 Recursos Adicionales
 
 **Tutoriales:**
+
 - [GAN Lab (Interactive)](https://poloclub.github.io/ganlab/)
 - [PyTorch GAN Examples](https://github.com/eriklindernoren/PyTorch-GAN)
 
 **Papers:**
+
 - [Generative Adversarial Networks (Goodfellow 2014)](https://arxiv.org/abs/1406.2661)
 - [Auto-Encoding Variational Bayes](https://arxiv.org/abs/1312.6114)
 - [Denoising Diffusion Probabilistic Models](https://arxiv.org/abs/2006.11239)
 
 **Blogs:**
+
 - [VAE Tutorial](https://arxiv.org/abs/1906.02691)
 - [Diffusion Models Explained](https://lilianweng.github.io/posts/2021-07-11-diffusion-models/)
 - [Prompt Engineering Guide](https://www.promptingguide.ai/)
 
 ## 🚀 Próximo Módulo
+
 **Módulo 10: Ethics, Bias & Explainability** - Fairness y explicabilidad en ML
+
+## Objetivo del modulo
+
+Pendiente de completar este apartado.
+
+## Que vas a lograr
+
+Pendiente de completar este apartado.
+
+## Estructura interna
+
+Pendiente de completar este apartado.
+
+## Ruta de niveles (L1-L4)
+
+Pendiente de completar este apartado.
+
+## Plan recomendado (por progreso, no por semanas)
+
+Pendiente de completar este apartado.
+
+## Criterio de modulo completado
+
+Pendiente de completar este apartado.

@@ -1,11 +1,13 @@
 # Estado — Deep Learning Basics
 
 ## Progreso actual
+
 - Estado: En progreso
 - Nivel: L1
 - Última actualización: 2026-03-05
 
 ## Checklist
+
 - [ ] L1 completado
 - [ ] L2 completado
 - [ ] L3 completado
@@ -14,9 +16,11 @@
 - [ ] Evaluación final aprobada
 
 ## Bloqueos
+
 - Ninguno por ahora.
 
 ## Próximos pasos
+
 - Completar lectura de `theory/README.md`.
 - Resolver prácticas 01 a 03.
 - Iniciar mini-proyecto con baseline MLP.

@@ -1,9 +1,11 @@
 # AI Observability — Monitoring de LLM Applications
 
 ## 🎯 Objetivo
+
 Implementar observability completa para aplicaciones con LLMs: tracing, logging de prompts/completions, latency monitoring, cost tracking, y error analysis.
 
 ## 💡 Qué aprenderás
+
 - Distributed tracing para LLM calls (LangSmith, Weights & Biases)
 - Logging estructurado (prompts, completions, metadata)
 - Latency y performance monitoring
@@ -15,6 +17,7 @@ Implementar observability completa para aplicaciones con LLMs: tracing, logging 
 ## 📂 Contenido
 
 ### Examples
+
 - **01-basic-logging.py**: Logging de prompts/completions con metadata
 - **02-langsmith-tracing.py**: Tracing distribuido con LangSmith
 - **03-cost-tracking.py**: Calcular costos por request/user/día
@@ -23,6 +26,7 @@ Implementar observability completa para aplicaciones con LLMs: tracing, logging 
 ## 🔑 Conceptos Clave
 
 ### Observability Pillars para LLMs
+
 ```
 ┌──────────────────────────────────────┐
 │            OBSERVABILITY             │
@@ -39,17 +43,20 @@ Implementar observability completa para aplicaciones con LLMs: tracing, logging 
 ### Key Metrics to Track
 
 **Performance:**
+
 - Latency (p50, p95, p99)
 - Tokens per second
 - Time to first token (TTFT)
 - Requests per minute
 
 **Cost:**
+
 - Tokens used (prompt + completion)
 - Cost per request ($ per 1K tokens)
 - Daily/monthly spend by user/endpoint
 
 **Quality:**
+
 - User feedback rate (👍/👎)
 - Error rate (API failures, timeouts)
 - Hallucination detection score
@@ -96,18 +103,18 @@ def calculate_cost(prompt: str, completion: str, model: str = "gpt-4"):
         "gpt-4": {"prompt": 0.03, "completion": 0.06},  # $ per 1K tokens
         "gpt-3.5-turbo": {"prompt": 0.0015, "completion": 0.002}
     }
-    
+
     # Count tokens
     enc = tiktoken.encoding_for_model(model)
     prompt_tokens = len(enc.encode(prompt))
     completion_tokens = len(enc.encode(completion))
-    
+
     # Calculate cost
     cost = (
         (prompt_tokens / 1000) * pricing[model]["prompt"] +
         (completion_tokens / 1000) * pricing[model]["completion"]
     )
-    
+
     return {
         "prompt_tokens": prompt_tokens,
         "completion_tokens": completion_tokens,
@@ -119,6 +126,7 @@ def calculate_cost(prompt: str, completion: str, model: str = "gpt-4"):
 ## 📈 Logging Best Practices
 
 **Structured Logging:**
+
 ```python
 import logging
 import json
@@ -145,48 +153,54 @@ def log_llm_call(
         "cost_usd": cost,
         "metadata": metadata or {}
     }
-    
+
     logger.info(json.dumps(log_entry))
 ```
 
 ## 🛠️ Tools Comparison
 
-| Tool | Type | Pros | Cons | Price |
-|------|------|------|------|-------|
-| **LangSmith** | Tracing | LangChain native, powerful | Tied to LangChain | $$ |
-| **Weights & Biases** | Experiment tracking | Great for ML | Learning curve | $$$ |
-| **Helicone** | Proxy logger | Easy setup | Limited features | $ |
-| **Custom Logging** | DIY | Full control | More work | Free |
-| **OpenTelemetry** | Standard | Vendor agnostic | Setup complex | Free |
+| Tool                 | Type                | Pros                       | Cons              | Price |
+| -------------------- | ------------------- | -------------------------- | ----------------- | ----- |
+| **LangSmith**        | Tracing             | LangChain native, powerful | Tied to LangChain | $$    |
+| **Weights & Biases** | Experiment tracking | Great for ML               | Learning curve    | $$$   |
+| **Helicone**         | Proxy logger        | Easy setup                 | Limited features  | $     |
+| **Custom Logging**   | DIY                 | Full control               | More work         | Free  |
+| **OpenTelemetry**    | Standard            | Vendor agnostic            | Setup complex     | Free  |
 
 ## 🧪 Ejercicio Rápido
+
 1. **Setup**: `pip install langsmith opentelemetry`
-2. **Log LLM calls**: Implementa wrapper que loggea cada llamada
-3. **Track costs**: Calcula gasto total de 100 requests
-4. **Visualize**: Crea gráfico de latency vs tokens
-5. **Alert**: Setup alerta si cost/day > $100
+1. **Log LLM calls**: Implementa wrapper que loggea cada llamada
+1. **Track costs**: Calcula gasto total de 100 requests
+1. **Visualize**: Crea gráfico de latency vs tokens
+1. **Alert**: Setup alerta si cost/day > $100
 
 ## 📚 Recursos Curados
 
 **Plataformas:**
+
 - [LangSmith](https://www.langchain.com/langsmith)
 - [Weights & Biases](https://wandb.ai/)
 - [Helicone](https://www.helicone.ai/)
 - [Arize AI](https://arize.com/)
 
 **Open Source:**
+
 - [OpenTelemetry](https://opentelemetry.io/)
 - [OpenLLMetry](https://github.com/traceloop/openllmetry)
 - [Langfuse](https://github.com/langfuse/langfuse)
 
 **Dashboards:**
+
 - [Grafana](https://grafana.com/)
 - [Datadog LLM Observability](https://www.datadoghq.com/product/llm-observability/)
 
 **Guides:**
+
 - [LLM Observability Best Practices](https://www.langchain.com/blog/observability)
 
 ## ✅ Checklist de Aprendizaje
+
 - [ ] Log structured prompts/completions
 - [ ] Implement distributed tracing (LangSmith o OpenTelemetry)
 - [ ] Track tokens y costs por request
@@ -197,6 +211,7 @@ def log_llm_call(
 - [ ] Cost dashboards por usuario/endpoint/día
 
 ## 🎯 Impacto Real
+
 - **Cost Control**: Detectar "runaway costs" antes de que sea tarde
 - **Performance**: Identificar bottlenecks (retrieval lento, LLM slow)
 - **Quality**: Correlacionar user feedback con prompt versions
@@ -206,16 +221,45 @@ def log_llm_call(
 ## 🚨 Common Pitfalls
 
 **Privacy**: Loggear PII sin consent
+
 - **Solución**: Redactar PII antes de logging
 
 **Volume**: Logs masivos impactan performance
+
 - **Solución**: Sampling, async logging
 
 **Cost**: Tracing tools pueden ser caros
+
 - **Solución**: Start con open source, upgrade si necesario
 
 ## 🚀 Próximos Pasos
+
 Combina con:
+
 - **llm-evals** para correlacionar metrics con quality
 - **agents** para tracear pasos de agentes autónomos
 - **guardrails** para loggear intentos bloqueados
+
+## Objetivo del modulo
+
+Pendiente de completar este apartado.
+
+## Que vas a lograr
+
+Pendiente de completar este apartado.
+
+## Estructura interna
+
+Pendiente de completar este apartado.
+
+## Ruta de niveles (L1-L4)
+
+Pendiente de completar este apartado.
+
+## Plan recomendado (por progreso, no por semanas)
+
+Pendiente de completar este apartado.
+
+## Criterio de modulo completado
+
+Pendiente de completar este apartado.

@@ -8,7 +8,7 @@ Construirás tu primera red neuronal desde cero usando PyTorch para clasificar d
 
 Clasificar imágenes de dígitos (0-9) del dataset MNIST.
 
----
+______________________________________________________________________
 
 ## 🚀 Paso 1: Setup e importaciones
 
@@ -30,11 +30,12 @@ torch.manual_seed(42)
 ```
 
 **Salida:**
+
 ```
 Usando device: cuda  (o cpu si no hay GPU)
 ```
 
----
+______________________________________________________________________
 
 ## 📥 Paso 2: Cargar y explorar datos
 
@@ -67,6 +68,7 @@ print(f"Test set: {len(test_dataset)} imágenes")
 ```
 
 **Salida:**
+
 ```
 Train set: 60000 imágenes
 Test set: 10000 imágenes
@@ -97,6 +99,7 @@ print(f"Forma de label: {sample_label}")
 ```
 
 **Salida:**
+
 ```
 Forma de imagen: torch.Size([1, 28, 28])  👈 1 canal (grayscale), 28x28 píxeles
 Forma de label: 5
@@ -125,7 +128,7 @@ print(f"Número de batches en train: {len(train_loader)}")
 print(f"Número de batches en test: {len(test_loader)}")
 ```
 
----
+______________________________________________________________________
 
 ## 🏗️ Paso 3: Definir arquitectura de la red neuronal
 
@@ -137,15 +140,15 @@ class SimpleNN(nn.Module):
     """
     def __init__(self):
         super(SimpleNN, self).__init__()
-        
+
         # Capas
         self.fc1 = nn.Linear(28 * 28, 128)  # Input: 784, Output: 128
         self.fc2 = nn.Linear(128, 64)        # Input: 128, Output: 64
         self.fc3 = nn.Linear(64, 10)         # Input: 64, Output: 10 (clases)
-        
+
         # Activación
         self.relu = nn.ReLU()
-        
+
     def forward(self, x):
         """
         Forward pass
@@ -153,18 +156,18 @@ class SimpleNN(nn.Module):
         """
         # Flatten: [batch_size, 1, 28, 28] -> [batch_size, 784]
         x = x.view(x.size(0), -1)
-        
+
         # Capa 1: Linear + ReLU
         x = self.fc1(x)
         x = self.relu(x)
-        
+
         # Capa 2: Linear + ReLU
         x = self.fc2(x)
         x = self.relu(x)
-        
+
         # Capa 3: Linear (sin activación, esto se hace en loss function)
         x = self.fc3(x)
-        
+
         return x  # Logits (sin softmax aún)
 
 # Crear modelo
@@ -179,6 +182,7 @@ print(f"Parámetros entrenables: {trainable_params:,}")
 ```
 
 **Salida:**
+
 ```
 SimpleNN(
   (fc1): Linear(in_features=784, out_features=128, bias=True)
@@ -192,12 +196,13 @@ Parámetros entrenables: 109,386
 ```
 
 **Cálculo de parámetros:**
+
 - fc1: 784 × 128 + 128 (bias) = 100,480
 - fc2: 128 × 64 + 64 = 8,256
 - fc3: 64 × 10 + 10 = 650
 - **Total:** 109,386
 
----
+______________________________________________________________________
 
 ## 🔧 Paso 4: Definir loss function y optimizador
 
@@ -212,7 +217,7 @@ print(f"Loss function: {criterion}")
 print(f"Optimizer: {optimizer}")
 ```
 
----
+______________________________________________________________________
 
 ## 🏋️ Paso 5: Función de entrenamiento
 
@@ -225,34 +230,34 @@ def train_epoch(model, loader, criterion, optimizer, device):
     running_loss = 0.0
     correct = 0
     total = 0
-    
+
     for batch_idx, (images, labels) in enumerate(loader):
         # Mover a device
         images, labels = images.to(device), labels.to(device)
-        
+
         # Forward pass
         outputs = model(images)
         loss = criterion(outputs, labels)
-        
+
         # Backward pass y optimización
         optimizer.zero_grad()  # Limpiar gradientes previos
         loss.backward()        # Calcular gradientes (backpropagation)
         optimizer.step()       # Actualizar pesos
-        
+
         # Métricas
         running_loss += loss.item()
         _, predicted = torch.max(outputs.data, 1)  # Clase con mayor probabilidad
         total += labels.size(0)
         correct += (predicted == labels).sum().item()
-    
+
     # Promedios
     epoch_loss = running_loss / len(loader)
     epoch_acc = 100 * correct / total
-    
+
     return epoch_loss, epoch_acc
 ```
 
----
+______________________________________________________________________
 
 ## 🧪 Paso 6: Función de evaluación
 
@@ -265,28 +270,28 @@ def evaluate(model, loader, criterion, device):
     running_loss = 0.0
     correct = 0
     total = 0
-    
+
     with torch.no_grad():  # No calcular gradientes (ahorra memoria)
         for images, labels in loader:
             images, labels = images.to(device), labels.to(device)
-            
+
             # Forward pass
             outputs = model(images)
             loss = criterion(outputs, labels)
-            
+
             # Métricas
             running_loss += loss.item()
             _, predicted = torch.max(outputs.data, 1)
             total += labels.size(0)
             correct += (predicted == labels).sum().item()
-    
+
     epoch_loss = running_loss / len(loader)
     epoch_acc = 100 * correct / total
-    
+
     return epoch_loss, epoch_acc
 ```
 
----
+______________________________________________________________________
 
 ## 🚂 Paso 7: Loop de entrenamiento
 
@@ -307,12 +312,12 @@ for epoch in range(num_epochs):
     train_loss, train_acc = train_epoch(model, train_loader, criterion, optimizer, device)
     train_losses.append(train_loss)
     train_accs.append(train_acc)
-    
+
     # Evaluar
     test_loss, test_acc = evaluate(model, test_loader, criterion, device)
     test_losses.append(test_loss)
     test_accs.append(test_acc)
-    
+
     # Log
     print(f"Epoch [{epoch+1}/{num_epochs}]")
     print(f"  Train Loss: {train_loss:.4f}, Train Acc: {train_acc:.2f}%")
@@ -323,6 +328,7 @@ print("=== ENTRENAMIENTO COMPLETADO ===")
 ```
 
 **Salida esperada:**
+
 ```
 === INICIO ENTRENAMIENTO ===
 
@@ -343,7 +349,7 @@ Epoch [10/10]
 === ENTRENAMIENTO COMPLETADO ===
 ```
 
----
+______________________________________________________________________
 
 ## 📊 Paso 8: Visualizar curvas de entrenamiento
 
@@ -373,11 +379,12 @@ plt.show()
 ```
 
 **Observaciones:**
+
 - Train accuracy aumenta más rápido que test (esperado)
 - Test loss empieza a aumentar después de época 7-8 → señal de overfitting leve
 - Test accuracy final ~98% (excelente para baseline)
 
----
+______________________________________________________________________
 
 ## 🔍 Paso 9: Inferencia y visualización de predicciones
 
@@ -401,10 +408,10 @@ for i in range(10):
     image = images[i].cpu().squeeze().numpy() * 0.3081 + 0.1307
     true_label = labels[i].item()
     pred_label = predicted[i].item()
-    
+
     # Color: verde si correcto, rojo si incorrecto
     color = 'green' if true_label == pred_label else 'red'
-    
+
     axes[i].imshow(image, cmap='gray')
     axes[i].set_title(f'True: {true_label}, Pred: {pred_label}', color=color)
     axes[i].axis('off')
@@ -413,7 +420,7 @@ plt.tight_layout()
 plt.show()
 ```
 
----
+______________________________________________________________________
 
 ## 💾 Paso 10: Guardar modelo
 
@@ -429,7 +436,7 @@ model_loaded.eval()
 print("Modelo cargado exitosamente")
 ```
 
----
+______________________________________________________________________
 
 ## 📝 Resumen ejecutivo
 
@@ -442,7 +449,7 @@ print("Modelo cargado exitosamente")
 ### 🏗️ Arquitectura
 
 ```
-Input (28x28 = 784) 
+Input (28x28 = 784)
   ↓
 Dense(784 → 128) + ReLU
   ↓
@@ -461,31 +468,36 @@ Output (10 clases)
 - **Loss:** CrossEntropyLoss
 - **Epochs:** 10
 
----
+______________________________________________________________________
 
 ## 🎓 Lecciones aprendidas
 
 ### ✅ Conceptos clave de PyTorch
 
 1. **`nn.Module`:** Clase base para modelos
+
    - `__init__()`: Definir capas
    - `forward()`: Definir flujo de datos
 
-2. **Device management:**
+1. **Device management:**
+
    - `.to(device)`: Mover modelo/datos a GPU/CPU
    - Siempre mover datos antes de forward pass
 
-3. **Loss functions:**
+1. **Loss functions:**
+
    - `CrossEntropyLoss`: Para clasificación multiclase
    - Combina softmax + negative log likelihood
 
-4. **Optimizadores:**
+1. **Optimizadores:**
+
    - `Adam`: Ajusta learning rate automáticamente por parámetro
    - `optimizer.zero_grad()`: Limpiar gradientes previos
    - `loss.backward()`: Calcular gradientes (backpropagation)
    - `optimizer.step()`: Actualizar pesos
 
-5. **Modos del modelo:**
+1. **Modos del modelo:**
+
    - `model.train()`: Activa dropout, batch norm
    - `model.eval()`: Desactiva dropout, batch norm
    - `torch.no_grad()`: No calcular gradientes (ahorra memoria)
@@ -505,10 +517,10 @@ Output (10 clases)
 ### 💡 Mejoras posibles
 
 1. **Regularización:** Agregar Dropout entre capas
-2. **Data augmentation:** Rotaciones, traslaciones
-3. **Arquitectura:** CNN en lugar de FC (mejor para imágenes)
-4. **Learning rate schedule:** Reducir lr durante entrenamiento
-5. **Early stopping:** Detener cuando test loss aumenta
+1. **Data augmentation:** Rotaciones, traslaciones
+1. **Arquitectura:** CNN en lugar de FC (mejor para imágenes)
+1. **Learning rate schedule:** Reducir lr durante entrenamiento
+1. **Early stopping:** Detener cuando test loss aumenta
 
 ### 🔧 Próximos pasos
 

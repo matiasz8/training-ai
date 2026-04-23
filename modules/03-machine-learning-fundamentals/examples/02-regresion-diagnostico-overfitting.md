@@ -36,6 +36,7 @@ print(X.head())
 ```
 
 **Salida:**
+
 ```
 === CALIFORNIA HOUSING DATASET ===
 Dimensiones: (20640, 8)
@@ -45,7 +46,7 @@ Features:
 ['MedInc', 'HouseAge', 'AveRooms', 'AveBedrms', 'Population', 'AveOccup', 'Latitude', 'Longitude']
 ```
 
----
+______________________________________________________________________
 
 ## 📊 Paso 1: EDA y preparación
 
@@ -100,6 +101,7 @@ plt.show()
 ```
 
 **Salida:**
+
 ```
 === CORRELACIONES CON PRICE ===
 Price         1.000000
@@ -125,7 +127,7 @@ X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 ```
 
----
+______________________________________________________________________
 
 ## 🤖 Paso 2: Baseline - Linear Regression
 
@@ -143,7 +145,7 @@ def evaluate_model(y_true, y_pred, dataset_name):
     mae = mean_absolute_error(y_true, y_pred)
     rmse = np.sqrt(mean_squared_error(y_true, y_pred))
     r2 = r2_score(y_true, y_pred)
-    
+
     print(f"\n=== {dataset_name} ===")
     print(f"MAE:  ${mae:.4f} x 100k = ${mae * 100000:.0f}")
     print(f"RMSE: ${rmse:.4f} x 100k = ${rmse * 100000:.0f}")
@@ -155,6 +157,7 @@ test_metrics = evaluate_model(y_test, y_test_pred, "TEST - Linear Regression")
 ```
 
 **Salida:**
+
 ```
 === TRAIN - Linear Regression ===
 MAE:  $0.5264 x 100k = $52640
@@ -169,7 +172,7 @@ R²:   0.5757
 ✅ Train y Test performance similares → No overfitting
 ```
 
----
+______________________________________________________________________
 
 ## 📈 Paso 3: Detectar overfitting con Decision Tree
 
@@ -188,6 +191,7 @@ test_metrics_dt = evaluate_model(y_test, y_test_pred_dt, "TEST - Decision Tree (
 ```
 
 **Salida:**
+
 ```
 === TRAIN - Decision Tree (sin límite) ===
 MAE:  $0.0000 x 100k = $0
@@ -214,25 +218,25 @@ def plot_learning_curve(model, X, y, title):
         train_sizes=np.linspace(0.1, 1.0, 10),
         scoring='neg_mean_squared_error'
     )
-    
+
     # Convertir a RMSE
     train_rmse = np.sqrt(-train_scores)
     val_rmse = np.sqrt(-val_scores)
-    
+
     # Promedios y desviaciones
     train_mean = train_rmse.mean(axis=1)
     train_std = train_rmse.std(axis=1)
     val_mean = val_rmse.mean(axis=1)
     val_std = val_rmse.std(axis=1)
-    
+
     # Gráfico
     plt.figure(figsize=(10, 6))
     plt.plot(train_sizes, train_mean, label='Training RMSE', marker='o', color='blue')
     plt.fill_between(train_sizes, train_mean - train_std, train_mean + train_std, alpha=0.15, color='blue')
-    
+
     plt.plot(train_sizes, val_mean, label='Validation RMSE', marker='s', color='red')
     plt.fill_between(train_sizes, val_mean - val_std, val_mean + val_std, alpha=0.15, color='red')
-    
+
     plt.xlabel('Training Set Size')
     plt.ylabel('RMSE')
     plt.title(title)
@@ -249,17 +253,19 @@ plot_learning_curve(dt_overfit, X_train_scaled, y_train, 'Learning Curve - Decis
 **Interpretación de curvas:**
 
 **Linear Regression:**
+
 - Train y Validation RMSE convergen (gap pequeño)
 - ✅ No overfitting
 - ⚠️ High bias (ambas curvas plateau alto)
 
 **Decision Tree:**
+
 - Train RMSE muy bajo (casi 0)
 - Validation RMSE alto
 - Gap grande entre train y validation
 - 🚨 Overfitting claro
 
----
+______________________________________________________________________
 
 ## 🛠️ Paso 4: Mitigar overfitting
 
@@ -273,10 +279,10 @@ results = []
 for depth in depths:
     dt = DecisionTreeRegressor(max_depth=depth, random_state=42)
     dt.fit(X_train_scaled, y_train)
-    
+
     train_r2 = r2_score(y_train, dt.predict(X_train_scaled))
     test_r2 = r2_score(y_test, dt.predict(X_test_scaled))
-    
+
     results.append({
         'max_depth': depth if depth else 'None',
         'train_r2': train_r2,
@@ -305,6 +311,7 @@ plt.show()
 ```
 
 **Salida:**
+
 ```
 === IMPACTO DE max_depth ===
   max_depth  train_r2  test_r2      gap
@@ -343,6 +350,7 @@ test_metrics_rf = evaluate_model(y_test, y_test_pred_rf, "TEST - Random Forest")
 ```
 
 **Salida:**
+
 ```
 === TRAIN - Random Forest ===
 MAE:  $0.3268 x 100k = $32680
@@ -370,10 +378,10 @@ ridge_results = []
 for alpha in alphas:
     ridge = Ridge(alpha=alpha)
     ridge.fit(X_train_scaled, y_train)
-    
+
     train_r2 = r2_score(y_train, ridge.predict(X_train_scaled))
     test_r2 = r2_score(y_test, ridge.predict(X_test_scaled))
-    
+
     ridge_results.append({
         'alpha': alpha,
         'train_r2': train_r2,
@@ -386,6 +394,7 @@ print(ridge_df)
 ```
 
 **Salida:**
+
 ```
 === RIDGE REGRESSION (Regularización L2) ===
    alpha  train_r2  test_r2
@@ -398,7 +407,7 @@ print(ridge_df)
 
 **Insight:** Ridge con alpha=10 mejora ligeramente test R² al penalizar coeficientes grandes.
 
----
+______________________________________________________________________
 
 ## 📊 Paso 5: Comparación final de modelos
 
@@ -469,44 +478,52 @@ plt.show()
 ```
 
 **Ranking:**
-1. **Random Forest** - Mejor Test R² (0.6349), gap aceptable
-2. **Decision Tree (depth=6)** - Balance decent, más interpretable
-3. **Ridge (alpha=10)** - Ligera mejora sobre Linear Regression
-4. **Linear Regression** - Baseline sólido
-5. **Decision Tree (no limit)** - Severo overfitting
 
----
+1. **Random Forest** - Mejor Test R² (0.6349), gap aceptable
+1. **Decision Tree (depth=6)** - Balance decent, más interpretable
+1. **Ridge (alpha=10)** - Ligera mejora sobre Linear Regression
+1. **Linear Regression** - Baseline sólido
+1. **Decision Tree (no limit)** - Severo overfitting
+
+______________________________________________________________________
 
 ## 🎓 Lecciones aprendidas
 
 ### ✅ Cómo detectar overfitting
 
 1. **Comparar train vs test metrics:**
+
    - Train R² >> Test R² → Overfitting
    - Train R² ≈ Test R² → Buen balance
 
-2. **Curvas de aprendizaje:**
+1. **Curvas de aprendizaje:**
+
    - Gap grande entre train y validation → Overfitting
    - Ambas curvas altas → Underfitting
 
-3. **Cross-validation:**
+1. **Cross-validation:**
+
    - Alta varianza en CV scores → Inestabilidad
 
 ### 🛠️ Técnicas para mitigar overfitting
 
 1. **Regularización:**
+
    - Ridge (L2): Penaliza coeficientes grandes
    - Lasso (L1): Feature selection automático
    - Elastic Net: Combina L1 y L2
 
-2. **Limitar complejidad del modelo:**
+1. **Limitar complejidad del modelo:**
+
    - `max_depth`, `min_samples_split` en árboles
    - `n_estimators`, `max_features` en Random Forest
 
-3. **Más datos:**
+1. **Más datos:**
+
    - Aumentar tamaño de entrenamiento (si posible)
 
-4. **Ensembles:**
+1. **Ensembles:**
+
    - Random Forest reduce varianza de árboles individuales
    - Bagging, Boosting
 

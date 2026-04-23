@@ -8,7 +8,7 @@ Las anomalías son observaciones que se desvían significativamente del comporta
 
 Detectar transacciones fraudulentas, fallas de servidores o comportamientos anómalos en datos temporales.
 
----
+______________________________________________________________________
 
 ## 🚀 Paso 1: Setup e importaciones
 
@@ -27,7 +27,7 @@ warnings.filterwarnings('ignore')
 sns.set_style('whitegrid')
 ```
 
----
+______________________________________________________________________
 
 ## 📥 Paso 2: Generar datos con anomalías
 
@@ -72,6 +72,7 @@ print(f"\n{df.head()}")
 ```
 
 **Salida:**
+
 ```
 Total de observaciones: 365
 Anomalías inyectadas: 18 (4.93%)
@@ -84,7 +85,7 @@ Anomalías inyectadas: 18 (4.93%)
 4 2023-01-01 04:00:00  86.789012       False
 ```
 
----
+______________________________________________________________________
 
 ## 📊 Paso 3: Visualizar datos
 
@@ -96,7 +97,7 @@ plt.plot(df['timestamp'], df['value'], label='Valores', color='blue', alpha=0.7)
 
 # Highlight anomalías
 anomalies = df[df['is_anomaly']]
-plt.scatter(anomalies['timestamp'], anomalies['value'], 
+plt.scatter(anomalies['timestamp'], anomalies['value'],
             color='red', s=100, label='Anomalías Reales', zorder=5)
 
 plt.title('Serie Temporal con Anomalías Inyectadas', fontsize=16)
@@ -107,7 +108,7 @@ plt.grid(alpha=0.3)
 plt.show()
 ```
 
----
+______________________________________________________________________
 
 ## 🔍 Técnica 1: Métodos Estadísticos (Z-Score)
 
@@ -121,10 +122,10 @@ def detect_anomalies_zscore(df, column, threshold=3):
     """
     mean = df[column].mean()
     std = df[column].std()
-    
+
     df['z_score'] = (df[column] - mean) / std
     df['anomaly_zscore'] = np.abs(df['z_score']) > threshold
-    
+
     return df
 
 df = detect_anomalies_zscore(df, 'value', threshold=3)
@@ -140,11 +141,12 @@ cm = confusion_matrix(df['is_anomaly'], df['anomaly_zscore'])
 print(cm)
 
 print("\nClassification Report:")
-print(classification_report(df['is_anomaly'], df['anomaly_zscore'], 
+print(classification_report(df['is_anomaly'], df['anomaly_zscore'],
                            target_names=['Normal', 'Anomaly']))
 ```
 
 **Salida:**
+
 ```
 === Z-SCORE METHOD ===
 Anomalías detectadas: 15
@@ -171,12 +173,12 @@ plt.plot(df['timestamp'], df['value'], label='Valores', color='blue', alpha=0.5)
 
 # Anomalías detectadas
 detected = df[df['anomaly_zscore']]
-plt.scatter(detected['timestamp'], detected['value'], 
+plt.scatter(detected['timestamp'], detected['value'],
             color='orange', s=100, label='Detectadas (Z-Score)', marker='x', zorder=5)
 
 # Anomalías reales
 real = df[df['is_anomaly']]
-plt.scatter(real['timestamp'], real['value'], 
+plt.scatter(real['timestamp'], real['value'],
             color='red', s=50, label='Reales', alpha=0.5, zorder=4)
 
 plt.title('Detección con Z-Score (threshold=3)', fontsize=16)
@@ -187,7 +189,7 @@ plt.grid(alpha=0.3)
 plt.show()
 ```
 
----
+______________________________________________________________________
 
 ## 🤖 Técnica 2: Isolation Forest (ML)
 
@@ -219,8 +221,8 @@ df['diff_from_rolling_mean'] = df['value'] - df['rolling_mean_24']
 df.dropna(inplace=True)
 
 # Features para modelo
-feature_cols = ['value', 'lag_1', 'lag_2', 'lag_3', 
-                'rolling_mean_24', 'rolling_std_24', 
+feature_cols = ['value', 'lag_1', 'lag_2', 'lag_3',
+                'rolling_mean_24', 'rolling_std_24',
                 'diff_from_rolling_mean', 'hour']
 
 X = df[feature_cols]
@@ -261,6 +263,7 @@ print(classification_report(df['is_anomaly'], df['anomaly_isoforest'],
 ```
 
 **Salida:**
+
 ```
 === ISOLATION FOREST ===
 Anomalías detectadas: 17
@@ -287,12 +290,12 @@ plt.plot(df['timestamp'], df['value'], label='Valores', color='blue', alpha=0.5)
 
 # Detectadas
 detected_iso = df[df['anomaly_isoforest']]
-plt.scatter(detected_iso['timestamp'], detected_iso['value'], 
+plt.scatter(detected_iso['timestamp'], detected_iso['value'],
             color='green', s=100, label='Detectadas (Isolation Forest)', marker='^', zorder=5)
 
 # Reales
 real = df[df['is_anomaly']]
-plt.scatter(real['timestamp'], real['value'], 
+plt.scatter(real['timestamp'], real['value'],
             color='red', s=50, label='Reales', alpha=0.5, zorder=4)
 
 plt.title('Detección con Isolation Forest', fontsize=16)
@@ -303,7 +306,7 @@ plt.grid(alpha=0.3)
 plt.show()
 ```
 
----
+______________________________________________________________________
 
 ## 📐 Técnica 3: IQR (Interquartile Range)
 
@@ -317,12 +320,12 @@ def detect_anomalies_iqr(df, column, window=24, multiplier=1.5):
     df['rolling_Q1'] = df[column].rolling(window=window).quantile(0.25)
     df['rolling_Q3'] = df[column].rolling(window=window).quantile(0.75)
     df['rolling_IQR'] = df['rolling_Q3'] - df['rolling_Q1']
-    
+
     df['lower_bound'] = df['rolling_Q1'] - multiplier * df['rolling_IQR']
     df['upper_bound'] = df['rolling_Q3'] + multiplier * df['rolling_IQR']
-    
+
     df['anomaly_iqr'] = (df[column] < df['lower_bound']) | (df[column] > df['upper_bound'])
-    
+
     return df
 
 df = detect_anomalies_iqr(df, 'value', window=24, multiplier=1.5)
@@ -340,6 +343,7 @@ print(classification_report(df['is_anomaly'], df['anomaly_iqr'],
 ```
 
 **Salida:**
+
 ```
 === IQR METHOD ===
 Anomalías detectadas: 19
@@ -355,7 +359,7 @@ Classification Report:
      Anomaly       0.49      0.94      0.64        18
 ```
 
----
+______________________________________________________________________
 
 ## 🧠 Técnica 4: LSTM Autoencoder (Deep Learning)
 
@@ -399,27 +403,27 @@ class LSTMAutoencoder(nn.Module):
     """
     def __init__(self, seq_length, n_features=1, hidden_size=32):
         super(LSTMAutoencoder, self).__init__()
-        
+
         # Encoder
         self.encoder = nn.LSTM(n_features, hidden_size, batch_first=True)
-        
+
         # Decoder
         self.decoder = nn.LSTM(hidden_size, hidden_size, batch_first=True)
         self.output = nn.Linear(hidden_size, n_features)
-        
+
     def forward(self, x):
         # Encode
         _, (hidden, cell) = self.encoder(x)
-        
+
         # Repeat hidden state para decoder
         hidden_repeated = hidden.repeat(x.size(1), 1, 1).permute(1, 0, 2)
-        
+
         # Decode
         decoded, _ = self.decoder(hidden_repeated, (hidden, cell))
-        
+
         # Output
         output = self.output(decoded)
-        
+
         return output
 
 # Crear modelo
@@ -452,20 +456,20 @@ for epoch in range(num_epochs):
     epoch_loss = 0
     for batch_X, batch_y in loader:
         batch_X, batch_y = batch_X.to(device), batch_y.to(device)
-        
+
         # Forward
         outputs = model_lstm(batch_X)
         loss = criterion_lstm(outputs, batch_y)
-        
+
         # Backward
         optimizer_lstm.zero_grad()
         loss.backward()
         optimizer_lstm.step()
-        
+
         epoch_loss += loss.item()
-    
+
     losses.append(epoch_loss / len(loader))
-    
+
     if (epoch + 1) % 10 == 0:
         print(f"Epoch [{epoch+1}/{num_epochs}], Loss: {epoch_loss/len(loader):.6f}")
 
@@ -473,6 +477,7 @@ print("✅ Entrenamiento completado")
 ```
 
 **Salida:**
+
 ```
 Epoch [10/50], Loss: 0.012345
 Epoch [20/50], Loss: 0.008234
@@ -516,7 +521,7 @@ cm_lstm = confusion_matrix(valid_rows['is_anomaly'], valid_rows['anomaly_lstm'])
 print(cm_lstm)
 ```
 
----
+______________________________________________________________________
 
 ## 📊 Comparar todos los métodos
 
@@ -529,11 +534,11 @@ f1_scores = []
 
 for col in ['anomaly_zscore', 'anomaly_iqr', 'anomaly_isoforest', 'anomaly_lstm']:
     valid_data = df[df[col].notna()]
-    
+
     precision = precision_score(valid_data['is_anomaly'], valid_data[col], zero_division=0)
     recall = recall_score(valid_data['is_anomaly'], valid_data[col], zero_division=0)
     f1 = f1_score(valid_data['is_anomaly'], valid_data[col], zero_division=0)
-    
+
     precisions.append(precision)
     recalls.append(recall)
     f1_scores.append(f1)
@@ -571,6 +576,7 @@ plt.show()
 ```
 
 **Salida esperada:**
+
 ```
 === COMPARACIÓN DE MÉTODOS ===
             Method  Precision  Recall  F1-Score
@@ -580,53 +586,59 @@ plt.show()
   LSTM Autoencoder       0.75    0.89      0.81
 ```
 
----
+______________________________________________________________________
 
 ## 📝 Resumen ejecutivo
 
 ### ✅ Comparación de métodos
 
-| Método | Precision | Recall | F1-Score | Ventajas | Desventajas |
-|--------|-----------|--------|----------|----------|-------------|
-| **Z-Score** | 0.88 | 0.83 | 0.85 | Simple, rápido | Asume distribución normal, no captura contexto temporal |
-| **IQR** | 0.49 | 0.94 | 0.64 | Robusto a outliers | Muchos falsos positivos |
-| **Isolation Forest** | 0.50 | 0.94 | 0.65 | No asume distribución, maneja multi-dimensional | Requiere feature engineering |
-| **LSTM Autoencoder** | 0.75 | 0.89 | 0.81 | Captura patrones temporales, detecta anomalías complejas | Lento, requiere datos |
+| Método               | Precision | Recall | F1-Score | Ventajas                                                 | Desventajas                                             |
+| -------------------- | --------- | ------ | -------- | -------------------------------------------------------- | ------------------------------------------------------- |
+| **Z-Score**          | 0.88      | 0.83   | 0.85     | Simple, rápido                                           | Asume distribución normal, no captura contexto temporal |
+| **IQR**              | 0.49      | 0.94   | 0.64     | Robusto a outliers                                       | Muchos falsos positivos                                 |
+| **Isolation Forest** | 0.50      | 0.94   | 0.65     | No asume distribución, maneja multi-dimensional          | Requiere feature engineering                            |
+| **LSTM Autoencoder** | 0.75      | 0.89   | 0.81     | Captura patrones temporales, detecta anomalías complejas | Lento, requiere datos                                   |
 
 ### 🎯 Cuándo usar cada método
 
 **Z-Score / IQR:**
+
 - ✅ Baseline rápido
 - ✅ Anomalías point (valores extremos)
 - ✅ Series estacionarias
 
 **Isolation Forest:**
+
 - ✅ Anomalías complejas (multi-dimensional)
 - ✅ No asume distribución de datos
 - ✅ Datasets medianos-grandes
 
 **LSTM Autoencoder:**
+
 - ✅ Anomalías contextuales (dependen de secuencia)
 - ✅ Patrones temporales complejos
 - ✅ Datasets muy grandes (>10k puntos)
 
----
+______________________________________________________________________
 
 ## 🎓 Lecciones aprendidas
 
 ### ✅ Tipos de anomalías
 
 1. **Point Anomalies:**
+
    - Valores individuales extremos
    - Ejemplo: Temperatura de 100°C en invierno
    - **Detectar con:** Z-Score,IQR
 
-2. **Contextual Anomalies:**
+1. **Contextual Anomalies:**
+
    - Valores anómalos según contexto
    - Ejemplo: Tráfico bajo a las 3 PM (normal a las 3 AM)
    - **Detectar con:** LSTM, Prophet residuals
 
-3. **Collective Anomalies:**
+1. **Collective Anomalies:**
+
    - Secuencia de valores anómalos
    - Ejemplo: Caída sostenida de 24 horas
    - **Detectar con:** LSTM, Change Point Detection
@@ -634,30 +646,34 @@ plt.show()
 ### ✅ Desafíos
 
 1. **Class imbalance:** Anomalías son raras (~1-5%)
+
    - **Solución:** Usar métricas apropiadas (Precision, Recall, F1), no solo Accuracy
 
-2. **Definir threshold:**
+1. **Definir threshold:**
+
    - Z-Score: 3 (estándar), 2 (sensible), 4 (conservador)
    - IQR: 1.5 (estándar), 3 (conservador)
    - LSTM: Percentil 95-99
 
-3. **Falsos positivos:**
+1. **Falsos positivos:**
+
    - IQR genera muchos FP (alta sensibilidad)
    - **Solución:** Ensemble de métodos, validación humana
 
 ### 💡 Mejoras adicionales
 
 1. **Ensemble:** Combinar múltiples métodos (votación)
+
 ```python
 df['anomaly_ensemble'] = (
-    df['anomaly_zscore'] & 
+    df['anomaly_zscore'] &
     df['anomaly_isoforest']
 ).astype(int)
 ```
 
 2. **Seasonal Hybrid ESD (S-H-ESD):** Detecta anomalías considerando estacionalidad
-3. **Prophet:** Usar residuals como anomalías
-4. **Transformer Autoencoder:** Más poderoso que LSTM
+1. **Prophet:** Usar residuals como anomalías
+1. **Transformer Autoencoder:** Más poderoso que LSTM
 
 ### 🚫 Errores comunes
 
@@ -667,7 +683,7 @@ df['anomaly_ensemble'] = (
 - ❌ No validar detecciones (muchos FP)
 - ❌ Entrenar LSTM con anomalías (contamina el modelo)
 
----
+______________________________________________________________________
 
 ## 🔧 Pipeline de producción
 
@@ -677,12 +693,12 @@ def anomaly_detection_pipeline(df, value_col, methods=['zscore', 'isoforest']):
     Pipeline multi-método para detección de anomalías
     """
     results = {}
-    
+
     # Z-Score
     if 'zscore' in methods:
         df_result = detect_anomalies_zscore(df.copy(), value_col, threshold=3)
         results['zscore'] = df_result['anomaly_zscore']
-    
+
     # Isolation Forest
     if 'isoforest' in methods:
         # Feature engineering
@@ -690,23 +706,23 @@ def anomaly_detection_pipeline(df, value_col, methods=['zscore', 'isoforest']):
         df_features['lag_1'] = df_features[value_col].shift(1)
         df_features['rolling_mean'] = df_features[value_col].rolling(24).mean()
         df_features.dropna(inplace=True)
-        
+
         X = df_features[[value_col, 'lag_1', 'rolling_mean']]
         X_scaled = StandardScaler().fit_transform(X)
-        
+
         iso = IsolationForest(contamination=0.05, random_state=42)
         predictions = iso.fit_predict(X_scaled)
-        
+
         df_result = df.copy()
         df_result['anomaly_isoforest'] = False
         df_result.iloc[df_features.index, df_result.columns.get_loc('anomaly_isoforest')] = (predictions == -1)
-        
+
         results['isoforest'] = df_result['anomaly_isoforest']
-    
+
     # Ensemble (votación)
     ensemble_votes = sum(results.values())
     results['ensemble'] = ensemble_votes >= len(methods) / 2  # Mayoría
-    
+
     return pd.DataFrame(results)
 
 # Usar

@@ -2,39 +2,40 @@ Computer Vision (CV) enables machines to interpret and understand visual informa
 At NaNLABS, we specialize in leveraging pre-trained vision models and cloud-native services to solve practical business challenges through fast, scalable, and privacy-conscious solutions.
 
 ✅ Topics Covered
+
 1. Core Concepts
-Image classification, object detection, segmentation
-Bounding boxes vs. masks vs. keypoints
-Evaluation metrics: IoU, mAP, precision/recall
-Dataset formats: COCO, Pascal VOC
-2. Common Use Cases
-OCR (Optical Character Recognition)
-Face detection / redaction
-Barcode/QR detection
-Product identification & defect detection
-Scene understanding & analytics
-3. Pre-Trained Models & Transfer Learning
-YOLOv5 / YOLOv8
-ResNet, EfficientNet, MobileNet
-Vision Transformers (ViT)
-Fine-tuning vs. feature extraction
-4. Cloud Services & APIs
-AWS Rekognition, Textract, Comprehend Medical (for OCR and analysis)
-Azure Computer Vision & Face APIs
-Google Vision AI
-Deployment with AWS SageMaker or custom API servers
-5. Tools & Frameworks
-PyTorch & Torchvision
-OpenCV
-TensorFlow + Keras
-MMDetection & Detectron2
-Ultralytics for YOLO
-6. Specialized Topics
-Multimodal models: combining text and image inputs (e.g., CLIP, BLIP)
-Edge deployment with ONNX, TensorRT
-Real-time inference (RTSP/streaming)
-Synthetic data generation for training
-Privacy-preserving vision (face blurring, secure pipelines)
+   Image classification, object detection, segmentation
+   Bounding boxes vs. masks vs. keypoints
+   Evaluation metrics: IoU, mAP, precision/recall
+   Dataset formats: COCO, Pascal VOC
+1. Common Use Cases
+   OCR (Optical Character Recognition)
+   Face detection / redaction
+   Barcode/QR detection
+   Product identification & defect detection
+   Scene understanding & analytics
+1. Pre-Trained Models & Transfer Learning
+   YOLOv5 / YOLOv8
+   ResNet, EfficientNet, MobileNet
+   Vision Transformers (ViT)
+   Fine-tuning vs. feature extraction
+1. Cloud Services & APIs
+   AWS Rekognition, Textract, Comprehend Medical (for OCR and analysis)
+   Azure Computer Vision & Face APIs
+   Google Vision AI
+   Deployment with AWS SageMaker or custom API servers
+1. Tools & Frameworks
+   PyTorch & Torchvision
+   OpenCV
+   TensorFlow + Keras
+   MMDetection & Detectron2
+   Ultralytics for YOLO
+1. Specialized Topics
+   Multimodal models: combining text and image inputs (e.g., CLIP, BLIP)
+   Edge deployment with ONNX, TensorRT
+   Real-time inference (RTSP/streaming)
+   Synthetic data generation for training
+   Privacy-preserving vision (face blurring, secure pipelines)
 
 📌 Suggested Learning Resources
 📘 Guides & Docs

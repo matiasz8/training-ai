@@ -7,7 +7,7 @@
 - Automated testing y retraining
 - Version control para modelos
 
----
+______________________________________________________________________
 
 ## 📚 Parte 1: Ejercicios Guiados
 
@@ -48,7 +48,7 @@ def predict(features: list[float]):
     return {"prediction": prediction.tolist()}
 ```
 
----
+______________________________________________________________________
 
 ## 🚀 Parte 2: Ejercicios Propuestos
 
@@ -56,6 +56,7 @@ def predict(features: list[float]):
 
 **Enunciado:**
 Crea `.github/workflows/ml-pipeline.yml`:
+
 ```yaml
 on: [push]
 jobs:
@@ -71,6 +72,7 @@ jobs:
 
 **Enunciado:**
 Implementa model versioning:
+
 - MLflow Model Registry
 - Track experiments
 - Compare metrics
@@ -80,6 +82,7 @@ Implementa model versioning:
 
 **Enunciado:**
 Trigger retraining cuando:
+
 - Nuevos datos disponibles
 - Performance drift detectado
 - Scheduled (weekly)
@@ -88,6 +91,7 @@ Trigger retraining cuando:
 
 **Enunciado:**
 Monitor data distribution:
+
 - Compare train vs production
 - KS test, PSI metric
 - Alert si drift significativo
@@ -96,12 +100,13 @@ Monitor data distribution:
 
 **Enunciado:**
 Deploy dos versiones:
+
 - Model A (current)
 - Model B (candidate)
 - Route traffic 50/50
 - Compare metrics
 
----
+______________________________________________________________________
 
 ## ✅ Checklist
 
@@ -111,7 +116,7 @@ Deploy dos versiones:
 - [ ] Automated retraining
 - [ ] Data drift detection
 
----
+______________________________________________________________________
 
 ## 📚 Recursos
 

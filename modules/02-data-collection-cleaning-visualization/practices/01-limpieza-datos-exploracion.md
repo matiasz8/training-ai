@@ -7,7 +7,7 @@
 - Realizar transformaciones de datos
 - Crear visualizaciones exploratorias
 
----
+______________________________________________________________________
 
 ## 📚 Parte 1: Ejercicios Guiados
 
@@ -127,12 +127,12 @@ def detect_outliers_iqr(data, column, multiplier=1.5):
     Q1 = data[column].quantile(0.25)
     Q3 = data[column].quantile(0.75)
     IQR = Q3 - Q1
-    
+
     lower_bound = Q1 - multiplier * IQR
     upper_bound = Q3 + multiplier * IQR
-    
+
     outliers = data[(data[column] < lower_bound) | (data[column] > upper_bound)]
-    
+
     return outliers, lower_bound, upper_bound
 
 # Detectar outliers en product_price
@@ -187,7 +187,7 @@ print(f"Dataset limpio: {len(df_clean)} registros")
 
 # Calcular campo derivado
 df_clean['total_price'] = (
-    df_clean['product_price_clean'] * df_clean['quantity'] * 
+    df_clean['product_price_clean'] * df_clean['quantity'] *
     (1 - df_clean['discount_pct']) + df_clean['shipping_cost_imputed']
 )
 
@@ -196,7 +196,7 @@ print(df_clean.head())
 print(f"\nTotal price range: ${df_clean['total_price'].min():.2f} - ${df_clean['total_price'].max():.2f}")
 ```
 
----
+______________________________________________________________________
 
 ## 🚀 Parte 2: Ejercicios Propuestos
 
@@ -204,12 +204,14 @@ print(f"\nTotal price range: ${df_clean['total_price'].min():.2f} - ${df_clean['
 
 **Enunciado:**
 Crea una función `clean_sales_data(df)` que:
+
 1. Detecte e impute valores faltantes (estrategia apropiada por tipo de dato)
-2. Identifique outliers en todas las columnas numéricas
-3. Valide que no haya valores negativos en price/quantity
-4. Retorne un DataFrame limpio y un reporte de calidad
+1. Identifique outliers en todas las columnas numéricas
+1. Valide que no haya valores negativos en price/quantity
+1. Retorne un DataFrame limpio y un reporte de calidad
 
 **Validación esperada:**
+
 ```python
 def clean_sales_data(df):
     # Tu código aquí
@@ -229,12 +231,14 @@ print("✅ Tests pasados")
 
 **Enunciado:**
 Genera un reporte exploratorio que incluya:
+
 1. Distribución de ventas por región
-2. Correlación entre precio, cantidad y descuento
-3. Total de ventas por método de pago
-4. Análisis de tendencia de edad vs precio promedio
+1. Correlación entre precio, cantidad y descuento
+1. Total de ventas por método de pago
+1. Análisis de tendencia de edad vs precio promedio
 
 **Validación esperada:**
+
 - 4 visualizaciones (histogramas, scatter plots, barplots)
 - Reporte con insights principales
 - Correlaciones calculadas correctamente
@@ -243,12 +247,14 @@ Genera un reporte exploratorio que incluya:
 
 **Enunciado:**
 Crea nuevas features útiles para análisis:
+
 1. `price_per_unit` = product_price / quantity
-2. `is_high_value` = total_price > 75th percentile
-3. `age_group` = bins de edad (18-30, 31-45, 46-60, 61+)
-4. `discount_category` = sin descuento / bajo / medio / alto
+1. `is_high_value` = total_price > 75th percentile
+1. `age_group` = bins de edad (18-30, 31-45, 46-60, 61+)
+1. `discount_category` = sin descuento / bajo / medio / alto
 
 **Validación esperada:**
+
 ```python
 assert 'price_per_unit' in df_engineered.columns
 assert 'is_high_value' in df_engineered.columns
@@ -260,9 +266,10 @@ assert df_engineered['age_group'].nunique() == 4
 
 **Enunciado:**
 Implementa un detector de pedidos anómalos usando:
+
 1. Z-score para detectar precios extremos
-2. Reglas de negocio (ej: descuento > 50% con precio > $300)
-3. Valores imposibles (shipping_cost > product_price)
+1. Reglas de negocio (ej: descuento > 50% con precio > $300)
+1. Valores imposibles (shipping_cost > product_price)
 
 Marca registros con `is_anomalous` flag.
 
@@ -270,14 +277,15 @@ Marca registros con `is_anomalous` flag.
 
 **Enunciado:**
 Crea un dashboard de calidad con:
+
 1. Heatmap de valores faltantes por columna
-2. Distribución de outliers detectados
-3. Matriz de correlación
-4. Distribución de variables categóricas
+1. Distribución de outliers detectados
+1. Matriz de correlación
+1. Distribución de variables categóricas
 
 Guarda como `data_quality_dashboard.png`.
 
----
+______________________________________________________________________
 
 ## ✅ Checklist de Competencias
 
@@ -292,16 +300,18 @@ Después de completar esta práctica, deberías poder:
 - [ ] Generar reportes de calidad de datos
 - [ ] Calcular features derivadas
 
----
+______________________________________________________________________
 
 ## 📚 Recursos Adicionales
 
 **Librerías útiles:**
+
 - `pandas-profiling`: EDA automático
 - `missingno`: Visualización de missing data
 - `PyOD`: Detección de outliers
 - `Great Expectations`: Validación de datos
 
 **Lecturas:**
+
 - [Tidy Data por Hadley Wickham](https://vita.had.co.nz/papers/tidy-data.pdf)
 - [Data Cleaning Tutorial - Kaggle](https://www.kaggle.com/learn/data-cleaning)

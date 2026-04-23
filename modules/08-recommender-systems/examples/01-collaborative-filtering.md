@@ -8,7 +8,7 @@ aprendes **Collaborative Filtering** para construir sistemas de recomendación b
 
 Recomendar películas usando user-item ratings.
 
----
+______________________________________________________________________
 
 ## 🚀 Setup
 
@@ -24,7 +24,7 @@ import seaborn as sns
 np.random.seed(42)
 ```
 
----
+______________________________________________________________________
 
 ## 📥 Cargar datos (MovieLens-style)
 
@@ -40,7 +40,7 @@ for user_id in range(n_users):
     n_ratings = np.random.randint(1, 10)
     movie_ids = np.random.choice(n_movies, size=n_ratings, replace=False)
     ratings = np.random.randint(1, 6, size=n_ratings)  # 1-5 stars
-    
+
     for movie_id, rating in zip(movie_ids, ratings):
         ratings_data.append([user_id, movie_id, rating])
 
@@ -54,6 +54,7 @@ print(f"\n{df.head()}")
 ```
 
 **Salida:**
+
 ```
 Total ratings: 543
 Users: 100
@@ -66,7 +67,7 @@ Sparsity: 89.14%  👈 Matriz muy sparse (común en sistemas recomendación)
 2        0         8       2
 ```
 
----
+______________________________________________________________________
 
 ## 🏗️ User-Based Collaborative Filtering
 
@@ -88,7 +89,7 @@ user_item_filled = user_item_matrix.fillna(0)
 
 # Cosine similarity entre usuarios
 user_similarity = cosine_similarity(user_item_filled)
-user_similarity_df = pd.DataFrame(user_similarity, 
+user_similarity_df = pd.DataFrame(user_similarity,
                                    index=user_item_matrix.index,
                                    columns=user_item_matrix.index)
 
@@ -97,6 +98,7 @@ print(user_similarity_df.loc[0].sort_values(ascending=False).head())
 ```
 
 **Salida:**
+
 ```
 user_id
 0    1.000000  👈 Consigo mismo
@@ -115,27 +117,27 @@ def recommend_movies_user_based(user_id, user_item_matrix, user_similarity_df, t
     """
     # Obtener usuarios similares (excluyendo el mismo usuario)
     similar_users = user_similarity_df[user_id].sort_values(ascending=False)[1:11]  # Top 10
-    
+
     # Películas que el usuario NO ha visto
     user_ratings = user_item_matrix.loc[user_id]
     unwatched_movies = user_ratings[user_ratings.isna()].index
-    
+
     # Predecir ratings para películas no vistas
     predictions = {}
     for movie in unwatched_movies:
         # Weighted average de ratings de usuarios similares
         similar_users_ratings = user_item_matrix.loc[similar_users.index, movie]
         valid_ratings = similar_users_ratings.dropna()
-        
+
         if len(valid_ratings) > 0:
             # Pesos = similitudes de usuarios que vieron la película
             weights = similar_users[valid_ratings.index]
             weighted_rating = (valid_ratings * weights).sum() / weights.sum()
             predictions[movie] = weighted_rating
-    
+
     # Ordenar por rating predicho
     recommendations = sorted(predictions.items(), key=lambda x: x[1], reverse=True)[:top_n]
-    
+
     return recommendations
 
 # Ejemplo: recomendar para user 0
@@ -148,6 +150,7 @@ for movie_id, predicted_rating in recommendations:
 ```
 
 **Salida:**
+
 ```
 === Recomendaciones para User 0 ===
 
@@ -158,7 +161,7 @@ Movie ID: 5, Predicted Rating: 4.12
 Movie ID: 18, Predicted Rating: 3.98
 ```
 
----
+______________________________________________________________________
 
 ## 🎯 Item-Based Collaborative Filtering
 
@@ -188,17 +191,17 @@ def recommend_movies_item_based(user_id, user_item_matrix, item_similarity_df, t
     # Películas que el usuario vio (con buenos ratings)
     user_ratings = user_item_matrix.loc[user_id].dropna()
     liked_movies = user_ratings[user_ratings >= 4].index  # Solo películas con rating >= 4
-    
+
     # Películas candidatas (no vistas)
     unwatched_movies = user_item_matrix.loc[user_id][user_item_matrix.loc[user_id].isna()].index
-    
+
     # Calcular scores
     scores = {}
     for candidate in unwatched_movies:
         # Similitud promedio con películas que le gustaron
         similarities = item_similarity_df.loc[candidate, liked_movies]
         scores[candidate] = similarities.mean()
-    
+
     # Top N
     recommendations = sorted(scores.items(), key=lambda x: x[1], reverse=True)[:top_n]
     return recommendations
@@ -210,7 +213,7 @@ for movie_id, score in recommendations_item:
     print(f"Movie ID: {movie_id}, Similarity Score: {score:.3f}")
 ```
 
----
+______________________________________________________________________
 
 ## 📊 Evaluación
 
@@ -236,13 +239,13 @@ def predict_rating_user_based(user_id, movie_id, train_matrix, user_sim_df):
     """Predecir rating de user_id para movie_id"""
     if user_id not in train_matrix.index or movie_id not in train_matrix.columns:
         return train_matrix.mean().mean()  # Global mean fallback
-    
+
     similar_users = user_sim_df[user_id].sort_values(ascending=False)[1:11]
     ratings = train_matrix.loc[similar_users.index, movie_id].dropna()
-    
+
     if len(ratings) == 0:
         return train_matrix[movie_id].mean()  # Movie mean fallback
-    
+
     weights = similar_users[ratings.index]
     return (ratings * weights).sum() / weights.sum()
 
@@ -265,6 +268,7 @@ print(f"RMSE: {rmse:.3f}")
 ```
 
 **Salida:**
+
 ```
 === Evaluación ===
 
@@ -272,19 +276,21 @@ MAE:  0.876
 RMSE: 1.123
 ```
 
----
+______________________________________________________________________
 
 ## 📝 Resumen
 
 ### ✅ Collaborative Filtering
 
 **User-Based:**
+
 - Encuentra usuarios similares
 - Recomienda lo que les gustó a usuarios similares
 - **Ventaja:** Captura preferencias subjetivas
 - **Desventaja:** Escalabilidad (comparar todos los usuarios)
 
 **Item-Based:**
+
 - Encuentra items similares
 - Recomienda items similares a los que le gustaron
 - **Ventaja:** Más escalable (items son menos que usuarios)
@@ -293,17 +299,19 @@ RMSE: 1.123
 ### 🎯 Cold Start Problem
 
 - **Nuevos usuarios:** No tienen historial → no se puede calcular similitud
+
 - **Solución:** Pedir ratings iniciales, usar contenido (Content-Based), popularidad
 
 - **Nuevos items:** No tienen ratings → no aparecen en recomendaciones
+
 - **Solución:** Recomendar a usuarios early adopters, usar metadata
 
 ### 💡 Mejoras
 
 1. **Matrix Factorization:** SVD, ALS (Ejemplo 02)
-2. **Hybrid Systems:** Combinar collaborative + content-based
-3. **Deep Learning:** Neural Collaborative Filtering
-4. **Context-Aware:** Considerar tiempo, ubicación, dispositivo
+1. **Hybrid Systems:** Combinar collaborative + content-based
+1. **Deep Learning:** Neural Collaborative Filtering
+1. **Context-Aware:** Considerar tiempo, ubicación, dispositivo
 
 ### 📌 Checklist
 

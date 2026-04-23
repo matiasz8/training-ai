@@ -8,7 +8,7 @@ Aprenderás un pipeline completo de NLP: desde texto crudo hasta modelo de clasi
 
 Clasificar reseñas de películas como **positivas** o **negativas** (análisis de sentimientos).
 
----
+______________________________________________________________________
 
 ## 🚀 Paso 1: Setup e importaciones
 
@@ -34,7 +34,7 @@ nltk.download('punkt', quiet=True)
 print("✅ Setup completo")
 ```
 
----
+______________________________________________________________________
 
 ## 📥 Paso 2: Cargar datos
 
@@ -76,6 +76,7 @@ print(f"\n{df.head()}")
 ```
 
 **Salida:**
+
 ```
 Dataset: 16 reseñas
 
@@ -90,7 +91,7 @@ Name: sentiment, dtype: int64
 2  Amazing performance by the actors. Highly rec...  positive
 ```
 
----
+______________________________________________________________________
 
 ## 🧹 Paso 3: Preprocesamiento de texto
 
@@ -103,16 +104,16 @@ def preprocess_text(text):
     """
     # 1. Convertir a minúsculas
     text = text.lower()
-    
+
     # 2. Remover URLs
     text = re.sub(r'http\S+|www\S+', '', text)
-    
+
     # 3. Remover caracteres especiales y números (mantener letras y espacios)
     text = re.sub(r'[^a-z\s]', '', text)
-    
+
     # 4. Remover espacios múltiples
     text = re.sub(r'\s+', ' ', text).strip()
-    
+
     return text
 
 # Aplicar limpieza
@@ -125,6 +126,7 @@ for i in range(3):
 ```
 
 **Salida:**
+
 ```
 Antes vs Después de limpieza:
 
@@ -151,13 +153,13 @@ def advanced_preprocess(text):
     """
     # Tokenizar
     tokens = text.split()
-    
+
     # Remover stopwords
     tokens = [word for word in tokens if word not in stop_words]
-    
+
     # Stemming (reducir palabras a raíz)
     tokens = [stemmer.stem(word) for word in tokens]
-    
+
     return ' '.join(tokens)
 
 df['review_processed'] = df['review_clean'].apply(advanced_preprocess)
@@ -169,6 +171,7 @@ for i in range(2):
 ```
 
 **Salida:**
+
 ```
 === Comparación de procesamiento ===
 
@@ -180,10 +183,11 @@ Processed: terribl film wast time watch
 ```
 
 **Explicación:**
+
 - **Stopwords:** Remueve palabras comunes ("the", "is", "of") que no aportan significado
 - **Stemming:** Reduce palabras a su raíz ("loving" → "love", "movies" → "movi")
 
----
+______________________________________________________________________
 
 ## 🔢 Paso 4: Vectorización de texto
 
@@ -207,6 +211,7 @@ print(f"\n{X_bow_df.head()}")
 ```
 
 **Salida:**
+
 ```
 Matriz BoW: (16, 50)
 Vocabulario: 50 palabras
@@ -239,6 +244,7 @@ if word in vocab:
 ```
 
 **Salida:**
+
 ```
 Matriz TF-IDF: (16, 50)
 
@@ -248,10 +254,11 @@ Palabra 'movi' en primera reseña:
 ```
 
 **Diferencia:**
+
 - **BoW:** Cuenta simple (1, 2, 3...)
 - **TF-IDF:** Pondera por rareza (palabras raras →mayor peso)
 
----
+______________________________________________________________________
 
 ## 🏋️ Paso 5: Entrenar modelos de clasificación
 
@@ -292,6 +299,7 @@ print(f"\nClassification Report:\n{classification_report(y_test, y_pred_lr_bow, 
 ```
 
 **Salida:**
+
 ```
 === Logistic Regression + BoW ===
 Accuracy: 100.00%
@@ -345,7 +353,7 @@ for i, acc in enumerate(results['Accuracy']):
 plt.show()
 ```
 
----
+______________________________________________________________________
 
 ## 🔍 Paso 6: Interpretación del modelo
 
@@ -386,6 +394,7 @@ plt.show()
 ```
 
 **Salida esperada:**
+
 ```
 === Top 10 palabras POSITIVAS ===
       feature  coefficient
@@ -404,9 +413,9 @@ plt.show()
 ...
 ```
 
-**Interpretación:** Coeficientes altos (>1) indican fuerte asociación con sentimiento positivo; bajos (<-1) con negativo.
+**Interpretación:** Coeficientes altos (>1) indican fuerte asociación con sentimiento positivo; bajos (\<-1) con negativo.
 
----
+______________________________________________________________________
 
 ## 🧪 Paso 7: Predicción en nuevas reseñas
 
@@ -437,6 +446,7 @@ for i, review in enumerate(new_reviews):
 ```
 
 **Salida:**
+
 ```
 Reseña: This film is absolutely spectacular and heartwarming!
 Predicción: Positive (confianza: 98.34%)
@@ -448,7 +458,7 @@ Reseña: Mediocre acting but decent plot twists.
 Predicción: Positive (confianza: 62.12%)  👈 Ambiguo
 ```
 
----
+______________________________________________________________________
 
 ## 📊 Paso 8: Matriz de confusión
 
@@ -457,7 +467,7 @@ Predicción: Positive (confianza: 62.12%)  👈 Ambiguo
 cm = confusion_matrix(y_test, y_pred_lr_bow)
 
 plt.figure(figsize=(6, 5))
-sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', 
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues',
             xticklabels=['Negative', 'Positive'],
             yticklabels=['Negative', 'Positive'])
 plt.ylabel('True Label')
@@ -468,7 +478,7 @@ plt.show()
 print(f"\nMatriz de Confusión:\n{cm}")
 ```
 
----
+______________________________________________________________________
 
 ## 📝 Resumen ejecutivo
 
@@ -494,30 +504,33 @@ Predicción de sentimiento
 
 ### 🎯 Resultados
 
-| Modelo | Vectorización | Accuracy |
-|--------|---------------|----------|
-| Logistic Regression | BoW | **100%** |
-| Naive Bayes | TF-IDF | 100% |
+| Modelo              | Vectorización | Accuracy |
+| ------------------- | ------------- | -------- |
+| Logistic Regression | BoW           | **100%** |
+| Naive Bayes         | TF-IDF        | 100%     |
 
 **Nota:** Accuracy perfecto debido al dataset pequeño. En producción con IMDB (25k reseñas), esperaríamos ~88-92%.
 
----
+______________________________________________________________________
 
 ## 🎓 Lecciones aprendidas
 
 ### ✅ Preprocesamiento
 
 1. **Limpieza básica:**
+
    - Lowercase: "Movie" → "movie"
    - Remover puntuación: "Great!" → "great"
    - Normalizar espacios
 
-2. **Stopwords:**
+1. **Stopwords:**
+
    - Remover palabras comunes: "the", "is", "and"
    - Reduce dimensionalidad
    - Mejora eficiencia
 
-3. **Stemming vs Lemmatization:**
+1. **Stemming vs Lemmatization:**
+
    - **Stemming:** Rápido, reglas heurísticas ("running" → "run")
    - **Lemmatization:** Lento, diccionario ("better" → "good")
    - Para clasificación, stemming suele ser suficiente
@@ -525,28 +538,33 @@ Predicción de sentimiento
 ### ✅ Vectorización
 
 **Bag of Words (BoW):**
+
 - ✅ Simple e interpretable
 - ✅ Bueno para clasificación básica
 - ❌ Ignora orden de palabras
 - ❌ No captura semántica
 
 **TF-IDF:**
+
 - ✅ Penaliza palabras muy frecuentes
 - ✅ Resalta palabras distintivas
 - ❌ Aún ignora contexto
 
 **Cuándo usar cada uno:**
+
 - BoW: Datasets pequeños, baseline rápido
 - TF-IDF: Documentos largos, palabras raras importantes
 
 ### ✅ Modelos
 
 **Logistic Regression:**
+
 - ✅ Rápido, interpretable (coeficientes)
 - ✅ Funciona bien con text features
 - ❌ Asume linealidad
 
 **Naive Bayes:**
+
 - ✅ Muy rápido (assumes independence)
 - ✅ Eficiente con high-dimensional data
 - ❌ Asume features independientes (no siempre cierto)
@@ -554,11 +572,11 @@ Predicción de sentimiento
 ### 💡 Mejoras para producción
 
 1. **Dataset más grande:** IMDB, Yelp, Twitter
-2. **Word embeddings:** Word2Vec, GloVe (capturan semántica)
-3. **Deep Learning:** LSTM, GRU, Transformers (BERT)
-4. **Balanceo de clases:** Si dataset desbalanceado
-5. **Cross-validation:** K-fold para validación robusta
-6. **Hyperparameter tuning:** GridSearchCV para C, alpha, etc.
+1. **Word embeddings:** Word2Vec, GloVe (capturan semántica)
+1. **Deep Learning:** LSTM, GRU, Transformers (BERT)
+1. **Balanceo de clases:** Si dataset desbalanceado
+1. **Cross-validation:** K-fold para validación robusta
+1. **Hyperparameter tuning:** GridSearchCV para C, alpha, etc.
 
 ### 🚫 Errores comunes
 
@@ -567,7 +585,7 @@ Predicción de sentimiento
 - ❌ Overfitting en dataset pequeño
 - ❌ No validar en data externa
 
----
+______________________________________________________________________
 
 ## 🔧 Código para producción
 

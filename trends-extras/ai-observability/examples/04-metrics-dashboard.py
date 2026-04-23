@@ -18,7 +18,7 @@ import random
 
 # Counters: Monotonically increasing (total requests, errors)
 llm_requests_total = Counter(
-    'llm_requests_total', 
+    'llm_requests_total',
     'Total LLM requests',
     ['model', 'endpoint', 'status']
 )
@@ -72,36 +72,36 @@ class InstrumentedLLM:
     """
     LLM wrapper que expone Prometheus metrics.
     """
-    
+
     def __init__(self, model: str = "gpt-3.5-turbo"):
         self.model = model
         self.cache = {}
         self.cache_hits = 0
         self.cache_misses = 0
-    
+
     def _call_llm(self, prompt: str) -> dict:
         """
         Simula llamada al LLM (mock).
         En producción: llamar a OpenAI/Anthropic/etc.
         """
         time.sleep(random.uniform(0.1, 2.0))  # Simulate latency
-        
+
         response = f"Mock response for: {prompt[:30]}..."
         tokens = len(response.split())
-        
+
         return {
             "response": response,
             "tokens": tokens,
             "cost": tokens * 0.00002  # Mock cost
         }
-    
+
     def generate(self, prompt: str) -> dict:
         """
         Genera respuesta con metrics.
         """
         # Increment active requests
         llm_active_requests.labels(model=self.model).inc()
-        
+
         try:
             # Measure latency
             with llm_latency_seconds.labels(model=self.model).time():
@@ -115,25 +115,25 @@ class InstrumentedLLM:
                     result = self._call_llm(prompt)
                     self.cache[prompt] = result
                     status = "success"
-            
+
             # Update metrics
             llm_requests_total.labels(
                 model=self.model,
                 endpoint="/generate",
                 status=status
             ).inc()
-            
+
             llm_tokens_total.labels(model=self.model, type="output").inc(result["tokens"])
             llm_cost_total.labels(model=self.model).inc(result["cost"])
             llm_response_length.labels(model=self.model).observe(result["tokens"])
-            
+
             # Update cache hit rate
             total = self.cache_hits + self.cache_misses
             hit_rate = self.cache_hits / total if total > 0 else 0
             llm_cache_hit_rate.labels(endpoint="/generate").set(hit_rate)
-            
+
             return result
-        
+
         except Exception as e:
             # Log error
             llm_requests_total.labels(
@@ -142,7 +142,7 @@ class InstrumentedLLM:
                 status="error"
             ).inc()
             raise
-        
+
         finally:
             # Decrement active requests
             llm_active_requests.labels(model=self.model).dec()
@@ -155,7 +155,7 @@ class InstrumentedLLM:
 def expose_metrics(port: int = 8000):
     """
     Expone metrics en /metrics endpoint.
-    
+
     En producción:
         from prometheus_client import start_http_server
         start_http_server(8000)
@@ -173,9 +173,9 @@ def demo_basic_metrics():
     print("="*70)
     print("DEMO 1: Basic Metrics Collection")
     print("="*70 + "\n")
-    
+
     llm = InstrumentedLLM("gpt-3.5-turbo")
-    
+
     # Simulate requests
     prompts = [
         "What is AI?",
@@ -183,14 +183,14 @@ def demo_basic_metrics():
         "What is AI?",  # Cache hit
         "Summarize this article",
     ]
-    
+
     print("📞 Simulating LLM calls...\n")
-    
+
     for i, prompt in enumerate(prompts, 1):
         print(f"Call {i}: {prompt}")
         result = llm.generate(prompt)
         print(f"   ✅ {result['tokens']} tokens, ${result['cost']:.5f}\n")
-    
+
     # Print metrics
     print("\n📊 Collected Metrics:")
     print(generate_latest(REGISTRY).decode('utf-8'))
@@ -201,7 +201,7 @@ def demo_grafana_dashboard():
     print("\n" + "="*70)
     print("DEMO 2: Grafana Dashboard Example")
     print("="*70 + "\n")
-    
+
     print("📊 GRAFANA DASHBOARD PANELS:\n")
     print("""
 Panel 1: Request Rate
@@ -265,7 +265,7 @@ def demo_prometheus_queries():
     print("\n" + "="*70)
     print("DEMO 3: Useful PromQL Queries")
     print("="*70 + "\n")
-    
+
     queries = [
         ("Request rate (per second)", "rate(llm_requests_total[5m])"),
         ("Success rate", "rate(llm_requests_total{status='success'}[5m]) / rate(llm_requests_total[5m])"),
@@ -277,7 +277,7 @@ def demo_prometheus_queries():
         ("Active requests", "llm_active_requests"),
         ("Error rate", "rate(llm_requests_total{status='error'}[5m])"),
     ]
-    
+
     for i, (description, query) in enumerate(queries, 1):
         print(f"{i}. {description}:")
         print(f"   {query}\n")
@@ -288,14 +288,14 @@ def demo_alerts():
     print("="*70)
     print("DEMO 4: Prometheus Alerting Rules")
     print("="*70 + "\n")
-    
+
     print("📋 alerting_rules.yml:\n")
     print("""
 groups:
   - name: llm_alerts
     interval: 30s
     rules:
-    
+
     # High error rate
     - alert: HighLLMErrorRate
       expr: rate(llm_requests_total{status="error"}[5m]) > 0.05
@@ -304,7 +304,7 @@ groups:
         severity: warning
       annotations:
         description: "LLM error rate is {{ $value }}% (threshold: 5%)"
-        
+
     # High latency
     - alert: HighLLMLatency
       expr: histogram_quantile(0.95, llm_latency_seconds_bucket) > 5.0
@@ -313,7 +313,7 @@ groups:
         severity: warning
       annotations:
         description: "P95 latency is {{ $value }}s (threshold: 5s)"
-    
+
     # Cost spike
     - alert: LLMCostSpike
       expr: rate(llm_cost_usd_total[1h]) > 50
@@ -322,7 +322,7 @@ groups:
         severity: critical
       annotations:
         description: "Cost is ${{ $value }}/hr (threshold: $50/hr)"
-    
+
     # Low cache hit rate
     - alert: LowCacheHitRate
       expr: llm_cache_hit_rate < 0.3
@@ -339,11 +339,11 @@ def demo_setup_guide():
     print("\n" + "="*70)
     print("DEMO 5: Setup Guide")
     print("="*70 + "\n")
-    
+
     print("🚀 SETUP PROMETHEUS + GRAFANA:\n")
     print("""
 1. Start Prometheus:
-   
+
    prometheus.yml:
    ───────────────────────────────────────
    scrape_configs:
@@ -351,32 +351,32 @@ def demo_setup_guide():
        static_configs:
          - targets: ['localhost:8000']
    ───────────────────────────────────────
-   
+
    $ docker run -p 9090:9090 \\
        -v $(pwd)/prometheus.yml:/etc/prometheus/prometheus.yml \\
        prom/prometheus
 
 2. Instrument your app:
-   
+
    from prometheus_client import start_http_server, Counter
-   
+
    requests_total = Counter('requests_total', 'Total requests')
-   
+
    start_http_server(8000)  # Expose metrics
-   
+
    # Your app code
    requests_total.inc()  # Increment counter
 
 3. Start Grafana:
-   
+
    $ docker run -p 3000:3000 grafana/grafana
-   
+
    • Visit http://localhost:3000
    • Add Prometheus datasource (http://prometheus:9090)
    • Import dashboard
 
 4. Create alerts:
-   
+
    • Configure alerting_rules.yml
    • Set up notification channels (Slack, PagerDuty, Email)
    • Test alerts
@@ -386,13 +386,13 @@ def demo_setup_guide():
 if __name__ == "__main__":
     print("\n🎯 METRICS DASHBOARD WITH PROMETHEUS")
     print("📊 Monitor LLM applications in production\n")
-    
+
     demo_basic_metrics()
     demo_grafana dashboard()
     demo_prometheus_queries()
     demo_alerts()
     demo_setup_guide()
-    
+
     print("\n" + "="*70)
     print("💡 BEST PRACTICES:")
     print("="*70)
@@ -404,7 +404,7 @@ if __name__ == "__main__":
     print("  ✅ Create alerts for key metrics")
     print("  ✅ Review dashboards weekly")
     print("  ✅ Set up PagerDuty for critical alerts")
-    
+
     print("\n📚 Resources:")
     print("  • Prometheus: https://prometheus.io/")
     print("  • Grafana: https://grafana com/")

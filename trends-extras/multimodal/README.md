@@ -1,9 +1,11 @@
 # Multimodal AI — Vision + Language Models
 
 ## 🎯 Objetivo
+
 Trabajar con modelos multimodales que combinan visión y lenguaje (CLIP, BLIP, GPT-4V, LLaVA): image captioning, visual question answering, text-to-image.
 
 ## 💡 Qué aprenderás
+
 - Vision-Language Models (VLMs): arquitectura y training
 - CLIP para image-text similarity y zero-shot classification
 - BLIP para image captioning y VQA
@@ -15,6 +17,7 @@ Trabajar con modelos multimodales que combinan visión y lenguaje (CLIP, BLIP, G
 ## 📂 Contenido
 
 ### Examples
+
 - **01-clip-zero-shot-classification.py**: Clasificación de imágenes sin training con CLIP
 - **02-image-captioning-blip.py**: Generar captions descriptivos con BLIP
 - **03-visual-question-answering.py**: Responder preguntas sobre imágenes
@@ -23,6 +26,7 @@ Trabajar con modelos multimodales que combinan visión y lenguaje (CLIP, BLIP, G
 ## 🔑 Conceptos Clave
 
 ### Vision-Language Models Architecture
+
 ```
 ┌─────────────┐         ┌─────────────┐
 │  Image      │         │   Text      │
@@ -42,17 +46,20 @@ Trabajar con modelos multimodales que combinan visión y lenguaje (CLIP, BLIP, G
 ### Aplicaciones
 
 **Image → Text:**
+
 - Image captioning
 - Visual question answering (VQA)
 - Visual dialog
 - Scene understanding
 
 **Text → Image:**
+
 - Text-to-image generation (Stable Diffusion)
 - Image editing from instructions
 - Style transfer with text prompts
 
 **Image ↔ Text:**
+
 - Image-text retrieval
 - Zero-shot image classification
 - Visual grounding (localize objects from text)
@@ -60,6 +67,7 @@ Trabajar con modelos multimodales que combinan visión y lenguaje (CLIP, BLIP, G
 ## 🎨 CLIP: Contrastive Learning
 
 **Training**: Pares (image, caption) con contrastive loss
+
 ```python
 # Simplified CLIP concept
 image_features = image_encoder(image)    # [batch, 512]
@@ -72,6 +80,7 @@ similarity = image_features @ text_features.T  # [batch, batch]
 ```
 
 **Zero-Shot Classification**:
+
 ```python
 # Sin training adicional
 prompts = ["a photo of a cat", "a photo of a dog"]
@@ -85,14 +94,14 @@ predicted_class = similarities.argmax()
 
 ## 📊 Models Comparison
 
-| Model | Task | Open Source | API | Best For |
-|-------|------|------------|-----|----------|
-| **CLIP** | Image-text matching | ✅ | - | Zero-shot classification |
-| **BLIP** | Captioning, VQA | ✅ | - | Understanding images |
-| **LLaVA** | Visual chat | ✅ | - | Open source VLM |
-| **GPT-4V** | Multi-modal chat | ❌ | ✅ | Production apps |
-| **Stable Diffusion** | Text-to-image | ✅ | ✅ | Image generation |
-| **DALL-E 3** | Text-to-image | ❌ | ✅ | High quality images |
+| Model                | Task                | Open Source | API | Best For                 |
+| -------------------- | ------------------- | ----------- | --- | ------------------------ |
+| **CLIP**             | Image-text matching | ✅          | -   | Zero-shot classification |
+| **BLIP**             | Captioning, VQA     | ✅          | -   | Understanding images     |
+| **LLaVA**            | Visual chat         | ✅          | -   | Open source VLM          |
+| **GPT-4V**           | Multi-modal chat    | ❌          | ✅  | Production apps          |
+| **Stable Diffusion** | Text-to-image       | ✅          | ✅  | Image generation         |
+| **DALL-E 3**         | Text-to-image       | ❌          | ✅  | High quality images      |
 
 ## 💻 Code Pattern: VQA Pipeline
 
@@ -117,34 +126,40 @@ print(f"A: {answer}")
 ```
 
 ## 🧪 Ejercicio Rápido
+
 1. **Setup**: `pip install transformers pillow torch`
-2. **CLIP Zero-Shot**: Clasifica imagen entre 5 categorías sin training
-3. **Image Captioning**: Genera caption para tus fotos
-4. **VQA**: Haz 3 preguntas sobre una imagen
-5. **Compara**: Precisión de CLIP vs BLIP en tus ejemplos
+1. **CLIP Zero-Shot**: Clasifica imagen entre 5 categorías sin training
+1. **Image Captioning**: Genera caption para tus fotos
+1. **VQA**: Haz 3 preguntas sobre una imagen
+1. **Compara**: Precisión de CLIP vs BLIP en tus ejemplos
 
 ## 📚 Recursos Curados
 
 **Models & Papers:**
+
 - [CLIP (OpenAI)](https://arxiv.org/abs/2103.00020)
 - [BLIP (Salesforce)](https://arxiv.org/abs/2201.12086)
 - [LLaVA](https://arxiv.org/abs/2304.08485)
 - [Stable Diffusion](https://stability.ai/stable-diffusion)
 
 **Frameworks:**
+
 - [Hugging Face Transformers](https://huggingface.co/docs/transformers/main/en/model_doc/clip)
 - [Diffusers Library](https://github.com/huggingface/diffusers)
 
 **Datasets:**
+
 - [COCO Captions](https://cocodataset.org/)
 - [Visual Genome](https://visualgenome.org/)
 - [Conceptual Captions](https://ai.google.com/research/ConceptualCaptions/)
 
 **Tutorials:**
+
 - [CLIP Tutorial](https://github.com/openai/CLIP)
 - [Stable Diffusion Guide](https://stable-diffusion-art.com/)
 
 ## ✅ Checklist de Aprendizaje
+
 - [ ] CLIP para zero-shot classification
 - [ ] Image captioning con BLIP
 - [ ] Visual question answering
@@ -154,6 +169,7 @@ print(f"A: {answer}")
 - [ ] Evaluation metrics (BLEU, CIDEr para captioning)
 
 ## 🎯 Impacto Real
+
 - **E-commerce**: Search por imagen + texto, auto-tagging
 - **Accessibility**: Auto-captioning para personas con discapacidad visual
 - **Content Moderation**: Detectar contenido inapropiado con VQA
@@ -161,7 +177,33 @@ print(f"A: {answer}")
 - **Healthcare**: Medical image analysis con VLMs
 
 ## 🚀 Próximos Pasos
+
 Integra con:
+
 - **agents** para crear agentes visuales (analyse image → reason → act)
 - **guardrails** para filtrar imágenes generadas inapropiadas
 - **llm-evals** para evaluar calidad de captions/VQA responses
+
+## Objetivo del modulo
+
+Pendiente de completar este apartado.
+
+## Que vas a lograr
+
+Pendiente de completar este apartado.
+
+## Estructura interna
+
+Pendiente de completar este apartado.
+
+## Ruta de niveles (L1-L4)
+
+Pendiente de completar este apartado.
+
+## Plan recomendado (por progreso, no por semanas)
+
+Pendiente de completar este apartado.
+
+## Criterio de modulo completado
+
+Pendiente de completar este apartado.

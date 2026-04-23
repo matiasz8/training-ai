@@ -1,9 +1,11 @@
 # Ethics, Bias & Explainability
 
 ## 🎯 Objetivo del módulo
+
 Aprender a identificar, medir y mitigar sesgos en modelos ML, y explicar decisiones de modelos para construir IA responsable y transparente.
 
 ## 💡 Qué vas a lograr
+
 - Detectar bias en datasets y modelos (demographic parity, equalized odds)
 - Calcular disparate impact y métricas de fairness
 - Implementar técnicas de debiasing (reweighting, threshold optimization, adversarial)
@@ -13,6 +15,7 @@ Aprender a identificar, medir y mitigar sesgos en modelos ML, y explicar decisio
 - Construir dashboards de fairness
 
 ## 📂 Estructura interna
+
 - **theory/**: fundamentos (tipos de bias, fairness metrics, explainability methods)
 - **examples/**: ejemplos guiados con Fairlearn, SHAP, LIME
 - **practices/**: ejercicios hands-on
@@ -23,6 +26,7 @@ Aprender a identificar, medir y mitigar sesgos en modelos ML, y explicar decisio
 - **notes/**: casos de bias encontrados y mitigaciones aplicadas
 
 ## 📋 Prerrequisitos
+
 - Módulo 03: Machine Learning Fundamentals (clasificación, métricas)
 - Conocimientos de métricas (confusion matrix, TPR, FPR)
 - Conciencia sobre impactos sociales de ML
@@ -30,15 +34,17 @@ Aprender a identificar, medir y mitigar sesgos en modelos ML, y explicar decisio
 ## 📅 Plan de Estudio Recomendado
 
 **Semana 1** (6-8 horas):
+
 1. Lee material de `/theory` (2h)
-2. Ejecuta `/examples` (2h)
-3. Completa `/practices/01-deteccion-mitigacion-bias.md` (4h)
+1. Ejecuta `/examples` (2h)
+1. Completa `/practices/01-deteccion-mitigacion-bias.md` (4h)
 
 **Semana 2** (6-8 horas):
-4. Completa `/practices/02-explainability-shap-lime.md` (4h)
-5. Desarrolla mini-proyecto (3h)
+4\. Completa `/practices/02-explainability-shap-lime.md` (4h)
+5\. Desarrolla mini-proyecto (3h)
 
 ## ✅ Competencias Clave
+
 - [ ] Detectar bias en datos y modelos
 - [ ] Calcular disparate impact (80% rule)
 - [ ] Aplicar reweighting y resampling
@@ -49,6 +55,7 @@ Aprender a identificar, medir y mitigar sesgos en modelos ML, y explicar decisio
 - [ ] Fairness vs accuracy trade-offs
 
 ## ✅ Criterio de módulo completado
+
 - 2 prácticas resueltas y validadas
 - Mini-proyecto: auditoría de fairness completa
 - Evaluación final aprobada (>=70/100)
@@ -57,20 +64,49 @@ Aprender a identificar, medir y mitigar sesgos en modelos ML, y explicar decisio
 ## 📚 Recursos Adicionales
 
 **Librerías:**
+
 - [Fairlearn](https://fairlearn.org/)
 - [AI Fairness 360 (IBM)](https://aif360.mybluemix.net/)
 - [SHAP](https://shap.readthedocs.io/)
 - [LIME](https://github.com/marcotcr/lime)
 
 **Cursos:**
+
 - [Fairness in Machine Learning (NIPS Tutorial)](https://fairmlbook.org/)
 
 **Papers:**
+
 - [Fairness Definitions Explained](https://arxiv.org/abs/1710.03184)
 - [A Unified Approach to Interpreting Model Predictions (SHAP)](https://arxiv.org/abs/1705.07874)
 
 **Libros:**
+
 - [Interpretable Machine Learning](https://christophm.github.io/interpretable-ml-book/)
 
 ## 🚀 Próximo Módulo
+
 **Módulo 11: Data Privacy & Security** - Encriptación, differential privacy, federated learning
+
+## Objetivo del modulo
+
+Pendiente de completar este apartado.
+
+## Que vas a lograr
+
+Pendiente de completar este apartado.
+
+## Estructura interna
+
+Pendiente de completar este apartado.
+
+## Ruta de niveles (L1-L4)
+
+Pendiente de completar este apartado.
+
+## Plan recomendado (por progreso, no por semanas)
+
+Pendiente de completar este apartado.
+
+## Criterio de modulo completado
+
+Pendiente de completar este apartado.

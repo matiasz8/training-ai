@@ -8,7 +8,7 @@ Compartir datos sensibles (médicos, financieros) requiere proteger identidad de
 
 Aplicar técnicas de anonimización (k-anonymity, l-diversity) a dataset médico para prevenir re-identificación.
 
----
+______________________________________________________________________
 
 ## 🚀 Setup
 
@@ -22,7 +22,7 @@ import seaborn as sns
 np.random.seed(42)
 ```
 
----
+______________________________________________________________________
 
 ## 📚 Dataset original (sin anonimizar)
 
@@ -51,6 +51,7 @@ print(f"\nTotal registros: {len(df_original)}")
 ```
 
 **Salida:**
+
 ```
 === Dataset Original (SIN anonimizar) ===
    patient_id  age gender zipcode     diagnosis     medication
@@ -62,7 +63,7 @@ print(f"\nTotal registros: {len(df_original)}")
 ...
 ```
 
----
+______________________________________________________________________
 
 ## ⚠️ Riesgos de privacidad
 
@@ -84,6 +85,7 @@ print("\n⚠️ RIESGO: Con datos auxiliares (ej: censo público), un atacante p
 ```
 
 **Salida:**
+
 ```
 === Análisis de Re-identificación ===
 Combinaciones únicas de quasi-identifiers: 78
@@ -92,7 +94,7 @@ Individuos únicamente identificables: 45 (45.0%)
 ⚠️ RIESGO: Con datos auxiliares, un atacante podría re-identificar individuos
 ```
 
----
+______________________________________________________________________
 
 ## 🔒 k-Anonymity
 
@@ -135,6 +137,7 @@ print(df_anon.head(10))
 ```
 
 **Salida:**
+
 ```
 === Dataset con Generalización ===
   age_range gender zipcode_generalized     diagnosis     medication
@@ -155,14 +158,14 @@ def check_k_anonymity(df, quasi_identifiers, k=5):
     """
     # Contar ocurrencias de cada combinación
     group_sizes = df.groupby(quasi_identifiers).size()
-    
+
     # Verificar k-anonymity
     satisfies_k = (group_sizes >= k).all()
     min_group_size = group_sizes.min()
-    
+
     # Equivalence classes con < k individuos
     violations = (group_sizes < k).sum()
-    
+
     return {
         'satisfies_k_anonymity': satisfies_k,
         'k': k,
@@ -187,6 +190,7 @@ if not result['satisfies_k_anonymity']:
 ```
 
 **Salida:**
+
 ```
 === k-Anonymity Check (k=5) ===
 Satisface k-anonymity: True
@@ -197,7 +201,7 @@ Total equivalence classes: 18
 ✅ Dataset satisface 5-anonymity
 ```
 
----
+______________________________________________________________________
 
 ## 🎯 l-Diversity
 
@@ -220,16 +224,16 @@ def check_l_diversity(df, quasi_identifiers, sensitive_attribute, l=3):
     Verifica si dataset satisface l-diversity
     """
     groups = df.groupby(quasi_identifiers)
-    
+
     violations = []
     min_diversity = float('inf')
-    
+
     for group_id, group_df in groups:
         # Contar valores distintos del atributo sensible
         distinct_values = group_df[sensitive_attribute].nunique()
-        
+
         min_diversity = min(min_diversity, distinct_values)
-        
+
         if distinct_values < l:
             violations.append({
                 'group': group_id,
@@ -237,7 +241,7 @@ def check_l_diversity(df, quasi_identifiers, sensitive_attribute, l=3):
                 'distinct_values': distinct_values,
                 'values': group_df[sensitive_attribute].value_counts().to_dict()
             })
-    
+
     return {
         'satisfies_l_diversity': len(violations) == 0,
         'l': l,
@@ -268,6 +272,7 @@ if result_l['violations']:
 ```
 
 **Salida:**
+
 ```
 === l-Diversity Check (l=3) ===
 Satisface l-diversity: False
@@ -296,19 +301,19 @@ def enforce_l_diversity(df, quasi_identifiers, sensitive_attribute, l=3):
     Elimina registros de grupos que no satisfacen l-diversity
     """
     groups = df.groupby(quasi_identifiers)
-    
+
     records_to_keep = []
-    
+
     for group_id, group_df in groups:
         distinct_values = group_df[sensitive_attribute].nunique()
-        
+
         if distinct_values >= l:
             records_to_keep.append(group_df)
-    
+
     df_diverse = pd.concat(records_to_keep, ignore_index=True)
-    
+
     removed = len(df) - len(df_diverse)
-    
+
     return df_diverse, removed
 
 # Aplicar
@@ -335,6 +340,7 @@ print(f"Satisface l-diversity: {result_after['satisfies_l_diversity']}")
 ```
 
 **Salida:**
+
 ```
 === Después de Supresión ===
 Registros eliminados: 23 (23.0%)
@@ -342,7 +348,7 @@ Registros restantes: 77
 Satisface l-diversity: True
 ```
 
----
+______________________________________________________________________
 
 ## 📊 Trade-offs: Privacidad vs Utilidad
 
@@ -355,11 +361,11 @@ def calculate_information_loss(df_original, df_anon):
     # Registros perdidos
     records_lost = len(df_original) - len(df_anon)
     records_lost_pct = records_lost / len(df_original)
-    
+
     # Granularidad perdida (ejemplo: age → age_range)
     # Simple: contar atributos generalizados
     generalized_attrs = 2  # age, zipcode
-    
+
     return {
         'records_lost': records_lost,
         'records_lost_pct': records_lost_pct,
@@ -397,7 +403,7 @@ plt.savefig('anonymization_distribution.png', dpi=150)
 plt.show()
 ```
 
----
+______________________________________________________________________
 
 ## 💡 Técnicas adicionales
 
@@ -411,27 +417,27 @@ def check_t_closeness(df, quasi_identifiers, sensitive_attribute, t=0.2):
     """
     global_dist = df[sensitive_attribute].value_counts(normalize=True)
     groups = df.groupby(quasi_identifiers)
-    
+
     violations = []
-    
+
     for group_id, group_df in groups:
         group_dist = group_df[sensitive_attribute].value_counts(normalize=True)
-        
+
         # Earth Mover's Distance (simplified: sum of absolute differences)
         distance = 0
         for category in global_dist.index:
             global_prob = global_dist.get(category, 0)
             group_prob = group_dist.get(category, 0)
             distance += abs(global_prob - group_prob)
-        
+
         distance /= 2  # Normalize
-        
+
         if distance > t:
             violations.append({
                 'group': group_id,
                 'distance': distance
             })
-    
+
     return {
         'satisfies_t_closeness': len(violations) == 0,
         't': t,
@@ -452,13 +458,13 @@ print(f"Grupos violando: {result_t['violations']}")
 def add_laplace_noise(true_count, epsilon=1.0):
     """
     Differential Privacy: agregar ruido calibrado por epsilon
-    
+
     epsilon: privacy budget (más bajo = más privacidad, más ruido)
     """
     sensitivity = 1  # Para conteos, sensitivity = 1
     scale = sensitivity / epsilon
     noise = np.random.laplace(0, scale)
-    
+
     return max(0, true_count + noise)  # No negativos
 
 # Ejemplo: contar pacientes con Diabetes
@@ -471,7 +477,7 @@ print(f"Conteo con ruido (ε=1.0): {noisy_count:.0f}")
 print(f"Error: {abs(true_count - noisy_count):.0f}")
 ```
 
----
+______________________________________________________________________
 
 ## 📝 Resumen
 
@@ -487,12 +493,12 @@ t-closeness: Distribución similar a global (distancia ≤t)
 
 ### 🎯 Técnicas de transformación
 
-| Técnica | Ejemplo | Uso |
-|---------|---------|-----|
-| **Generalización** | edad 42 → rango 40-50 | Reducir especificidad |
-| **Supresión** | Eliminar registros anómalos | Cumplir k/l/t |
-| **Anatomization** | Separar QI de atributos sensibles | PPLM principle |
-| **Permutation** | Permutación dentro de grupos | Mantener distribuciones |
+| Técnica            | Ejemplo                           | Uso                     |
+| ------------------ | --------------------------------- | ----------------------- |
+| **Generalización** | edad 42 → rango 40-50             | Reducir especificidad   |
+| **Supresión**      | Eliminar registros anómalos       | Cumplir k/l/t           |
+| **Anatomization**  | Separar QI de atributos sensibles | PPLM principle          |
+| **Permutation**    | Permutación dentro de grupos      | Mantener distribuciones |
 
 ### 💡 Mejores prácticas
 

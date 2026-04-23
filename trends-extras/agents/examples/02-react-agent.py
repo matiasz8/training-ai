@@ -12,18 +12,18 @@ class ReActAgent:
     Agente que sigue el pattern ReAct:
     Thought → Action → Observation → (repetir) → Answer
     """
-    
+
     def __init__(self, llm_function: Callable, tools: Dict[str, Callable], max_steps: int = 10):
         self.llm = llm_function
         self.tools = tools
         self.max_steps = max_steps
-    
+
     def run(self, question: str) -> str:
         """Ejecuta el loop ReAct hasta obtener respuesta"""
-        
+
         history = []
         step = 0
-        
+
         # System prompt con instrucciones ReAct
         system_prompt = f"""
 Responde la siguiente pregunta usando este formato:
@@ -40,29 +40,29 @@ Tools disponibles:
 
 Pregunta: {question}
 """
-        
+
         history.append(system_prompt)
-        
+
         while step < self.max_steps:
             # LLM genera próximo paso
             response = self.llm("\n".join(history))
             history.append(response)
-            
+
             print(f"\n--- Step {step + 1} ---")
             print(response)
-            
+
             # Parse response
             if "Answer:" in response:
                 # Encontró respuesta final
                 answer = response.split("Answer:")[1].strip()
                 return answer
-            
+
             # Extract action
             action_match = re.search(r'Action:\s*(\w+)\[(.*?)\]', response)
             if action_match:
                 tool_name = action_match.group(1)
                 tool_input = action_match.group(2).strip()
-                
+
                 # Execute tool
                 if tool_name in self.tools:
                     observation = self.tools[tool_name](tool_input)
@@ -71,11 +71,11 @@ Pregunta: {question}
                 else:
                     history.append(f"Observation: Error - Tool '{tool_name}' not found")
                     print(f"Observation: Error - Tool not found")
-            
+
             step += 1
-        
+
         return "Max steps reached without finding answer."
-    
+
     def _format_tools(self) -> str:
         """Describe tools disponibles"""
         descriptions = []
@@ -94,7 +94,7 @@ def search(query: str) -> str:
         "capital alemania": "Berlín",
         "temperatura sol": "5,500 °C en superficie",
     }
-    
+
     for key, value in knowledge_base.items():
         if key in query.lower():
             return value
@@ -137,16 +137,16 @@ if __name__ == "__main__":
         "calculator": calculator,
         "get_date": get_date
     }
-    
+
     agent = ReActAgent(
         llm_function=mock_llm,
         tools=tools,
         max_steps=5
     )
-    
+
     question = "¿Cuál es la raíz cuadrada de la población de Francia?"
     answer = agent.run(question)
-    
+
     print("\n" + "=" * 50)
     print(f"RESPUESTA FINAL: {answer}")
     print("=" * 50)

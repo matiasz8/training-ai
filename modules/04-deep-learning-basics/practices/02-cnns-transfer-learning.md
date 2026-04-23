@@ -7,7 +7,7 @@
 - Usar transfer learning con modelos preentrenados
 - Fine-tuning de redes profundas
 
----
+______________________________________________________________________
 
 ## 📚 Parte 1: Ejercicios Guiados
 
@@ -44,7 +44,7 @@ class SimpleCNN(nn.Module):
         self.fc2 = nn.Linear(128, 10)
         self.relu = nn.ReLU()
         self.dropout = nn.Dropout(0.5)
-    
+
     def forward(self, x):
         x = self.pool(self.relu(self.conv1(x)))  # 28x28 -> 14x14
         x = self.pool(self.relu(self.conv2(x)))  # 14x14 -> 7x7
@@ -72,23 +72,23 @@ epochs = 5
 for epoch in range(epochs):
     model.train()
     running_loss = 0.0
-    
+
     for images, labels in train_loader:
         images, labels = images.to(device), labels.to(device)
-        
+
         optimizer.zero_grad()
         outputs = model(images)
         loss = criterion(outputs, labels)
         loss.backward()
         optimizer.step()
-        
+
         running_loss += loss.item()
-    
+
     # Test
     model.eval()
     correct = 0
     total = 0
-    
+
     with torch.no_grad():
         for images, labels in test_loader:
             images, labels = images.to(device), labels.to(device)
@@ -96,12 +96,12 @@ for epoch in range(epochs):
             _, predicted = torch.max(outputs.data, 1)
             total += labels.size(0)
             correct += (predicted == labels).sum().item()
-    
+
     acc = 100 * correct / total
     print(f"Epoch [{epoch+1}/{epochs}] | Loss: {running_loss/len(train_loader):.4f} | Test Acc: {acc:.2f}%")
 ```
 
----
+______________________________________________________________________
 
 ## 🚀 Parte 2: Ejercicios Propuestos
 
@@ -109,6 +109,7 @@ for epoch in range(epochs):
 
 **Enunciado:**
 Aplica transformaciones en training:
+
 - RandomHorizontalFlip
 - RandomRotation(10)
 - RandomCrop con padding
@@ -119,22 +120,25 @@ Compara accuracy con vs sin augmentation.
 
 **Enunciado:**
 Usa `torchvision.models.resnet18(pretrained=True)`:
+
 1. Congela capas convolucionales
-2. Reemplaza última capa FC (num_classes=10)
-3. Entrena solo la última capa
+1. Reemplaza última capa FC (num_classes=10)
+1. Entrena solo la última capa
 
 ### Ejercicio 2.3: Fine-Tuning
 
 **Enunciado:**
 Después de ejercicio anterior:
+
 1. Descongela todas las capas
-2. Usa learning rate bajo (1e-5)
-3. Entrena todo el modelo
+1. Usa learning rate bajo (1e-5)
+1. Entrena todo el modelo
 
 ### Ejercicio 2.4: Visualización de Activaciones
 
 **Enunciado:**
 Extrae y visualiza feature maps:
+
 - Después de conv1
 - Después de conv2
 - Para una imagen de test
@@ -143,10 +147,11 @@ Extrae y visualiza feature maps:
 
 **Enunciado:**
 Implementa Grad-CAM simplificado:
+
 - Identifica qué regiones influyen en predicción
 - Superpone heatmap sobre imagen original
 
----
+______________________________________________________________________
 
 ## ✅ Checklist
 
@@ -158,7 +163,7 @@ Implementa Grad-CAM simplificado:
 - [ ] Fine-tuning con differential learning rates
 - [ ] Visualizar feature maps
 
----
+______________________________________________________________________
 
 ## 📚 Recursos
 

@@ -1,9 +1,11 @@
 # Ejemplo 2 — Estadística descriptiva con Pandas
 
 ## Objetivo
+
 Calcular media, mediana, desvío estándar y detectar outliers en un dataset real usando Pandas.
 
 ## Conceptos previos
+
 - **Media:** promedio aritmético de los valores.
 - **Mediana:** valor central cuando los datos están ordenados.
 - **Desvío estándar:** mide cuánto se dispersan los valores respecto a la media.
@@ -12,12 +14,14 @@ Calcular media, mediana, desvío estándar y detectar outliers en un dataset rea
 ## Implementación paso a paso
 
 ### 1. Importar librerías
+
 ```python
 import pandas as pd
 import numpy as np
 ```
 
 ### 2. Crear un dataset de ejemplo
+
 ```python
 # Simular datos de tiempos de respuesta de un servidor (en ms)
 np.random.seed(42)
@@ -31,6 +35,7 @@ print(df.head())
 ```
 
 **Salida esperada:**
+
 ```
    tiempo_respuesta_ms
 0            164.967142
@@ -41,6 +46,7 @@ print(df.head())
 ```
 
 ### 3. Calcular estadísticas descriptivas
+
 ```python
 media = df['tiempo_respuesta_ms'].mean()
 mediana = df['tiempo_respuesta_ms'].median()
@@ -52,6 +58,7 @@ print(f"Desvío estándar: {desviacion:.2f} ms")
 ```
 
 **Salida esperada:**
+
 ```
 Media: 165.97 ms
 Mediana: 151.23 ms
@@ -59,12 +66,14 @@ Desvío estándar: 74.52 ms
 ```
 
 ### 4. Visualizar distribución con un resumen rápido
+
 ```python
 print("\nResumen estadístico completo:")
 print(df.describe())
 ```
 
 **Salida esperada:**
+
 ```
        tiempo_respuesta_ms
 count            100.000000
@@ -78,6 +87,7 @@ max              520.000000
 ```
 
 ### 5. Detectar outliers usando el método IQR
+
 ```python
 Q1 = df['tiempo_respuesta_ms'].quantile(0.25)
 Q3 = df['tiempo_respuesta_ms'].quantile(0.75)
@@ -90,7 +100,7 @@ limite_superior = Q3 + 1.5 * IQR
 print(f"\nRango normal: [{limite_inferior:.2f}, {limite_superior:.2f}]")
 
 # Filtrar outliers
-outliers = df[(df['tiempo_respuesta_ms'] < limite_inferior) | 
+outliers = df[(df['tiempo_respuesta_ms'] < limite_inferior) |
               (df['tiempo_respuesta_ms'] > limite_superior)]
 
 print(f"\nOutliers detectados: {len(outliers)}")
@@ -98,6 +108,7 @@ print(outliers)
 ```
 
 **Salida esperada:**
+
 ```
 Rango normal: [76.23, 225.67]
 
@@ -111,6 +122,7 @@ Outliers detectados: 5
 ```
 
 ### 6. Interpretación
+
 - La **mediana** es menor que la **media**, indicando que hay valores atípicos altos que inflan el promedio.
 - Los **outliers** detectados corresponden a los tiempos de respuesta anormalmente lentos (>450ms).
 
@@ -142,7 +154,7 @@ IQR = Q3 - Q1
 limite_inferior = Q1 - 1.5 * IQR
 limite_superior = Q3 + 1.5 * IQR
 
-outliers = df[(df['tiempo_respuesta_ms'] < limite_inferior) | 
+outliers = df[(df['tiempo_respuesta_ms'] < limite_inferior) |
               (df['tiempo_respuesta_ms'] > limite_superior)]
 
 print(f"\nOutliers detectados ({len(outliers)}):")
@@ -150,12 +162,15 @@ print(outliers['tiempo_respuesta_ms'].values)
 ```
 
 ## Errores comunes
+
 - ❌ Usar solo la media sin considerar la mediana (sensible a outliers).
 - ❌ No verificar la distribución de datos antes de aplicar modelos.
 - ❌ Confundir varianza con desvío estándar (desv = √varianza).
 
 ## Ejercicio propuesto
+
 Carga un dataset real de Kaggle y calcula:
+
 1. Media, mediana y desvío estándar de altura de personas.
-2. Detecta outliers usando el método IQR.
-3. Visualiza la distribución con un histograma usando Matplotlib.
+1. Detecta outliers usando el método IQR.
+1. Visualiza la distribución con un histograma usando Matplotlib.

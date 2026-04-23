@@ -7,7 +7,7 @@
 - Evaluar con precision/recall
 - Aplicar en producción
 
----
+______________________________________________________________________
 
 ## 📚 Parte 1: Ejercicios Guiados
 
@@ -39,7 +39,7 @@ anomalies_iso = predictions == -1
 print(f"Anomalías detectadas (IsoForest): {anomalies_iso.sum()}")
 ```
 
----
+______________________________________________________________________
 
 ## 🚀 Parte 2: Ejercicios Propuestos
 
@@ -47,6 +47,7 @@ print(f"Anomalías detectadas (IsoForest): {anomalies_iso.sum()}")
 
 **Enunciado:**
 Implementa autoencoder para anomalías:
+
 - Encoder comprime serie temporal
 - Decoder reconstruye
 - Threshold en reconstruction error
@@ -55,6 +56,7 @@ Implementa autoencoder para anomalías:
 
 **Enunciado:**
 Detecta anomalías contextuales:
+
 - Ventana deslizante de 24 horas
 - Compara con ventanas históricas
 - Flag si desviación > 3σ
@@ -63,6 +65,7 @@ Detecta anomalías contextuales:
 
 **Enunciado:**
 Combina múltiples detectores:
+
 - Z-score + IQR + IsolationForest + LSTM
 - Voting: mayoría marca como anomalía
 - Compara con detectores individuales
@@ -71,6 +74,7 @@ Combina múltiples detectores:
 
 **Enunciado:**
 Sistema de streaming:
+
 - Procesa datos punto por punto
 - Actualiza detectores incrementalmente
 - Latencia < 100ms
@@ -79,11 +83,12 @@ Sistema de streaming:
 
 **Enunciado:**
 Explica por qué es anomalía:
+
 - Feature importance
 - Comparación con distribución normal
 - Contextual info (qué features están off)
 
----
+______________________________________________________________________
 
 ## ✅ Checklist
 
@@ -93,7 +98,7 @@ Explica por qué es anomalía:
 - [ ] Ensemble methods
 - [ ] Real-time detection
 
----
+______________________________________________________________________
 
 ## 📚 Recursos
 

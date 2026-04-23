@@ -1,6 +1,7 @@
 # Practices — Deep Learning Basics
 
 ## Prácticas
+
 - `practice-01-neurona-y-forward-pass.md`
 - `practice-02-red-mlp-basica.md`
 - `practice-03-metricas-y-curvas.md`
@@ -8,6 +9,7 @@
 - `practice-05-tuning-controlado.md`
 
 ## Criterio de aprobación
+
 - Resolver 4/5 prácticas como mínimo.
 - Explicar decisiones de arquitectura y training.
 - Documentar hallazgos en `notes/`.

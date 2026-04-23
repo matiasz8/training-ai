@@ -7,7 +7,7 @@
 - Implementar debiasing techniques
 - Evaluar fairness metrics
 
----
+______________________________________________________________________
 
 ## 📚 Parte 1: Ejercicios Guiados
 
@@ -33,7 +33,7 @@ data = pd.DataFrame({
 
 # Bias: mujeres tienen menor approval rate
 data['approved'] = (
-    (data['income'] > 40000) & 
+    (data['income'] > 40000) &
     (data['credit_score'] > 600) &
     ((data['gender'] == 'M') | (np.random.random(n) > 0.3))
 ).astype(int)
@@ -50,7 +50,7 @@ print(f"\\nDisparate Impact: {di:.3f}")
 print(f"80% rule violated: {di < 0.8}")
 ```
 
----
+______________________________________________________________________
 
 ## 🚀 Parte 2: Ejercicios Propuestos
 
@@ -58,6 +58,7 @@ print(f"80% rule violated: {di < 0.8}")
 
 **Enunciado:**
 Implementa reweighting en entrenamiento:
+
 - Calcula sample weights por grupo
 - Entrena con `class_weight='balanced'`
 - Compara fairness antes/después
@@ -66,6 +67,7 @@ Implementa reweighting en entrenamiento:
 
 **Enunciado:**
 Ajusta thresholds por grupo:
+
 - Busca threshold que equaliza TPR
 - O equaliza FPR
 - Analiza trade-off con accuracy
@@ -74,6 +76,7 @@ Ajusta thresholds por grupo:
 
 **Enunciado:**
 Entrena modelo que:
+
 - Predice target correctamente
 - Adversary no puede predecir sensitive attribute
 - Loss combinado
@@ -82,6 +85,7 @@ Entrena modelo que:
 
 **Enunciado:**
 Genera counterfactuals:
+
 - Cambia género manteniendo features
 - Compara predictions
 - Mide cambio promedio
@@ -90,12 +94,13 @@ Genera counterfactuals:
 
 **Enunciado:**
 Visualiza múltiples métricas:
+
 - Demographic parity
 - Equalized odds
 - Equal opportunity
 - Disparate impact
 
----
+______________________________________________________________________
 
 ## ✅ Checklist
 
@@ -105,7 +110,7 @@ Visualiza múltiples métricas:
 - [ ] Threshold optimization
 - [ ] Adversarial debiasing
 
----
+______________________________________________________________________
 
 ## 📚 Recursos
 

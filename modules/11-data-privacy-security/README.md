@@ -1,9 +1,11 @@
 # Data Privacy & Security
 
 ## 🎯 Objetivo del módulo
+
 Aprender técnicas de privacidad y seguridad para proteger datos sensibles en ML, implementar differential privacy y federated learning.
 
 ## 💡 Qué vas a lograr
+
 - Implementar encriptación simétrica (Fernet) y asimétrica (RSA) para datos
 - Aplicar hashing seguro (bcrypt, SHA-256) para passwords y data integrity
 - Entender y aplicar homomorphic encryption básico
@@ -14,6 +16,7 @@ Aprender técnicas de privacidad y seguridad para proteger datos sensibles en ML
 - Diseñar secure ML pipelines
 
 ## 📂 Estructura interna
+
 - **theory/**: fundamentos (cryptography, differential privacy, federated learning, secure computation)
 - **examples/**: ejemplos guiados con cryptography, OpenDP, PySyft
 - **practices/**: ejercicios hands-on
@@ -24,6 +27,7 @@ Aprender técnicas de privacidad y seguridad para proteger datos sensibles en ML
 - **notes/**: privacy considerations y threat models
 
 ## 📋 Prerrequisitos
+
 - Módulo 03: Machine Learning Fundamentals (training pipelines)
 - Conocimientos básicos de criptografía
 - Comprensión de threat models
@@ -31,16 +35,18 @@ Aprender técnicas de privacidad y seguridad para proteger datos sensibles en ML
 ## 📅 Plan de Estudio Recomendado
 
 **Semana 1** (6-8 horas):
+
 1. Lee material de `/theory` (encryption, hashing, threat models) (2h)
-2. Ejecuta `/examples` (2h)
-3. Completa `/practices/01-encriptacion-hashing.md` (4h)
+1. Ejecuta `/examples` (2h)
+1. Completa `/practices/01-encriptacion-hashing.md` (4h)
 
 **Semana 2** (6-8 horas):
-4. Lee material sobre differential privacy y FL (2h)
-5. Completa `/practices/02-differential-privacy-federated.md` (4h)
-6. Desarrolla mini-proyecto (3h)
+4\. Lee material sobre differential privacy y FL (2h)
+5\. Completa `/practices/02-differential-privacy-federated.md` (4h)
+6\. Desarrolla mini-proyecto (3h)
 
 ## ✅ Competencias Clave
+
 - [ ] Hashing seguro con bcrypt
 - [ ] Encriptación simétrica (Fernet)
 - [ ] Encriptación asimétrica (RSA)
@@ -52,6 +58,7 @@ Aprender técnicas de privacidad y seguridad para proteger datos sensibles en ML
 - [ ] Privacy-utility trade-offs
 
 ## ✅ Criterio de módulo completado
+
 - 2 prácticas resueltas y validadas
 - Mini-proyecto: secure ML pipeline funcional
 - Evaluación final aprobada (>=70/100)
@@ -60,21 +67,50 @@ Aprender técnicas de privacidad y seguridad para proteger datos sensibles en ML
 ## 📚 Recursos Adicionales
 
 **Librerías:**
+
 - [Cryptography.io](https://cryptography.io/)
 - [OpenDP](https://github.com/opendp/opendp)
 - [PySyft (Federated Learning)](https://github.com/OpenMined/PySyft)
 - [PyCryptodome](https://pycryptodome.readthedocs.io/)
 
 **Tutoriales:**
+
 - [Differential Privacy Tutorial](https://programming-dp.com/)
 - [Federated Learning Book](https://www.federated-learning.org/)
 
 **Papers:**
+
 - [The Algorithmic Foundations of Differential Privacy](https://www.cis.upenn.edu/~aaroth/Papers/privacybook.pdf)
 - [Communication-Efficient Federated Learning](https://arxiv.org/abs/1602.05629)
 
 **Courses:**
+
 - [Applied Cryptography (Coursera)](https://www.coursera.org/specializations/applied-crypto)
 
 ## 🚀 Próximo Módulo
+
 **Módulo 12: MLOps & AI in Production** - CI/CD, monitoring, deployment
+
+## Objetivo del modulo
+
+Pendiente de completar este apartado.
+
+## Que vas a lograr
+
+Pendiente de completar este apartado.
+
+## Estructura interna
+
+Pendiente de completar este apartado.
+
+## Ruta de niveles (L1-L4)
+
+Pendiente de completar este apartado.
+
+## Plan recomendado (por progreso, no por semanas)
+
+Pendiente de completar este apartado.
+
+## Criterio de modulo completado
+
+Pendiente de completar este apartado.

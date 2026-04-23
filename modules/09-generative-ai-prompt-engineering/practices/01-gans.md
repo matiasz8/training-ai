@@ -7,7 +7,7 @@
 - Generar imágenes sintéticas
 - Identificar mode collapse
 
----
+______________________________________________________________________
 
 ## 📚 Parte 1: Ejercicios Guiados
 
@@ -30,7 +30,7 @@ class Generator(nn.Module):
             nn.Linear(512, output_dim),
             nn.Tanh()
         )
-    
+
     def forward(self, z):
         return self.model(z)
 
@@ -46,7 +46,7 @@ class Discriminator(nn.Module):
             nn.Linear(256, 1),
             nn.Sigmoid()
         )
-    
+
     def forward(self, x):
         return self.model(x)
 
@@ -63,7 +63,7 @@ print(f"Generator params: {sum(p.numel() for p in gen.parameters())}")
 print(f"Discriminator params: {sum(p.numel() for p in disc.parameters())}")
 ```
 
----
+______________________________________________________________________
 
 ## 🚀 Parte 2: Ejercicios Propuestos
 
@@ -71,6 +71,7 @@ print(f"Discriminator params: {sum(p.numel() for p in disc.parameters())}")
 
 **Enunciado:**
 Implementa Deep Convolutional GAN:
+
 - Usa Conv2d y ConvTranspose2d
 - BatchNorm en ambos networks
 - Entrena en MNIST o CIFAR-10
@@ -79,6 +80,7 @@ Implementa Deep Convolutional GAN:
 
 **Enunciado:**
 Controla generación con labels:
+
 - Concatena label con latent vector
 - Genera dígitos específicos
 - Visualiza interpolación
@@ -87,6 +89,7 @@ Controla generación con labels:
 
 **Enunciado:**
 Detecta mode collapse:
+
 - Mide diversidad de samples
 - Compara con dataset real
 - Implementa mitigation strategies
@@ -95,6 +98,7 @@ Detecta mode collapse:
 
 **Enunciado:**
 Implementa Wasserstein GAN:
+
 - Earth Mover's Distance
 - Weight clipping
 - Compara estabilidad con GAN vanilla
@@ -103,11 +107,12 @@ Implementa Wasserstein GAN:
 
 **Enunciado:**
 Traducción de imágenes:
+
 - U-Net generator
 - PatchGAN discriminator
 - L1 loss + adversarial loss
 
----
+______________________________________________________________________
 
 ## ✅ Checklist
 
@@ -117,7 +122,7 @@ Traducción de imágenes:
 - [ ] Detectar mode collapse
 - [ ] WGAN para estabilidad
 
----
+______________________________________________________________________
 
 ## 📚 Recursos
 

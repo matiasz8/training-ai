@@ -23,44 +23,44 @@ class MockCLIPDemo:
     Demo conceptual de CLIP zero-shot classification.
     Muestra la lógica sin requerir modelo real.
     """
-    
+
     def __init__(self):
         print("🔄 Mock CLIP model loaded (conceptual demo)")
         print("Para uso real: descomentar imports y usar modelo real\n")
-    
+
     def classify_image(self, image_path: str, candidate_labels: list) -> dict:
         """
         Clasifica imagen contra labels sin training.
         """
         print(f"📸 Imagen: {image_path}")
         print(f"🏷️  Labels: {candidate_labels}")
-        
+
         # En el modelo real:
         # 1. image_features = clip.encode_image(image) -> [512]
         # 2. text_features = clip.encode_text(prompts) -> [n_labels, 512]
         # 3. similarity = image_features @ text_features.T -> [n_labels]
         # 4. probs = softmax(similarity * temperature)
-        
+
         # Mock probabilities (en producción son calculadas por CLIP)
         import random
         random.seed(42)
-        
+
         probs = [random.random() for _ in candidate_labels]
         total = sum(probs)
         probs = [p/total for p in probs]  # Normalize
-        
+
         # Sort by probability
         results = sorted(
             zip(candidate_labels, probs),
             key=lambda x: x[1],
             reverse=True
         )
-        
+
         print("\n📊 Resultados:")
         for label, prob in results:
             bar = "█" * int(prob * 50)
             print(f"  {label:20s} {prob:6.2%} {bar}")
-        
+
         return {
             "predicted_label": results[0][0],
             "confidence": results[0][1],
@@ -120,14 +120,14 @@ def demo_animals():
     print("="*70)
     print("DEMO 1: Clasificación de Animales")
     print("="*70)
-    
+
     clip = MockCLIPDemo()
-    
+
     result = clip.classify_image(
         image_path="cat_photo.jpg",
         candidate_labels=["cat", "dog", "bird", "fish", "hamster"]
     )
-    
+
     print(f"\n✅ Predicción: {result['predicted_label']} ({result['confidence']:.2%})")
 
 
@@ -136,14 +136,14 @@ def demo_vehicles():
     print("\n" + "="*70)
     print("DEMO 2: Clasificación de Vehículos")
     print("="*70)
-    
+
     clip = MockCLIPDemo()
-    
+
     result = clip.classify_image(
         image_path="vehicle.jpg",
         candidate_labels=["car", "truck", "motorcycle", "bicycle", "airplane"]
     )
-    
+
     print(f"\n✅ Predicción: {result['predicted_label']} ({result['confidence']:.2%})")
 
 
@@ -152,9 +152,9 @@ def demo_scenes():
     print("\n" + "="*70)
     print("DEMO 3: Clasificación de Escenas")
     print("="*70)
-    
+
     clip = MockCLIPDemo()
-    
+
     result = clip.classify_image(
         image_path="scene.jpg",
         candidate_labels=[
@@ -165,7 +165,7 @@ def demo_scenes():
             "desert"
         ]
     )
-    
+
     print(f"\n✅ Predicción: {result['predicted_label']} ({result['confidence']:.2%})")
 
 
@@ -174,9 +174,9 @@ def demo_emotions():
     print("\n" + "="*70)
     print("DEMO 4: Clasificación de Emociones (Zero-Shot!)")
     print("="*70)
-    
+
     clip = MockCLIPDemo()
-    
+
     result = clip.classify_image(
         image_path="face.jpg",
         candidate_labels=[
@@ -187,19 +187,19 @@ def demo_emotions():
             "neutral expression"
         ]
     )
-    
+
     print(f"\n✅ Predicción: {result['predicted_label']} ({result['confidence']:.2%})")
 
 
 if __name__ == "__main__":
     print("\n🎯 CLIP ZERO-SHOT IMAGE CLASSIFICATION")
     print("🔬 Sin training, solo con descripciones de texto!\n")
-    
+
     demo_animals()
     demo_vehicles()
     demo_scenes()
     demo_emotions()
-    
+
     print("\n" + "="*70)
     print("💡 VENTAJAS DE CLIP ZERO-SHOT:")
     print("="*70)
@@ -209,7 +209,7 @@ if __name__ == "__main__":
     print("✅ Flexible: cambia labels sin reentrenar")
     print("\n📚 Modelo real: openai/clip-vit-base-patch32 (Hugging Face)")
     print("📄 Paper: https://arxiv.org/abs/2103.00020")
-    
+
     print("\n" + "="*70)
     print("CÓDIGO REAL (para producción):")
     print("="*70)

@@ -1,33 +1,34 @@
 Recommender Systems personalize the user experience by suggesting relevant content, products, or services. At NaNLABS, we implement custom and scalable recommenders using both traditional ML techniques and deep learning-based architectures, often integrating them into e-commerce, content platforms, or internal dashboards.
 
 ✅ Topics Covered
+
 1. Types of Recommender Systems
-Collaborative Filtering
-User-based and Item-based filtering
-Matrix Factorization (e.g., SVD, ALS)
-Content-Based Filtering
-Using product/user metadata and feature similarity
-Hybrid Systems
-Combining collaborative and content-based methods
-2. Deep Learning for Recommendations
-Embeddings & dense representations
-Neural Collaborative Filtering (NCF)
-Autoencoders for rating prediction
-Two-tower models and Retrieval + Ranking pipelines
-Transformers for sequence-based recommendations
-3. Advanced Techniques
-Context-Aware Recommendations (time, device, location)
-Session-based Recommenders (RNNs, GRUs)
-Reinforcement Learning for personalization
-Bandit algorithms for real-time optimization
-4. Tools & Frameworks
-Surprise, LightFM, Implicit, RecBole, Faiss
-TensorFlow Recommenders, DeepRec, Hugging Face Transformers
-Vector Databases for similarity search: Pinecone, Weaviate, Qdrant
-5. Evaluation Metrics
-Precision, Recall, F1
-Mean Reciprocal Rank (MRR), NDCG
-Coverage, Diversity, Serendipity
+   Collaborative Filtering
+   User-based and Item-based filtering
+   Matrix Factorization (e.g., SVD, ALS)
+   Content-Based Filtering
+   Using product/user metadata and feature similarity
+   Hybrid Systems
+   Combining collaborative and content-based methods
+1. Deep Learning for Recommendations
+   Embeddings & dense representations
+   Neural Collaborative Filtering (NCF)
+   Autoencoders for rating prediction
+   Two-tower models and Retrieval + Ranking pipelines
+   Transformers for sequence-based recommendations
+1. Advanced Techniques
+   Context-Aware Recommendations (time, device, location)
+   Session-based Recommenders (RNNs, GRUs)
+   Reinforcement Learning for personalization
+   Bandit algorithms for real-time optimization
+1. Tools & Frameworks
+   Surprise, LightFM, Implicit, RecBole, Faiss
+   TensorFlow Recommenders, DeepRec, Hugging Face Transformers
+   Vector Databases for similarity search: Pinecone, Weaviate, Qdrant
+1. Evaluation Metrics
+   Precision, Recall, F1
+   Mean Reciprocal Rank (MRR), NDCG
+   Coverage, Diversity, Serendipity
 
 📌 Suggested Learning Resources
 📘 Guides & Articles

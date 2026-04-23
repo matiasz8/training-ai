@@ -42,8 +42,8 @@ tools = [
 # Inicializar agente
 llm = OpenAI(temperature=0)
 agent = initialize_agent(
-    tools, 
-    llm, 
+    tools,
+    llm,
     agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
     verbose=True
 )
@@ -58,7 +58,7 @@ if __name__ == "__main__":
         "¿Cuál es la raíz cuadrada de la población de Francia?"
     )
     print(f"\nRespuesta: {result}\n")
-    
+
     # Ejemplo 2: Multi-step reasoning
     print("=" * 50)
     print("Ejemplo 2: Multi-step Reasoning")
@@ -67,7 +67,7 @@ if __name__ == "__main__":
         "Si compro 3 productos a $25.99 cada uno y tengo un descuento del 15%, ¿cuánto pago?"
     )
     print(f"\nRespuesta: {result}\n")
-    
+
     # Ejemplo 3: Research question
     print("=" * 50)
     print("Ejemplo 3: Research")
