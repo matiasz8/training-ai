@@ -113,7 +113,7 @@ ______________________________________________________________________
 
 **Forward propagation** es el proceso de calcular la predicción pasando datos a través de la red, capa por capa.
 
-### Pasos:
+### Pasos
 
 1. Multiplicar entradas por pesos: `Z = W·X + b`
 1. Aplicar activación: `A = σ(Z)`
@@ -158,7 +158,7 @@ ______________________________________________________________________
 
 **Backpropagation** calcula los gradientes (derivadas) de la pérdida respecto a cada peso, propagando el error desde la salida hacia la entrada.
 
-### Algoritmo:
+### Algoritmo
 
 1. Calcular pérdida en la salida.
 1. Calcular gradiente de la pérdida respecto a la salida.

@@ -67,7 +67,9 @@ ______________________________________________________________________
 **Técnicas comunes:**
 
 - Dividir por 255: valores de [0, 255] → [0, 1].
+
 - Normalizar con media y std de ImageNet:
+
   ```python
   mean = [0.485, 0.456, 0.406]
   std = [0.229, 0.224, 0.225]

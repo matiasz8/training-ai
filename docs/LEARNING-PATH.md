@@ -12,21 +12,21 @@ Avance secuencial por módulo. Tu ritmo lo definís vos; el criterio para avanza
 
 ### Fase 2 — Modelado moderno
 
-4. Deep learning basics
+1. Deep learning basics
 1. NLP & large language models
 1. Computer vision
 
 ### Fase 3 — Especializaciones
 
-7. Time series & anomaly detection
+1. Time series & anomaly detection
 1. Recommender systems
 1. Generative AI & prompt engineering
 
 ### Fase 4 — Producción y responsabilidad
 
-10. Ethics, bias & explainability
-01. Data privacy & security
-01. MLOps & AI in production
+1. Ethics, bias & explainability
+1. Data privacy & security
+1. MLOps & AI in production
 
 ## Paso a paso dentro de cada módulo
 

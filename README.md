@@ -388,7 +388,7 @@ Este programa sintetiza conocimiento de:
 
 ______________________________________________________________________
 
-## 🚀 ¡Empieza Ya!
+## 🚀 ¡Empieza Ya
 
 ```bash
 # 1. Clone y setup

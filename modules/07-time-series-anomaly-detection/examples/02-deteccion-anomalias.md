@@ -671,7 +671,7 @@ df['anomaly_ensemble'] = (
 ).astype(int)
 ```
 
-2. **Seasonal Hybrid ESD (S-H-ESD):** Detecta anomalías considerando estacionalidad
+1. **Seasonal Hybrid ESD (S-H-ESD):** Detecta anomalías considerando estacionalidad
 1. **Prophet:** Usar residuals como anomalías
 1. **Transformer Autoencoder:** Más poderoso que LSTM
 

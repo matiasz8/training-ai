@@ -1,4 +1,4 @@
-# 🚀 Quick Start Guide — ¡Empieza en 10 minutos!
+# 🚀 Quick Start Guide — ¡Empieza en 10 minutos
 
 > **Tu primer día en el programa AI/ML: Setup, primer módulo, y primeros pasos**
 
@@ -375,7 +375,7 @@ ______________________________________________________________________
 
 ______________________________________________________________________
 
-## 🎉 ¡Felicitaciones!
+## 🎉 ¡Felicitaciones
 
 Si llegaste hasta acá, ya:
 

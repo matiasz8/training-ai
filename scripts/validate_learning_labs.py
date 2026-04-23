@@ -82,8 +82,10 @@ REQUIRED_HEADINGS = {
 @dataclass
 class UnitResult:
     """
-    Result of validating a learning unit against structure and heading contracts.
+    Result of validating a learning unit against
+    structure and heading contracts.
     """
+
     unit: str
     kind: str
     missing_paths: list[str] = field(default_factory=list)
@@ -91,6 +93,7 @@ class UnitResult:
 
     @property
     def is_clean(self) -> bool:
+        """Check if the unit has no missing paths or heading gaps."""
         return not self.missing_paths and not self.heading_gaps
 
 
@@ -102,7 +105,8 @@ def normalize(text: str) -> str:
     1. Strips leading and trailing whitespace.
     2. Converts text to lowercase.
     3. Removes diacritical marks (accents).
-    4. Removes non-alphanumeric characters except for parentheses, hyphens, and spaces.
+    4. Removes non-alphanumeric characters except for parentheses,
+       hyphens, and spaces.
     5. Collapses multiple spaces into a single space.
 
     Args:
@@ -153,9 +157,9 @@ def list_units(root: Path) -> list[Path]:
 
 
 def validate_unit(
-        unit_dir: Path, *, kind: str,
-        strict_headings: bool,
-        target_paths: tuple[str, ...]) -> UnitResult:
+    unit_dir: Path, *, kind: str,
+    strict_headings: bool, target_paths: tuple[str, ...]
+) -> UnitResult:
     """
     Validate a single learning unit.
 
@@ -192,28 +196,25 @@ def parse_args() -> argparse.Namespace:
     Parse command-line arguments for the validation script.
     """
     parser = argparse.ArgumentParser(
-        description="Validate training-ai learning lab contracts"
-    )
+        description="Validate training-ai learning lab contracts")
     parser.add_argument(
         "--strict-core",
-        action="store_true",
-        help="Fail on core structure gaps"
-    )
+        action="store_true", help="Fail on core structure gaps")
     parser.add_argument(
         "--strict-extras",
-        action="store_true",
-        help="Fail on extras structure gaps"
+        action="store_true", help="Fail on extras structure gaps"
     )
     parser.add_argument(
         "--strict-headings",
-        action="store_true",
-        help="Enable heading contract checks"
+        action="store_true", help="Enable heading contract checks"
     )
-    parser.add_argument("--report-json", action="store_true", help="Print JSON report")
+    parser.add_argument(
+        "--report-json", action="store_true", help="Print JSON report")
     return parser.parse_args()
 
 
 def main() -> int:
+    """Main function to execute the validation logic."""
     args = parse_args()
 
     core_units = list_units(CORE_ROOT)
@@ -262,8 +263,7 @@ def main() -> int:
                 if result.missing_paths:
                     lines.append("  missing paths:")
                     lines.extend(
-                        f"    - {path}" for path in result.missing_paths
-                    )
+                        f"    - {path}" for path in result.missing_paths)
                 if result.heading_gaps:
                     lines.append("  missing headings:")
                     for rel, missing in result.heading_gaps.items():
@@ -279,8 +279,10 @@ def main() -> int:
         }
         print(json.dumps(report, indent=2))
 
-    core_failed = args.strict_core and any(not r.is_clean for r in core_results)
-    extras_failed = args.strict_extras and any(not r.is_clean for r in extras_results)
+    core_failed = args.strict_core and any(
+        not r.is_clean for r in core_results)
+    extras_failed = args.strict_extras and any(
+        not r.is_clean for r in extras_results)
 
     return 1 if core_failed or extras_failed else 0
 

@@ -121,11 +121,17 @@ Este reporte fue generado colaborativamente por el multi-agent system.
         self.memory.append({"task": task, "result": report})
         return report
 
+
 class CoordinatorAgent(Agent):
     """Agente coordinador que orquesta el trabajo del equipo"""
 
-    def __init__(self, name: str, team: Dict[str, Agent]):
-        super().__init__(name, AgentRole.COORDINATOR, "coordination and task decomposition")
+    def __init__(
+            self, name: str, team: Dict[str, Agent]):
+        super().__init__(
+            name,
+            AgentRole.COORDINATOR,
+            "coordination and task decomposition"
+        )
         self.team = team
 
     def process_task(self, task: str) -> str:

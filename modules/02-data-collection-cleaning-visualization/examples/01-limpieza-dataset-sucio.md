@@ -129,7 +129,7 @@ print(f"\nFilas eliminadas: {len(df) - len(df_clean)}")
 print(f"Nuevas dimensiones: {df_clean.shape}")
 ```
 
-**Decisión:** Mantener primera ocurrencia de email duplicado (user3@mail.com).
+**Decisión:** Mantener primera ocurrencia de email duplicado (<user3@mail.com>).
 
 ### 2.2 Corregir columna `age`
 

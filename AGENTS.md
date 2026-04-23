@@ -7,9 +7,9 @@ This file defines agent behavior for this repository.
 ## Source of Truth
 
 1. Follow this file first for agent behavior.
-2. Follow `docs/MODULE-LAB-STANDARD.md` for learning module structure and README headings.
-3. Follow `.github/skills/lab-module-standardization/SKILL.md` for implementation and validation flow.
-4. If instructions conflict: AGENTS.md wins for agent behavior, the standard file wins for content schema.
+1. Follow `docs/MODULE-LAB-STANDARD.md` for learning module structure and README headings.
+1. Follow `.github/skills/lab-module-standardization/SKILL.md` for implementation and validation flow.
+1. If instructions conflict: AGENTS.md wins for agent behavior, the standard file wins for content schema.
 
 ## Repository Conventions
 

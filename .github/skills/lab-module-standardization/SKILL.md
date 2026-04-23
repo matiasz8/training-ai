@@ -1,7 +1,6 @@
----
-name: lab-module-standardization
-description: Standardize training-ai learning units to a single lab format, enforce README heading schema, and validate completeness for core modules and trends extras.
----
+______________________________________________________________________
+
+## name: lab-module-standardization description: Standardize training-ai learning units to a single lab format, enforce README heading schema, and validate completeness for core modules and trends extras
 
 # Lab Module Standardization
 
@@ -20,11 +19,11 @@ Use this skill when the task involves module structure consistency, README norma
 ## Required Workflow
 
 1. Read the current unit README and all section readmes.
-2. Compare against required folder layout and heading schema.
-3. Apply minimal edits to align headings and missing sections.
-4. Keep pedagogical content in Spanish and technical assets in English.
-5. Run `scripts/validate_learning_labs.py`.
-6. Run pre-commit checks before finalizing.
+1. Compare against required folder layout and heading schema.
+1. Apply minimal edits to align headings and missing sections.
+1. Keep pedagogical content in Spanish and technical assets in English.
+1. Run `scripts/validate_learning_labs.py`.
+1. Run pre-commit checks before finalizing.
 
 ## Validation Rules
 
