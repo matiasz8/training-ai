@@ -23,12 +23,29 @@ Diseñar prompt estructurado y evaluar salida.
 
 ## Ejemplos disponibles
 
-Pendiente de completar este apartado.
+### Scripts ejecutables (piloto Fase 2)
+
+1. `01_text_preprocessing_baseline.py`
+
+   - Pipeline minimo de normalizacion y tokenizacion.
+   - Salida esperada: tokens limpios por frase.
+
+1. `02_embeddings_similarity_baseline.py`
+
+   - Similitud semantica con TF-IDF y cosine similarity.
+   - Salida esperada: similitud A-B mayor que similitud A-C.
 
 ## Como usar estos ejemplos
 
-Pendiente de completar este apartado.
+```bash
+python modules/05-nlp-large-language-models/examples/01_text_preprocessing_baseline.py
+python modules/05-nlp-large-language-models/examples/02_embeddings_similarity_baseline.py
+```
+
+Recomendacion: cambiar oraciones de entrada y comparar como se mueve la similitud.
 
 ## Proximos pasos
 
-Pendiente de completar este apartado.
+1. Agregar ejemplo de prompting con evaluacion minima de calidad.
+1. Agregar ejemplo de chunking para flujo RAG basico.
+1. Documentar errores comunes de tokenizacion y vocabulario en `notes/README.md`.
