@@ -1,34 +1,63 @@
-# Examples — Programación y Matemática para ML
+# Examples — Programming and Math for ML
 
-Esta carpeta contiene ejemplos guiados con código completo, soluciones paso a paso y salidas esperadas.
-
-## Ejemplos disponibles (resueltos)
-
-### [01 - Vectores y producto punto](./01-vectores-producto-punto.md)
-
-**Objetivo:** Representar vectores con NumPy y calcular similitud básica usando producto punto.
-**Conceptos:** vectores, producto punto, norma, similitud coseno.
-**Duración estimada:** 15-20 min.
-
-### [02 - Estadística descriptiva con Pandas](./02-estadistica-descriptiva.md)
-
-**Objetivo:** Calcular media, mediana, desvío estándar y detectar outliers en un dataset real.
-**Conceptos:** estadísticas descriptivas, outliers, método IQR, DataFrames.
-**Duración estimada:** 20-25 min.
-
-## Cómo usar estos ejemplos
-
-1. Abrí el archivo `.md` del ejemplo.
-1. Leé los conceptos previos para entender el contexto.
-1. Copiá el código paso a paso en un Jupyter Notebook o script `.py`.
-1. Ejecutá cada bloque y compará con las salidas esperadas.
-1. Si algo no funciona, revisá la sección "Errores comunes".
-1. Intentá el ejercicio propuesto al final para practicar.
-
-## Próximos pasos
-
-Una vez completados estos ejemplos, pasá a la carpeta `practices/` para resolver ejercicios más desafiantes con evaluación.
+This folder contains practical examples with complete code, step-by-step logic,
+and expected outputs.
 
 ## Ejemplos disponibles
 
-Pendiente de completar este apartado.
+### Existing guided markdown examples
+
+1. [01 - Vectors and dot product](./01-vectores-producto-punto.md)
+1. [02 - Descriptive statistics](./02-estadistica-descriptiva.md)
+
+### Executable scripts (phase-2 continuation)
+
+1. `01_vector_dot_product_baseline.py`
+
+   - Computes dot product and cosine similarity with pure Python vectors.
+   - Expected output: positive similarity for aligned vectors and lower for orthogonal-ish vectors.
+
+1. `02_descriptive_statistics_baseline.py`
+
+   - Computes mean, median, variance, and standard deviation on a small dataset.
+   - Expected output: deterministic summary statistics.
+
+1. `03_feature_scaling_normalization.py`
+
+   - Compares min-max scaling and z-score normalization.
+   - Expected output: transformed values in stable ranges.
+
+1. `04_linear_regression_from_scratch.py`
+
+   - Fits a one-feature linear model with a closed-form solution.
+   - Expected output: slope/intercept close to the synthetic data trend.
+
+1. `05_gradient_descent_one_parameter.py`
+
+   - Optimizes one parameter with gradient descent on MSE.
+   - Expected output: monotonically decreasing loss.
+
+1. `06_reproducible_math_pipeline.py`
+
+   - Runs a deterministic mini pipeline using a fixed random seed.
+   - Expected output: repeated runs produce `same_result=True`.
+
+## Como usar estos ejemplos
+
+```bash
+python modules/01-programming-math-for-ml/examples/01_vector_dot_product_baseline.py
+python modules/01-programming-math-for-ml/examples/02_descriptive_statistics_baseline.py
+python modules/01-programming-math-for-ml/examples/03_feature_scaling_normalization.py
+python modules/01-programming-math-for-ml/examples/04_linear_regression_from_scratch.py
+python modules/01-programming-math-for-ml/examples/05_gradient_descent_one_parameter.py
+python modules/01-programming-math-for-ml/examples/06_reproducible_math_pipeline.py
+```
+
+Recommended order: fundamentals (`01-03`) first, then modeling (`04-05`), and
+finally reproducibility (`06`).
+
+## Proximos pasos
+
+1. Connect these scripts with the module `practices/` exercises.
+1. Add one geometric-intuition script for projections.
+1. Record common mistakes and fixes in `notes/README.md`.
