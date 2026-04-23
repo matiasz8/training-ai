@@ -110,7 +110,7 @@ def detect_toxicity(text: str) -> Dict:
 PROHIBITED_TOPICS = [
     r"how to (make|build|create) (a bomb|explosive|weapon)",
     r"(illegal|ilegal) (drugs|drogas)",
-    r"(hack|hacking|steal|robar) (password|data|información)",
+    r"(hack|hacking|steal|robar)\s+(a\s+)?(password|data|informacion|información)",
 ]
 
 
