@@ -21,7 +21,13 @@ Use this skill when the task involves module structure consistency, README norma
 1. Read the current unit README and all section readmes.
 1. Compare against required folder layout and heading schema.
 1. Apply minimal edits to align headings and missing sections.
-1. Keep pedagogical content in Spanish and technical assets in English.
+1. Use English-only for all newly created or updated assets from this point:
+
+- File names
+- README explanations and body text
+- Python code comments, docstrings, and messages
+
+1. Keep required heading schema compatibility when strict validators depend on it.
 1. Run `scripts/validate_learning_labs.py`.
 1. Run pre-commit checks before finalizing.
 
