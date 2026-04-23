@@ -56,6 +56,8 @@ ______________________________________________________________________
 | [**IMPLEMENTATION-STATUS.md**](IMPLEMENTATION-STATUS.md) | Estado 100% completo del proyecto | Verificar qué está disponible |
 | [**PHASES-CREACION.md**](PHASES-CREACION.md)             | Fases de construcción del repo    | Contribuidores y creadores    |
 | [**ROADMAP-ORIGINAL.md**](ROADMAP-ORIGINAL.md)           | Referencia histórica inicial      | Contexto del diseño original  |
+| [**COVERAGE-GAP-MATRIX.md**](COVERAGE-GAP-MATRIX.md)     | Matriz P0/P1/P2 de brechas        | Planificación de ejecución    |
+| [**EXAMPLE-BACKLOG-PILOT.md**](EXAMPLE-BACKLOG-PILOT.md) | Backlog piloto de ejemplos        | Ejecución Fase 2              |
 
 ______________________________________________________________________
 
