@@ -1,14 +1,42 @@
-# AI Agents — Sistemas Autónomos Inteligentes
+# AI Agents — Autonomous Intelligent Systems
 
 ## Ejemplos disponibles
 
-- Ejemplo 1: Placeholder breve
-- Ejemplo 2: Placeholder breve
+- `01-simple-agent-langchain.py`
+
+  - LangChain agent with calculator and search tools.
+  - Expected output: a visible reasoning/action loop with tool calls.
+  - Note: requires external dependencies and API keys.
+
+- `02-react-agent.py`
+
+  - From-scratch ReAct loop simulation with local tools.
+  - Expected output: iterative `Thought -> Action -> Observation -> Answer` steps.
+
+- `03-multi-agent-system.py`
+
+  - Multi-agent coordination demo with role specialization.
+  - Expected output: coordinated messages and a synthesized final report.
+
+- `04_reproducible_agent_evaluation.py`
+
+  - Deterministic mini evaluation pipeline for agent decisions.
+  - Expected output: repeated runs produce `same_result=True`.
 
 ## Como usar estos ejemplos
 
-Revisa, ejecuta y adapta cada ejemplo segun tu entorno.
+```bash
+python trends-extras/agents/examples/01-simple-agent-langchain.py
+python trends-extras/agents/examples/02-react-agent.py
+python trends-extras/agents/examples/03-multi-agent-system.py
+python trends-extras/agents/examples/04_reproducible_agent_evaluation.py
+```
+
+Recommended order: `02 -> 03 -> 04` first, then `01` after installing LangChain
+and configuring provider credentials.
 
 ## Proximos pasos
 
-- Convertir un ejemplo en ejercicio guiado.
+1. Add a production-style retries/timeouts example for tool failures.
+1. Add a trace schema example for observability integration.
+1. Convert one script into a guided practice in `practices/`.
