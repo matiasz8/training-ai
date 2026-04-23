@@ -1,25 +1,25 @@
 # Examples — Generative AI & Prompt Engineering
 
-## Ejemplo 1 — Prompt base
+## Example 1 — Baseline prompt
 
-Diseñar prompt inicial para una tarea de resumen.
+Design an initial prompt for a summarization task.
 
-## Ejemplo 2 — Prompt estructurado
+## Example 2 — Structured prompt
 
-Agregar formato de salida y restricciones.
+Add an output format and explicit constraints.
 
-## Ejemplo 3 — Iteración guiada
+## Example 3 — Guided iteration
 
-Mejorar prompt con feedback sobre errores.
+Improve the prompt with feedback about errors.
 
-## Ejemplo 4 — Guardrails básicos
+## Example 4 — Basic guardrails
 
-Incluir validaciones para respuestas seguras y útiles.
+Include validations for safe and useful responses.
 
-## Reglas
+## Rules
 
-- Registrar versión del prompt y resultado obtenido.
-- Comparar calidad entre iteraciones.
+- Record the prompt version and the obtained result.
+- Compare quality across iterations.
 
 ## Ejemplos disponibles
 

@@ -1,25 +1,25 @@
 # Examples — MLOps & AI in Production
 
-## Ejemplo 1 — Pipeline reproducible
+## Example 1 — Reproducible pipeline
 
-Versionar datos, entrenamiento y artefactos.
+Version data, training runs, and artifacts.
 
-## Ejemplo 2 — Serving básico
+## Example 2 — Baseline serving
 
-Exponer modelo vía API o proceso batch.
+Expose a model through an API or a batch process.
 
-## Ejemplo 3 — Monitoreo inicial
+## Example 3 — Initial monitoring
 
-Registrar métricas de latencia y calidad.
+Record latency and quality metrics.
 
-## Ejemplo 4 — Simulación de drift
+## Example 4 — Drift simulation
 
-Detectar degradación y activar alerta.
+Detect degradation and trigger an alert.
 
-## Reglas
+## Rules
 
-- Cada ejemplo debe indicar objetivo operacional.
-- Documentar supuestos de infraestructura.
+- Each example must state an operational objective.
+- Document infrastructure assumptions.
 
 ## Ejemplos disponibles
 

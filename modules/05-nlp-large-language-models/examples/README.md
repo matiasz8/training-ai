@@ -1,59 +1,59 @@
 # Examples — NLP & Large Language Models
 
-## Ejemplo 1 — Limpieza y tokenización
+## Example 1 — Cleaning and tokenization
 
-Preprocesar texto para tareas de clasificación.
+Preprocess text for classification tasks.
 
-## Ejemplo 2 — TF-IDF + clasificador
+## Example 2 — TF-IDF plus classifier
 
-Entrenar un baseline de clasificación textual.
+Train a text-classification baseline.
 
-## Ejemplo 3 — Embeddings y similitud
+## Example 3 — Embeddings and similarity
 
-Comparar frases por cercanía semántica.
+Compare sentences by semantic proximity.
 
-## Ejemplo 4 — Prompting básico con LLM
+## Example 4 — Basic LLM prompting
 
-Diseñar prompt estructurado y evaluar salida.
+Design a structured prompt and evaluate the output.
 
-## Reglas
+## Rules
 
-- Definir objetivo y criterio de éxito por ejemplo.
-- Registrar errores y mejoras en `notes/`.
+- Define the objective and success criteria for each example.
+- Record errors and improvements in `notes/`.
 
 ## Ejemplos disponibles
 
-### Scripts ejecutables (piloto Fase 2)
+### Executable scripts (phase-2 pilot)
 
 1. `01_text_preprocessing_baseline.py`
 
-   - Pipeline minimo de normalizacion y tokenizacion.
-   - Salida esperada: tokens limpios por frase.
+   - Minimal normalization and tokenization pipeline.
+   - Expected output: cleaned tokens per sentence.
 
 1. `02_embeddings_similarity_baseline.py`
 
-   - Similitud semantica con TF-IDF y cosine similarity.
-   - Salida esperada: similitud A-B mayor que similitud A-C.
+   - Semantic similarity with TF-IDF and cosine similarity.
+   - Expected output: similarity A-B higher than similarity A-C.
 
 1. `03_prompt_variants_quality.py`
 
-   - Comparacion de prompts weak/medium/strong con rubrica simple.
-   - Salida esperada: score creciente de calidad de prompt.
+   - Comparison of weak/medium/strong prompts with a simple rubric.
+   - Expected output: prompt-quality score increases with prompt strength.
 
 1. `04_chunking_strategies_rag.py`
 
-   - Comparacion de chunking fijo vs por oraciones para recuperacion.
-   - Salida esperada: diferencias de score y chunk top recuperado.
+   - Comparison of fixed-size versus sentence-based chunking for retrieval.
+   - Expected output: score differences and a different top retrieved chunk.
 
 1. `05_rag_minimal_eval.py`
 
-   - Evaluacion minima tipo exact-match sobre flujo RAG simplificado.
-   - Salida esperada: `exact_match_avg` de la corrida.
+   - Minimal exact-match evaluation over a simplified RAG flow.
+   - Expected output: run-level `exact_match_avg`.
 
 1. `06_llm_workflow_with_guardrails.py`
 
-   - Flujo con guardrails de entrada y salida para prompts sensibles.
-   - Salida esperada: caso permitido y caso bloqueado.
+   - Workflow with input and output guardrails for sensitive prompts.
+   - Expected output: one allowed case and one blocked case.
 
 ## Como usar estos ejemplos
 
@@ -66,10 +66,10 @@ python modules/05-nlp-large-language-models/examples/05_rag_minimal_eval.py
 python modules/05-nlp-large-language-models/examples/06_llm_workflow_with_guardrails.py
 ```
 
-Recomendacion: cambiar oraciones de entrada y comparar como se mueve la similitud.
+Recommendation: change the input sentences and compare how the similarity shifts.
 
 ## Proximos pasos
 
-1. Agregar un ejemplo L4 de evaluacion de salida con rubrica ampliada.
-1. Integrar estos ejemplos con practicas de `guardrails` y `llm-evals`.
-1. Documentar errores comunes de tokenizacion y vocabulario en `notes/README.md`.
+1. Add an L4 example for output evaluation with an expanded rubric.
+1. Integrate these examples with `guardrails` and `llm-evals` practices.
+1. Document common tokenization and vocabulary issues in `notes/README.md`.

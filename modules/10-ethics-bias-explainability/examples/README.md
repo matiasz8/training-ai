@@ -1,25 +1,25 @@
 # Examples — Ethics, Bias & Explainability
 
-## Ejemplo 1 — Detección de sesgo básico
+## Example 1 — Basic bias detection
 
-Revisar distribución por grupos y posibles desbalances.
+Review group distributions and potential imbalances.
 
-## Ejemplo 2 — Métrica de fairness
+## Example 2 — Fairness metric
 
-Calcular una métrica de equidad y compararla entre grupos.
+Calculate a fairness metric and compare it across groups.
 
-## Ejemplo 3 — Explicación local
+## Example 3 — Local explanation
 
-Usar SHAP/LIME para explicar predicción individual.
+Use SHAP/LIME-style ideas to explain an individual prediction.
 
-## Ejemplo 4 — Reporte de riesgo
+## Example 4 — Risk report
 
-Documentar riesgos y mitigaciones en formato breve.
+Document risks and mitigations in a short format.
 
-## Reglas
+## Rules
 
-- Evitar conclusiones sin evidencia cuantitativa.
-- Registrar supuestos explícitamente.
+- Avoid conclusions without quantitative evidence.
+- Record assumptions explicitly.
 
 ## Ejemplos disponibles
 

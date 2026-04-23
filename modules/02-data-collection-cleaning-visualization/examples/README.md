@@ -1,34 +1,34 @@
 # Examples — Data Collection, Cleaning & Visualization
 
-## Ejemplo 1 — Perfilado inicial del dataset
+## Example 1 — Initial dataset profiling
 
-Objetivo: leer datos con Pandas y generar un resumen rápido (tipos, nulos, duplicados).
+Objective: read data with Pandas and generate a quick profile (types, nulls, duplicates).
 
-## Ejemplo 2 — Limpieza de valores faltantes
+## Example 2 — Missing-value cleaning
 
-Objetivo: comparar estrategias de imputación y justificar elección.
+Objective: compare imputation strategies and justify the choice.
 
-## Ejemplo 3 — Detección de outliers
+## Example 3 — Outlier detection
 
-Objetivo: aplicar IQR y visualizar impacto antes/después del tratamiento.
+Objective: apply IQR and visualize impact before/after treatment.
 
-## Ejemplo 4 — Visualización para negocio
+## Example 4 — Business-oriented visualization
 
-Objetivo: crear 3 gráficos que respondan preguntas concretas de análisis.
+Objective: create 3 charts that answer concrete analysis questions.
 
-## Reglas
+## Rules
 
-- Cada ejemplo debe incluir entrada, salida esperada y explicación.
-- Todos los pasos deben poder reproducirse en notebook o script.
+- Each example must include input, expected output, and explanation.
+- Every step must be reproducible in a notebook or script.
 
 ## Ejemplos disponibles
 
-Pendiente de completar este apartado.
+This section is pending completion.
 
 ## Como usar estos ejemplos
 
-Pendiente de completar este apartado.
+This section is pending completion.
 
 ## Proximos pasos
 
-Pendiente de completar este apartado.
+This section is pending completion.

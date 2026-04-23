@@ -1,25 +1,25 @@
 # Examples — Recommender Systems
 
-## Ejemplo 1 — Baseline por popularidad
+## Example 1 — Popularity baseline
 
-Construir recomendador simple con top-N global.
+Build a simple recommender with a global top-N list.
 
-## Ejemplo 2 — Item-based colaborativo
+## Example 2 — Item-based collaborative filtering
 
-Calcular similitud entre ítems y recomendar vecinos.
+Compute item similarity and recommend neighbors.
 
-## Ejemplo 3 — User-based colaborativo
+## Example 3 — User-based collaborative filtering
 
-Encontrar usuarios similares y sugerir ítems.
+Find similar users and suggest items.
 
-## Ejemplo 4 — Evaluación @K
+## Example 4 — Evaluation at K
 
-Calcular Precision@K y Recall@K sobre conjunto de test.
+Compute Precision@K and Recall@K on a test set.
 
-## Reglas
+## Rules
 
-- Cada ejemplo debe incluir entrada, salida esperada y conclusión.
-- Registrar hallazgos en `notes/`.
+- Each example must include the input, expected output, and conclusion.
+- Record findings in `notes/`.
 
 ## Ejemplos disponibles
 

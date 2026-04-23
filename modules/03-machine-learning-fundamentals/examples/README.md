@@ -1,59 +1,59 @@
 # Examples — Machine Learning Fundamentals
 
-## Ejemplo 1 — Baseline de regresión
+## Example 1 — Regression baseline
 
-Entrenar regresión lineal y medir MAE/MSE.
+Train a linear regression baseline and measure MAE/MSE.
 
-## Ejemplo 2 — Clasificación binaria
+## Example 2 — Binary classification
 
-Entrenar un clasificador simple y evaluar matriz de confusión.
+Train a simple classifier and evaluate a confusion matrix.
 
-## Ejemplo 3 — Validación cruzada
+## Example 3 — Cross-validation
 
-Comparar performance usando `KFold`.
+Compare performance with `KFold`.
 
-## Ejemplo 4 — Tuning básico
+## Example 4 — Basic tuning
 
-Aplicar `GridSearchCV` sobre hiperparámetros mínimos.
+Apply `GridSearchCV` to a minimal hyperparameter set.
 
-## Reglas
+## Rules
 
-- Cada ejemplo debe explicar entrada, salida y criterio de éxito.
-- Guardar observaciones en `notes/`.
+- Each example must explain the input, output, and success criteria.
+- Store observations in `notes/`.
 
 ## Ejemplos disponibles
 
-### Scripts ejecutables (piloto Fase 2)
+### Executable scripts (phase-2 pilot)
 
 1. `01_train_test_split_baseline.py`
 
-   - Baseline de clasificacion binaria con `train_test_split` reproducible.
-   - Salida esperada: `Accuracy` y `F1 score` mayores a 0.90.
+   - Reproducible binary-classification baseline with `train_test_split`.
+   - Expected output: `Accuracy` and `F1 score` above 0.90.
 
 1. `02_linear_vs_logistic_baseline.py`
 
-   - Comparacion de baseline de regresion y baseline de clasificacion.
-   - Salida esperada: `MAE` para diabetes + `Accuracy` para breast_cancer.
+   - Comparison between regression and classification baselines.
+   - Expected output: `MAE` for diabetes plus `Accuracy` for breast_cancer.
 
 1. `03_regularization_tradeoffs.py`
 
-   - Efecto de regularizacion L2 sobre pesos y error.
-   - Salida esperada: cambio de `w`, `train_mse` y `test_mse` segun `lambda`.
+   - Effect of L2 regularization on weights and error.
+   - Expected output: changes in `w`, `train_mse`, and `test_mse` by `lambda`.
 
 1. `04_tree_depth_vs_overfitting.py`
 
-   - Simulacion de comportamiento de sobreajuste por complejidad.
-   - Salida esperada: `train_acc` alta con generalizacion menor.
+   - Simulation of overfitting behavior as model complexity increases.
+   - Expected output: high `train_acc` with lower generalization.
 
 1. `05_model_comparison_metrics.py`
 
-   - Comparacion de modelos con `accuracy`, `precision`, `recall` y `f1`.
-   - Salida esperada: diferencias de ranking segun metrica.
+   - Comparison of models with `accuracy`, `precision`, `recall`, and `f1`.
+   - Expected output: ranking differences by metric.
 
 1. `06_reproducible_ml_pipeline.py`
 
-   - Pipeline minimo reproducible con seed fijo.
-   - Salida esperada: `threshold` y `accuracy` estables entre ejecuciones.
+   - Minimal reproducible pipeline with a fixed seed.
+   - Expected output: stable `threshold` and `accuracy` across runs.
 
 ## Como usar estos ejemplos
 
@@ -66,11 +66,11 @@ python modules/03-machine-learning-fundamentals/examples/05_model_comparison_met
 python modules/03-machine-learning-fundamentals/examples/06_reproducible_ml_pipeline.py
 ```
 
-Recomendacion: ejecutar primero el ejemplo 01 y luego modificar `test_size` para
-observar estabilidad de metricas.
+Recommendation: run example 01 first, then modify `test_size` to observe
+metric stability.
 
 ## Proximos pasos
 
-1. Conectar estos ejemplos con practicas de comparacion de modelos.
-1. Agregar un ejemplo L4 con validacion cruzada automatizada.
-1. Registrar resultados y observaciones en `notes/README.md`.
+1. Connect these examples to model-comparison practices.
+1. Add an L4 example with automated cross-validation.
+1. Record results and observations in `notes/README.md`.

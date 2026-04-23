@@ -1,25 +1,25 @@
 # Examples — Data Privacy & Security
 
-## Ejemplo 1 — Clasificación de datos
+## Example 1 — Data classification
 
-Etiquetar columnas según nivel de sensibilidad.
+Label columns by sensitivity level.
 
-## Ejemplo 2 — Anonimización básica
+## Example 2 — Basic anonymization
 
-Aplicar técnicas simples de enmascaramiento o pseudonimización.
+Apply simple masking or pseudonymization techniques.
 
-## Ejemplo 3 — Matriz de acceso
+## Example 3 — Access matrix
 
-Definir roles y permisos mínimos.
+Define roles and minimum permissions.
 
-## Ejemplo 4 — Checklist de seguridad en pipeline
+## Example 4 — Pipeline security checklist
 
-Revisar puntos críticos de exposición de datos.
+Review critical points of data exposure.
 
-## Reglas
+## Rules
 
-- Priorizar controles prácticos y verificables.
-- Documentar supuestos y límites.
+- Prioritize practical and verifiable controls.
+- Document assumptions and limits.
 
 ## Ejemplos disponibles
 

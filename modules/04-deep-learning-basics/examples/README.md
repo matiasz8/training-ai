@@ -1,59 +1,59 @@
 # Examples — Deep Learning Basics
 
-## Ejemplo 1 — Primera red neuronal
+## Example 1 — First neural network
 
-Entrenar una MLP simple para clasificación binaria.
+Train a simple MLP for binary classification.
 
-## Ejemplo 2 — Curvas de entrenamiento
+## Example 2 — Training curves
 
-Visualizar loss y accuracy en train/validation por época.
+Visualize loss and accuracy on train/validation across epochs.
 
-## Ejemplo 3 — Dropout y regularización
+## Example 3 — Dropout and regularization
 
-Comparar resultados con y sin regularización.
+Compare results with and without regularization.
 
-## Ejemplo 4 — Ajuste de hiperparámetros
+## Example 4 — Hyperparameter tuning
 
-Evaluar impacto de learning rate, batch size y número de capas.
+Evaluate the impact of learning rate, batch size, and number of layers.
 
-## Reglas
+## Rules
 
-- Incluir objetivo, entrada, salida esperada y errores comunes.
-- Mantener notebooks/scripts reproducibles.
+- Include the objective, input, expected output, and common errors.
+- Keep notebooks/scripts reproducible.
 
 ## Ejemplos disponibles
 
-### Scripts ejecutables (piloto Fase 2)
+### Executable scripts (phase-2 pilot)
 
 1. `01_neuron_forward_baseline.py`
 
-   - Forward pass de una neurona con activacion sigmoide.
-   - Salida esperada: `output_a` y `output_b` entre 0 y 1.
+   - Forward pass of a neuron with sigmoid activation.
+   - Expected output: `output_a` and `output_b` between 0 and 1.
 
 1. `02_gradient_descent_baseline.py`
 
-   - Entrenamiento de un parametro con gradient descent.
-   - Salida esperada: descenso progresivo de `mse`.
+   - Single-parameter training with gradient descent.
+   - Expected output: progressive decrease in `mse`.
 
 1. `03_activation_functions_comparison.py`
 
-   - Comparacion de ReLU, tanh y sigmoid en entradas comunes.
-   - Salida esperada: tabla con diferencias de comportamiento.
+   - Comparison of ReLU, tanh, and sigmoid on common inputs.
+   - Expected output: a table showing behavioral differences.
 
 1. `04_overfitting_regularization_simulation.py`
 
-   - Simulacion de overfitting y seleccion con penalizacion.
-   - Salida esperada: cambio de modelo seleccionado segun `alpha`.
+   - Simulation of overfitting and model selection with penalization.
+   - Expected output: selected model changes based on `alpha`.
 
 1. `05_simple_mlp_from_scratch.py`
 
-   - Forward pass de una MLP pequena sin frameworks.
-   - Salida esperada: predicciones reproducibles por muestra.
+   - Forward pass of a small MLP without frameworks.
+   - Expected output: reproducible predictions per sample.
 
 1. `06_reproducible_training_loop.py`
 
-   - Loop de entrenamiento reproducible con seed fija.
-   - Salida esperada: dos corridas identicas (`same_result=True`).
+   - Reproducible training loop with a fixed seed.
+   - Expected output: two identical runs (`same_result=True`).
 
 ## Como usar estos ejemplos
 
@@ -66,10 +66,10 @@ python modules/04-deep-learning-basics/examples/05_simple_mlp_from_scratch.py
 python modules/04-deep-learning-basics/examples/06_reproducible_training_loop.py
 ```
 
-Recomendacion: ejecutar del 01 al 06 en orden para conservar progresion conceptual.
+Recommendation: run `01` through `06` in order to preserve the conceptual progression.
 
 ## Proximos pasos
 
-1. Incorporar variante L4 con mini-batch training y early stopping.
-1. Conectar ejemplos 04 y 06 con practicas de generalizacion.
-1. Documentar observaciones de estabilidad en `notes/README.md`.
+1. Add an L4 variant with mini-batch training and early stopping.
+1. Connect examples 04 and 06 with generalization practices.
+1. Document stability observations in `notes/README.md`.

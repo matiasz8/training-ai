@@ -1,23 +1,23 @@
-# Matriz de Cobertura y Brechas (Fase 1)
+# Coverage Gap Matrix (Phase 1)
 
-## Objetivo
+## Objective
 
-Establecer una matriz objetiva de cobertura tema-subtema-modulo y priorizar brechas con P0/P1/P2 para guiar la ejecucion del plan.
+Establish an objective topic-subtopic-module coverage matrix and prioritize P0/P1/P2 gaps to guide plan execution.
 
-## Metodo y evidencia
+## Method and evidence
 
-Fuente curricular base:
+Primary curriculum sources:
 
-- `docs/init-path/content/*.md` (12 temas core).
-- `docs/LEARNING-PATH.md` (secuencia oficial de estudio).
+- `docs/init-path/content/*.md` (12 core topics).
+- `docs/LEARNING-PATH.md` (official study sequence).
 
-Snapshot tecnico (2026-04-23):
+Technical snapshot (2026-04-23):
 
-- Modulos core con ejemplos Python ejecutables: 0 en 12/12 modulos.
-- Modulos core con ejemplos Markdown: 3 por modulo.
-- Placeholders en core (`Pendiente de completar este apartado.`): 121.
-- Placeholders en extras: 36.
-- Ejemplos Python por extra:
+- Core modules with executable Python examples: 0 across 12/12 modules.
+- Core modules with Markdown examples: 3 per module.
+- Placeholders in core (`Pendiente de completar este apartado.`): 121.
+- Placeholders in extras: 36.
+- Python examples per extra:
   - `agents`: 3
   - `ai-observability`: 4
   - `guardrails`: 3
@@ -25,55 +25,55 @@ Snapshot tecnico (2026-04-23):
   - `multimodal`: 4
   - `synthetic-data`: 3
 
-## Matriz Tema -> Modulo -> Estado
+## Topic -> Module -> Status matrix
 
-| Tema (init-path)                          | Modulo destino                                      | Estado actual | Prioridad | Accion principal                                                |
-| ----------------------------------------- | --------------------------------------------------- | ------------- | --------- | --------------------------------------------------------------- |
-| Programming & Math for ML                 | `modules/01-programming-math-for-ml`                | Parcial       | P0        | Migrar ejemplos clave a `.py` ejecutables + salidas esperadas   |
-| Data Collection, Cleaning & Visualization | `modules/02-data-collection-cleaning-visualization` | Parcial       | P0        | Ejemplos ejecutables de limpieza + EDA reproducible             |
-| Machine Learning Fundamentals             | `modules/03-machine-learning-fundamentals`          | Parcial       | P0        | Baselines de clasificacion/regresion con metricas y comparacion |
-| Deep Learning Basics                      | `modules/04-deep-learning-basics`                   | Parcial       | P0        | Entrenamiento minimo reproducible (MLP/CNN) con overfit checks  |
-| NLP & Large Language Models               | `modules/05-nlp-large-language-models`              | Parcial       | P0        | Pipeline NLP/LLM ejecutable (prompting + eval minima)           |
-| Computer Vision                           | `modules/06-computer-vision`                        | Parcial       | P0        | Ejemplos ejecutables CV con inferencia y validacion basica      |
-| Time Series & Anomaly Detection           | `modules/07-time-series-anomaly-detection`          | Parcial       | P0        | Forecast + deteccion de anomalias con metricas temporales       |
-| Recommender Systems                       | `modules/08-recommender-systems`                    | Parcial       | P0        | CF baseline + ranking metrics reproducibles                     |
-| Generative AI & Prompt Engineering        | `modules/09-generative-ai-prompt-engineering`       | Parcial       | P0        | Ejemplos de prompting y evaluacion de calidad por casos         |
-| Ethics, Bias & Explainability             | `modules/10-ethics-bias-explainability`             | Parcial       | P1        | Ejemplos guiados de fairness y SHAP/LIME aplicados              |
-| Data Privacy & Security                   | `modules/11-data-privacy-security`                  | Parcial       | P1        | Ejemplos de redaccion, anonimizado y controles minimos          |
-| MLOps & AI in Production                  | `modules/12-mlops-ai-in-production`                 | Parcial       | P0        | Ejemplos ejecutables de serving, monitoreo y rollback           |
+| Topic (init-path)                         | Target module                                       | Current status | Priority | Main action                                                             |
+| ----------------------------------------- | --------------------------------------------------- | -------------- | -------- | ----------------------------------------------------------------------- |
+| Programming & Math for ML                 | `modules/01-programming-math-for-ml`                | Partial        | P0       | Migrate key examples to executable `.py` files with expected output     |
+| Data Collection, Cleaning & Visualization | `modules/02-data-collection-cleaning-visualization` | Partial        | P0       | Add executable cleaning examples plus reproducible EDA                  |
+| Machine Learning Fundamentals             | `modules/03-machine-learning-fundamentals`          | Partial        | P0       | Add regression/classification baselines with metrics and comparison     |
+| Deep Learning Basics                      | `modules/04-deep-learning-basics`                   | Partial        | P0       | Add minimal reproducible training (MLP/CNN) with overfit checks         |
+| NLP & Large Language Models               | `modules/05-nlp-large-language-models`              | Partial        | P0       | Add executable NLP/LLM pipeline (prompting plus minimal eval)           |
+| Computer Vision                           | `modules/06-computer-vision`                        | Partial        | P0       | Add executable CV examples with inference and basic validation          |
+| Time Series & Anomaly Detection           | `modules/07-time-series-anomaly-detection`          | Partial        | P0       | Add forecast plus anomaly detection with temporal metrics               |
+| Recommender Systems                       | `modules/08-recommender-systems`                    | Partial        | P0       | Add collaborative-filtering baselines with reproducible ranking metrics |
+| Generative AI & Prompt Engineering        | `modules/09-generative-ai-prompt-engineering`       | Partial        | P0       | Add prompting examples and quality evaluation by scenario               |
+| Ethics, Bias & Explainability             | `modules/10-ethics-bias-explainability`             | Partial        | P1       | Add guided fairness and SHAP/LIME-style examples                        |
+| Data Privacy & Security                   | `modules/11-data-privacy-security`                  | Partial        | P1       | Add redaction, anonymization, and minimal control examples              |
+| MLOps & AI in Production                  | `modules/12-mlops-ai-in-production`                 | Partial        | P0       | Add executable serving, monitoring, and rollback examples               |
 
-## Brechas transversales priorizadas
+## Prioritized cross-cutting gaps
 
-### P0 (bloqueantes para aprendizaje ejecutable)
+### P0 (blocking executable learning)
 
-1. Core sin scripts `.py` ejecutables en `examples/` (12/12 modulos).
-1. Alto volumen de placeholders en modulos core (121).
-1. Falta de salida esperada explicita por ejemplo en la mayoria del core.
+1. Core modules without executable `.py` scripts in `examples/` (12/12 modules).
+1. High volume of placeholders in core modules (121).
+1. Missing explicit expected output for most core examples.
 
-### P1 (impacto alto, no bloqueante inmediato)
+### P1 (high impact, not immediately blocking)
 
-1. Extras por debajo del objetivo de densidad (target 4-6): `agents`, `guardrails`, `synthetic-data` tienen 3.
-1. Placeholders residuales en extras (36).
-1. Desalineacion narrativa: documentos que hablan de 100% completo vs evidencia de parcialidad ejecutable.
+1. Extras below the density target (4-6): `agents`, `guardrails`, and `synthetic-data` have 3.
+1. Residual placeholders in extras (36).
+1. Narrative misalignment: documents claiming 100% completion versus evidence of partial executable coverage.
 
-### P2 (expansion de cobertura avanzada)
+### P2 (advanced coverage expansion)
 
-1. RL aplicado para producto.
-1. Causal ML introductorio.
-1. Graph ML introductorio.
-1. Evals avanzadas y red-teaming sistematico.
-1. Optimizacion de inferencia (quantization/distillation/serving).
+1. Applied RL for product use cases.
+1. Introductory causal ML.
+1. Introductory graph ML.
+1. Advanced evals and systematic red-teaming.
+1. Inference optimization (quantization/distillation/serving).
 
-## Backlog inicial recomendado (orden de ejecucion)
+## Recommended initial backlog (execution order)
 
-1. Completar placeholders P0 en modulos 03 y 05 (piloto).
-1. Publicar 6-8 ejemplos ejecutables en modulo 03.
-1. Publicar 6-8 ejemplos ejecutables en modulo 05.
-1. Definir rubrica de salida esperada y errores comunes para todo ejemplo nuevo.
-1. Escalar el patron a olas A/B/C del core.
+1. Complete the P0 placeholders in modules 03 and 05 (pilot).
+1. Publish 6-8 executable examples in module 03.
+1. Publish 6-8 executable examples in module 05.
+1. Define an expected-output and common-errors rubric for every new example.
+1. Scale the pattern across core waves A/B/C.
 
-## Criterio de cierre de Fase 1
+## Phase-1 exit criteria
 
-1. Matriz publicada y versionada (este documento).
-1. Brechas P0/P1/P2 acordadas.
-1. Piloto de ejecucion definido (M03 y M05).
+1. Matrix published and versioned (this document).
+1. P0/P1/P2 gaps agreed upon.
+1. Execution pilot defined (M03 and M05).

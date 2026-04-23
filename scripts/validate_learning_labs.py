@@ -157,8 +157,7 @@ def list_units(root: Path) -> list[Path]:
 
 
 def validate_unit(
-    unit_dir: Path, *, kind: str,
-    strict_headings: bool, target_paths: tuple[str, ...]
+    unit_dir: Path, *, kind: str, strict_headings: bool, target_paths: tuple[str, ...]
 ) -> UnitResult:
     """
     Validate a single learning unit.
@@ -195,21 +194,15 @@ def parse_args() -> argparse.Namespace:
     """
     Parse command-line arguments for the validation script.
     """
-    parser = argparse.ArgumentParser(
-        description="Validate training-ai learning lab contracts")
+    parser = argparse.ArgumentParser(description="Validate training-ai learning lab contracts")
+    parser.add_argument("--strict-core", action="store_true", help="Fail on core structure gaps")
     parser.add_argument(
-        "--strict-core",
-        action="store_true", help="Fail on core structure gaps")
-    parser.add_argument(
-        "--strict-extras",
-        action="store_true", help="Fail on extras structure gaps"
+        "--strict-extras", action="store_true", help="Fail on extras structure gaps"
     )
     parser.add_argument(
-        "--strict-headings",
-        action="store_true", help="Enable heading contract checks"
+        "--strict-headings", action="store_true", help="Enable heading contract checks"
     )
-    parser.add_argument(
-        "--report-json", action="store_true", help="Print JSON report")
+    parser.add_argument("--report-json", action="store_true", help="Print JSON report")
     return parser.parse_args()
 
 
@@ -218,9 +211,7 @@ def main() -> int:
     args = parse_args()
 
     core_units = list_units(CORE_ROOT)
-    extras_units = [
-        p for p in list_units(EXTRAS_ROOT) if p.name not in {"init-path"}
-    ]
+    extras_units = [p for p in list_units(EXTRAS_ROOT) if p.name not in {"init-path"}]
 
     core_results = [
         validate_unit(
@@ -262,8 +253,7 @@ def main() -> int:
                 lines.append(f"\n[{label}] {result.unit}")
                 if result.missing_paths:
                     lines.append("  missing paths:")
-                    lines.extend(
-                        f"    - {path}" for path in result.missing_paths)
+                    lines.extend(f"    - {path}" for path in result.missing_paths)
                 if result.heading_gaps:
                     lines.append("  missing headings:")
                     for rel, missing in result.heading_gaps.items():
@@ -279,10 +269,8 @@ def main() -> int:
         }
         print(json.dumps(report, indent=2))
 
-    core_failed = args.strict_core and any(
-        not r.is_clean for r in core_results)
-    extras_failed = args.strict_extras and any(
-        not r.is_clean for r in extras_results)
+    core_failed = args.strict_core and any(not r.is_clean for r in core_results)
+    extras_failed = args.strict_extras and any(not r.is_clean for r in extras_results)
 
     return 1 if core_failed or extras_failed else 0
 

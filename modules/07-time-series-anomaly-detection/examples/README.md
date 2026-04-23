@@ -1,25 +1,25 @@
 # Examples — Time Series & Anomaly Detection
 
-## Ejemplo 1 — Visualización temporal inicial
+## Example 1 — Initial time-series visualization
 
-Graficar serie y detectar tendencia/estacionalidad visual.
+Plot a series and detect visual trend/seasonality cues.
 
-## Ejemplo 2 — Baseline de pronóstico
+## Example 2 — Forecast baseline
 
-Implementar naive forecast y promedio móvil.
+Implement a naive forecast and a moving average.
 
-## Ejemplo 3 — Modelo temporal mejorado
+## Example 3 — Improved temporal model
 
-Aplicar ARIMA/Prophet y comparar métricas.
+Apply ARIMA/Prophet-style ideas and compare metrics.
 
-## Ejemplo 4 — Detección de anomalías
+## Example 4 — Anomaly detection
 
-Usar residuales o z-score para marcar puntos anómalos.
+Use residuals or z-scores to flag anomalous points.
 
-## Reglas
+## Rules
 
-- Cada ejemplo debe incluir objetivo, pasos y salida esperada.
-- Registrar observaciones en `notes/`.
+- Each example must include the objective, steps, and expected output.
+- Record observations in `notes/`.
 
 ## Ejemplos disponibles
 
