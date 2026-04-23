@@ -34,71 +34,108 @@ Each learning unit must contain:
 ### Unit `README.md`
 
 1. `# <Module Title>`
-2. `## Objetivo del modulo`
-3. `## Que vas a lograr`
-4. `## Estructura interna`
-5. `## Ruta de niveles (L1-L4)`
-6. `## Plan recomendado (por progreso, no por semanas)`
-7. `## Criterio de modulo completado`
+1. `## Objetivo del modulo`
+1. `## Que vas a lograr`
+1. `## Estructura interna`
+1. `## Ruta de niveles (L1-L4)`
+1. `## Plan recomendado (por progreso, no por semanas)`
+1. `## Criterio de modulo completado`
 
 ### `theory/README.md`
 
 1. `# Theory - <Module Title>`
-2. `## Por que este modulo importa`
-3. `## Checklist de comprension final`
+1. `## Por que este modulo importa`
+1. `## Checklist de comprension final`
 
 ### `examples/README.md`
 
 1. `# Examples - <Module Title>`
-2. `## Ejemplos disponibles`
-3. `## Como usar estos ejemplos`
-4. `## Proximos pasos`
+1. `## Ejemplos disponibles`
+1. `## Como usar estos ejemplos`
+1. `## Proximos pasos`
 
 ### `practices/README.md`
 
 1. `# Practices - <Module Title>`
-2. `## Practicas`
-3. `## Criterio de aprobacion`
+1. `## Practicas`
+1. `## Criterio de aprobacion`
 
 ### `mini-project/README.md`
 
 1. `# Mini-project - <Module Title>`
-2. `## Proyecto`
-3. `## Objetivo`
-4. `## Alcance`
-5. `## Entregables`
-6. `## Criterios de aceptacion`
+1. `## Proyecto`
+1. `## Objetivo`
+1. `## Alcance`
+1. `## Entregables`
+1. `## Criterios de aceptacion`
 
 ### `evaluation/README.md`
 
 1. `# Evaluation - <Module Title>`
-2. `## Ponderacion`
-3. `## Rubrica`
-4. `## Evaluacion final`
-5. `## Criterio de aprobacion`
+1. `## Ponderacion`
+1. `## Rubrica`
+1. `## Evaluacion final`
+1. `## Criterio de aprobacion`
 
 ### `notes/README.md`
 
 1. `# Notes - <Module Title>`
-2. `## Como usar esta carpeta`
+1. `## Como usar esta carpeta`
 
 ### `STATUS.md`
 
 1. `# Estado - <Module Title>`
-2. `## Progreso actual`
-3. `## Checklist`
-4. `## Bloqueos`
-5. `## Proximos pasos`
+1. `## Progreso actual`
+1. `## Checklist`
+1. `## Bloqueos`
+1. `## Proximos pasos`
 
 ## Lab Completeness Definition
 
 A unit is considered lab-complete when:
 
 1. It is self-contained: all required folders and readmes exist.
-2. It includes guided and autonomous practice instructions.
-3. It includes an evaluation rubric and completion threshold.
-4. It has status tracking (`STATUS.md`).
-5. It passes automated contract checks.
+1. It includes guided and autonomous practice instructions.
+1. It includes an evaluation rubric and completion threshold.
+1. It has status tracking (`STATUS.md`).
+1. It passes automated contract checks.
+
+## Executable Example Standard
+
+This repository prioritizes depth and clarity over raw example count.
+
+### Target Density
+
+- Core modules (`modules/*`): 6 to 8 executable examples per module.
+- Advanced modules (`trends-extras/*`): 4 to 6 executable examples per unit.
+
+### Deep Example Requirements
+
+Each example should be executable with minimal setup and include:
+
+1. Problem statement and objective.
+1. Input data definition (or dataset source link when needed).
+1. Expected output or success criteria.
+1. A small variation task (parameter/model/data change).
+1. Common failure modes and quick debugging hints.
+
+### Difficulty Progression (L1 to L4)
+
+Examples should progressively map to the module level model:
+
+1. L1: Guided, fully reproducible baseline.
+1. L2: Controlled variation with 2 to 3 key parameters.
+1. L3: Realistic scenario with metrics and interpretation.
+1. L4: Extension focused on maintainability or production constraints.
+
+### Definition Of Clear Example
+
+An example is considered clear when:
+
+1. A learner can run it end-to-end without guessing missing steps.
+1. The README explains why each key step exists.
+1. The learner can compare observed output against expected output.
+1. The example includes one explicit next challenge.
 
 ## Testing Strategy (Incremental)
 
