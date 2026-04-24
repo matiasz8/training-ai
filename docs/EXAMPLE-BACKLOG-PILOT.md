@@ -17,41 +17,41 @@ Per-module target in the pilot:
 
 ### L1 (guided baseline)
 
-1. `examples/01_train_test_split_baseline.py`
-1. `examples/02_linear_vs_logistic_baseline.py`
+1. `examples/ex_01_train_test_split_baseline.py`
+1. `examples/ex_02_linear_vs_logistic_baseline.py`
 
 ### L2 (controlled variations)
 
-1. `examples/03_regularization_tradeoffs.py`
-1. `examples/04_tree_depth_vs_overfitting.py`
+1. `examples/ex_03_regularization_tradeoffs.py`
+1. `examples/ex_04_tree_depth_vs_overfitting.py`
 
 ### L3 (realistic case plus metrics)
 
-1. `examples/05_model_comparison_metrics.py`
+1. `examples/ex_05_model_comparison_metrics.py`
 
 ### L4 (maintainability extension)
 
-1. `examples/06_reproducible_ml_pipeline.py`
+1. `examples/ex_06_reproducible_ml_pipeline.py`
 
 ## Module 05 - NLP & Large Language Models
 
 ### L1 (guided baseline)
 
-1. `examples/01_text_preprocessing_baseline.py`
-1. `examples/02_embeddings_similarity_baseline.py`
+1. `examples/ex_01_text_preprocessing_baseline.py`
+1. `examples/ex_02_embeddings_similarity_baseline.py`
 
 ### L2 (controlled variations)
 
-1. `examples/03_prompt_variants_quality.py`
-1. `examples/04_chunking_strategies_rag.py`
+1. `examples/ex_03_prompt_variants_quality.py`
+1. `examples/ex_04_chunking_strategies_rag.py`
 
 ### L3 (realistic case plus metrics)
 
-1. `examples/05_rag_minimal_eval.py`
+1. `examples/ex_05_rag_minimal_eval.py`
 
 ### L4 (maintainability extension)
 
-1. `examples/06_llm_workflow_with_guardrails.py`
+1. `examples/ex_06_llm_workflow_with_guardrails.py`
 
 ## Pilot definition of done
 

@@ -18,10 +18,10 @@ Implementar evaluaciones rigurosas para LLMs y AI systems: benchmarks, métricas
 
 ### Examples
 
-- **01-automatic-metrics.py**: BLEU, ROUGE, BERTScore para text generation
-- **02-prompt-evaluation.py**: Comparar múltiples prompts con métricas
-- **03-benchmark-evaluation.py**: Evaluar LLM en benchmarks estándar
-- **04-regression-testing.py**: Tests automáticos para detectar regressions
+- **ex_01_automatic_metrics.py**: BLEU, ROUGE, BERTScore para text generation
+- **ex_02_prompt_evaluation.py**: Comparar múltiples prompts con métricas
+- **ex_03_benchmark_evaluation.py**: Evaluar LLM en benchmarks estándar
+- **ex_04_regression_testing.py**: Tests automáticos para detectar regressions
 
 ## 🔑 Conceptos Clave
 

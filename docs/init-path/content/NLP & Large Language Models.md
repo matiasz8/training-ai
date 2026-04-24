@@ -22,7 +22,7 @@ Document chunking and hybrid search
 RAG pipelines with LangChain and LlamaIndex
 Multilingual & Multimodal NLP
 Handling diverse languages (mBERT, XLM-R)
-Image and audio inputs in NLP (BLIP, Whisper, etc.)
+image and audio inputs in NLP (BLIP, Whisper, etc.)
 Evaluation & Ethics
 Evaluation metrics (BLEU, ROUGE, perplexity, factuality)
 Bias, fairness, and hallucination in LLMs

@@ -173,7 +173,7 @@ cd training-ai
 # Crea entorno virtual
 python -m venv venv
 source venv/bin/activate  # Linux/Mac
-# o: venv\Scripts\activate  # Windows
+# o: venv\scripts\activate  # Windows
 
 # Instala dependencias base
 pip install numpy pandas matplotlib scikit-learn jupyter

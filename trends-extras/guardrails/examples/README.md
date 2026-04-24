@@ -2,22 +2,22 @@
 
 ## Ejemplos disponibles
 
-- `01-input-validation.py`
+- `ex_01_input_validation.py`
 
   - Blocks prompt-injection and SQL-injection style inputs.
   - Expected output: clear allow/deny decisions with reasons.
 
-- `02-output-filtering.py`
+- `ex_02_output_filtering.py`
 
   - Applies output filtering for PII redaction, toxicity, and policy checks.
   - Expected output: safe output or blocked response with issue list.
 
-- `03-nemo-guardrails-demo.py`
+- `ex_03_nemo_guardrails_demo.py`
 
   - Conceptual NeMo Guardrails flow with input/output rails.
   - Expected output: stage-aware blocking (`input` or `output`) when a rail is triggered.
 
-- `04_reproducible_guardrail_audit.py`
+- `ex_04_reproducible_guardrail_audit.py`
 
   - Deterministic guardrail audit over a small test set.
   - Expected output: repeated runs produce `same_result=True`.
@@ -25,10 +25,10 @@
 ## Como usar estos ejemplos
 
 ```bash
-python trends-extras/guardrails/examples/01-input-validation.py
-python trends-extras/guardrails/examples/02-output-filtering.py
-python trends-extras/guardrails/examples/03-nemo-guardrails-demo.py
-python trends-extras/guardrails/examples/04_reproducible_guardrail_audit.py
+python trends-extras/guardrails/examples/ex_01_input_validation.py
+python trends-extras/guardrails/examples/ex_02_output_filtering.py
+python trends-extras/guardrails/examples/ex_03_nemo_guardrails_demo.py
+python trends-extras/guardrails/examples/ex_04_reproducible_guardrail_audit.py
 ```
 
 Recommended order: validation (`01`) -> filtering (`02`) -> orchestration (`03`)

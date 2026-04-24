@@ -17,6 +17,10 @@ repos:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
         files: '^scripts/.*\.py$'
+      - id: ruff
+        name: ruff module naming (N999)
+        args: [--select, N999]
+        files: '^(modules|trends-extras|templates|scripts)/.*\.py$'
       - id: ruff-format
         files: '^scripts/.*\.py$'
 

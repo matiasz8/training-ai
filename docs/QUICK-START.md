@@ -43,7 +43,7 @@ python -m venv venv
 # Activa el entorno
 source venv/bin/activate        # Linux/Mac
 # o
-venv\Scripts\activate           # Windows
+venv\scripts\activate           # Windows
 
 # Verifica activación (deberías ver "venv" en tu prompt)
 which python  # Debería apuntar a tu venv

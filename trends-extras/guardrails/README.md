@@ -18,9 +18,9 @@ Implementar controles de seguridad (guardrails) para sistemas con LLMs: validaci
 
 ### Examples
 
-- **01-input-validation.py**: Validación de inputs (SQL injection, prompt injection, malicious patterns)
-- **02-output-filtering.py**: Filtrado de outputs (toxicity detection, PII redaction)
-- **03-nemo-guardrails-demo.py**: Uso de NVIDIA NeMo Guardrails framework
+- **ex_01_input_validation.py**: Validación de inputs (SQL injection, prompt injection, malicious patterns)
+- **ex_02_output_filtering.py**: Filtrado de outputs (toxicity detection, PII redaction)
+- **ex_03_nemo_guardrails_demo.py**: Uso de NVIDIA NeMo Guardrails framework
 
 ## 🔑 Conceptos Clave
 

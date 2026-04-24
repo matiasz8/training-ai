@@ -4,7 +4,7 @@ At NaNLABS, we specialize in leveraging pre-trained vision models and cloud-nati
 ✅ Topics Covered
 
 1. Core Concepts
-   Image classification, object detection, segmentation
+   image classification, object detection, segmentation
    Bounding boxes vs. masks vs. keypoints
    Evaluation metrics: IoU, mAP, precision/recall
    Dataset formats: COCO, Pascal VOC

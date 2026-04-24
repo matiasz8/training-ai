@@ -18,9 +18,9 @@ Explorar arquitecturas de agentes de IA que pueden razonar, planificar y ejecuta
 
 ### Examples
 
-- **01-simple-agent-langchain.py**: Agente básico con LangChain que responde preguntas usando herramientas (calculator, search)
-- **02-react-agent.py**: Implementación del pattern ReAct (thought → action → observation loop)
-- **03-multi-agent-system.py**: Sistema con múltiples agentes especializados que colaboran
+- **ex_01_simple_agent_langchain.py**: Agente básico con LangChain que responde preguntas usando herramientas (calculator, search)
+- **ex_02_react_agent.py**: Implementación del pattern ReAct (thought → action → observation loop)
+- **ex_03_multi_agent_system.py**: Sistema con múltiples agentes especializados que colaboran
 
 ### Notes
 

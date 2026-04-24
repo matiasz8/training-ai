@@ -17,10 +17,10 @@ Generar datos sintéticos de alta calidad para ML: desde tabular (GANs) hasta te
 
 ### Examples
 
-- **01-ctgan-tabular.py**: CTGAN para generar clientes sintéticos
-- **02-text-augmentation.py**: Aumentar dataset de texto con NLP
-- **03-validate-quality.py**: Comparar distribuciones real vs sintético
-- **04-differential-privacy.py**: Añadir ruido con garantías DP
+- **ex_01_ctgan_tabular.py**: CTGAN para generar clientes sintéticos
+- **ex_02_text_augmentation.py**: Aumentar dataset de texto con NLP
+- **ex_03_validate_quality.py**: Comparar distribuciones real vs sintético
+- **ex_04_differential_privacy.py**: Añadir ruido con garantías DP
 
 ## 🔑 Conceptos Clave
 

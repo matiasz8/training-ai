@@ -18,10 +18,10 @@ Trabajar con modelos multimodales que combinan visión y lenguaje (CLIP, BLIP, G
 
 ### Examples
 
-- **01-clip-zero-shot-classification.py**: Clasificación de imágenes sin training con CLIP
-- **02-image-captioning-blip.py**: Generar captions descriptivos con BLIP
-- **03-visual-question-answering.py**: Responder preguntas sobre imágenes
-- **04-text-to-image-stable-diffusion.py**: Generar imágenes desde prompts
+- **ex_01_clip_zero_shot_classification.py**: Clasificación de imágenes sin training con CLIP
+- **ex_02_image_captioning_blip.py**: Generar captions descriptivos con BLIP
+- **ex_03_visual_question_answering.py**: Responder preguntas sobre imágenes
+- **ex_04_text_to_image_stable_diffusion.py**: Generar imágenes desde prompts
 
 ## 🔑 Conceptos Clave
 

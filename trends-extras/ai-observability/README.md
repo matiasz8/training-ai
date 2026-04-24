@@ -18,10 +18,10 @@ Implementar observability completa para aplicaciones con LLMs: tracing, logging 
 
 ### Examples
 
-- **01-basic-logging.py**: Logging de prompts/completions con metadata
-- **02-langsmith-tracing.py**: Tracing distribuido con LangSmith
-- **03-cost-tracking.py**: Calcular costos por request/user/día
-- **04-metrics-dashboard.py**: Dashboard con Prometheus + Grafana
+- **ex_01_basic_logging.py**: Logging de prompts/completions con metadata
+- **ex_02_langsmith_tracing.py**: Tracing distribuido con LangSmith
+- **ex_03_cost_tracking.py**: Calcular costos por request/user/día
+- **ex_04_metrics_dashboard.py**: Dashboard con Prometheus + Grafana
 
 ## 🔑 Conceptos Clave
 

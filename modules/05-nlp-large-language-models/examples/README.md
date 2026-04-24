@@ -25,32 +25,32 @@ Design a structured prompt and evaluate the output.
 
 ### Executable scripts (phase-2 pilot)
 
-1. `01_text_preprocessing_baseline.py`
+1. `ex_01_text_preprocessing_baseline.py`
 
    - Minimal normalization and tokenization pipeline.
    - Expected output: cleaned tokens per sentence.
 
-1. `02_embeddings_similarity_baseline.py`
+1. `ex_02_embeddings_similarity_baseline.py`
 
    - Semantic similarity with TF-IDF and cosine similarity.
    - Expected output: similarity A-B higher than similarity A-C.
 
-1. `03_prompt_variants_quality.py`
+1. `ex_03_prompt_variants_quality.py`
 
    - Comparison of weak/medium/strong prompts with a simple rubric.
    - Expected output: prompt-quality score increases with prompt strength.
 
-1. `04_chunking_strategies_rag.py`
+1. `ex_04_chunking_strategies_rag.py`
 
    - Comparison of fixed-size versus sentence-based chunking for retrieval.
    - Expected output: score differences and a different top retrieved chunk.
 
-1. `05_rag_minimal_eval.py`
+1. `ex_05_rag_minimal_eval.py`
 
    - Minimal exact-match evaluation over a simplified RAG flow.
    - Expected output: run-level `exact_match_avg`.
 
-1. `06_llm_workflow_with_guardrails.py`
+1. `ex_06_llm_workflow_with_guardrails.py`
 
    - Workflow with input and output guardrails for sensitive prompts.
    - Expected output: one allowed case and one blocked case.
@@ -58,12 +58,12 @@ Design a structured prompt and evaluate the output.
 ## Como usar estos ejemplos
 
 ```bash
-python modules/05-nlp-large-language-models/examples/01_text_preprocessing_baseline.py
-python modules/05-nlp-large-language-models/examples/02_embeddings_similarity_baseline.py
-python modules/05-nlp-large-language-models/examples/03_prompt_variants_quality.py
-python modules/05-nlp-large-language-models/examples/04_chunking_strategies_rag.py
-python modules/05-nlp-large-language-models/examples/05_rag_minimal_eval.py
-python modules/05-nlp-large-language-models/examples/06_llm_workflow_with_guardrails.py
+python modules/05-nlp-large-language-models/examples/ex_01_text_preprocessing_baseline.py
+python modules/05-nlp-large-language-models/examples/ex_02_embeddings_similarity_baseline.py
+python modules/05-nlp-large-language-models/examples/ex_03_prompt_variants_quality.py
+python modules/05-nlp-large-language-models/examples/ex_04_chunking_strategies_rag.py
+python modules/05-nlp-large-language-models/examples/ex_05_rag_minimal_eval.py
+python modules/05-nlp-large-language-models/examples/ex_06_llm_workflow_with_guardrails.py
 ```
 
 Recommendation: change the input sentences and compare how the similarity shifts.

@@ -49,9 +49,9 @@ Sección de temas avanzados y tendencias actuales en AI/ML.
 **README:** 160 líneas (✅)
 **Examples:** 3 archivos Python (✅)
 
-- `01-simple-agent-langchain.py` (80 líneas) - Agent básico con LangChain y tools
-- `02-react-agent.py` (180 líneas) - ReAct pattern implementado desde cero
-- `03-multi-agent-system.py` (250 líneas) - Sistema multi-agente colaborativo
+- `ex_01_simple_agent_langchain.py` (80 líneas) - Agent básico con LangChain y tools
+- `ex_02_react_agent.py` (180 líneas) - ReAct pattern implementado desde cero
+- `ex_03_multi_agent_system.py` (250 líneas) - Sistema multi-agente colaborativo
 
 **Tecnologías:** LangChain, OpenAI, custom agent loops, tool calling
 
@@ -62,9 +62,9 @@ ______________________________________________________________________
 **README:** 145 líneas (✅)
 **Examples:** 3 archivos Python (✅)
 
-- `01-input-validation.py` (135 líneas) - Validación de inputs (prompt injection, SQL injection)
-- `02-output-filtering.py` (150 líneas) - Filtrado de outputs (PII redaction, toxicity detection)
-- `03-nemo-guardrails-demo.py` (100 líneas) - Demo conceptual de NeMo Guardrails
+- `ex_01_input_validation.py` (135 líneas) - Validación de inputs (prompt injection, SQL injection)
+- `ex_02_output_filtering.py` (150 líneas) - Filtrado de outputs (PII redaction, toxicity detection)
+- `ex_03_nemo_guardrails_demo.py` (100 líneas) - Demo conceptual de NeMo Guardrails
 
 **Tecnologías:** regex patterns, transformers (Detoxify), nemoguardrails (conceptual)
 
@@ -75,10 +75,10 @@ ______________________________________________________________________
 **README:** 155 líneas (✅)
 **Examples:** 4 archivos Python (✅)
 
-- `01-clip-zero-shot-classification.py` (120 líneas) - Clasificación de imágenes con CLIP
-- `02-image-captioning-blip.py` (110 líneas) - Generación de captions con BLIP
-- `03-visual-question-answering.py` (125 líneas) - VQA con BLIP
-- `04-text-to-image-stable-diffusion.py` (130 líneas) - Generación de imágenes con Stable Diffusion
+- `ex_01_clip_zero_shot_classification.py` (120 líneas) - Clasificación de imágenes con CLIP
+- `ex_02_image_captioning_blip.py` (110 líneas) - Generación de captions con BLIP
+- `ex_03_visual_question_answering.py` (125 líneas) - VQA con BLIP
+- `ex_04_text_to_image_stable_diffusion.py` (130 líneas) - Generación de imágenes con Stable Diffusion
 
 **Tecnologías:** CLIP, BLIP, Stable Diffusion, transformers, diffusers, PIL, torch
 
@@ -89,10 +89,10 @@ ______________________________________________________________________
 **README:** 150 líneas (✅)
 **Examples:** 4 archivos Python (✅)
 
-- `01-automatic-metrics.py` (140 líneas) - BLEU, ROUGE, BERTScore
-- `02-prompt-evaluation.py` (145 líneas) - A/B testing de prompts con significancia estadística
-- `03-benchmark-evaluation.py` (135 líneas) - Evaluación en MMLU, HellaSwag, TruthfulQA
-- `04-regression-testing.py` (120 líneas) - Test suite con pytest para CI/CD
+- `ex_01_automatic_metrics.py` (140 líneas) - BLEU, ROUGE, BERTScore
+- `ex_02_prompt_evaluation.py` (145 líneas) - A/B testing de prompts con significancia estadística
+- `ex_03_benchmark_evaluation.py` (135 líneas) - Evaluación en MMLU, HellaSwag, TruthfulQA
+- `ex_04_regression_testing.py` (120 líneas) - Test suite con pytest para CI/CD
 
 **Tecnologías:** rouge_score, bert_score, nltk, scipy.stats, datasets (HuggingFace), pytest
 
@@ -103,10 +103,10 @@ ______________________________________________________________________
 **README:** 160 líneas (✅)
 **Examples:** 4 archivos Python (✅)
 
-- `01-basic-logging.py` (140 líneas) - Structured JSON logging con python-json-logger
-- `02-langsmith-tracing.py` (125 líneas) - Distributed tracing con LangSmith
-- `03-cost-tracking.py` (150 líneas) - Cost tracking con budgets y alerts
-- `04-metrics-dashboard.py` (155 líneas) - Prometheus metrics + Grafana dashboards
+- `ex_01_basic_logging.py` (140 líneas) - Structured JSON logging con python-json-logger
+- `ex_02_langsmith_tracing.py` (125 líneas) - Distributed tracing con LangSmith
+- `ex_03_cost_tracking.py` (150 líneas) - Cost tracking con budgets y alerts
+- `ex_04_metrics_dashboard.py` (155 líneas) - Prometheus metrics + Grafana dashboards
 
 **Tecnologías:** python-json-logger, langsmith, tiktoken, prometheus-client, matplotlib
 
@@ -117,9 +117,9 @@ ______________________________________________________________________
 **README:** 160 líneas (✅)
 **Examples:** 3 archivos Python (✅)
 
-- `01-ctgan-tabular-synthesis.py` (165 líneas) - CTGAN para datos tabulares sintéticos
-- `02-text-augmentation.py` (160 líneas) - Augmentación de texto (back-translation, EDA, paraphrasing)
-- `03-privacy-preserving-synthesis.py` (170 líneas) - Differential Privacy para datos sintéticos
+- `ex_01_ctgan_tabular_synthesis.py` (165 líneas) - CTGAN para datos tabulares sintéticos
+- `ex_02_text_augmentation.py` (160 líneas) - Augmentación de texto (back-translation, EDA, paraphrasing)
+- `ex_03_privacy_preserving_synthesis.py` (170 líneas) - Differential Privacy para datos sintéticos
 
 **Tecnologías:** sdv (CTGAN), transformers (MT, T5), nltk, sentence-transformers, diffprivlib
 
@@ -234,48 +234,48 @@ training-ai/
 │   ├── agents/
 │   │   ├── README.md (160 líneas)
 │   │   ├── examples/
-│   │   │   ├── 01-simple-agent-langchain.py (80 líneas)
-│   │   │   ├── 02-react-agent.py (180 líneas)
-│   │   │   └── 03-multi-agent-system.py (250 líneas)
+│   │   │   ├── ex_01_simple_agent_langchain.py (80 líneas)
+│   │   │   ├── ex_02_react_agent.py (180 líneas)
+│   │   │   └── ex_03_multi_agent_system.py (250 líneas)
 │   │   └── notes/
 │   │
 │   ├── guardrails/
 │   │   ├── README.md (145 líneas)
 │   │   └── examples/
-│   │       ├── 01-input-validation.py (135 líneas)
-│   │       ├── 02-output-filtering.py (150 líneas)
-│   │       └── 03-nemo-guardrails-demo.py (100 líneas)
+│   │       ├── ex_01_input_validation.py (135 líneas)
+│   │       ├── ex_02_output_filtering.py (150 líneas)
+│   │       └── ex_03_nemo_guardrails_demo.py (100 líneas)
 │   │
 │   ├── multimodal/
 │   │   ├── README.md (155 líneas)
 │   │   └── examples/
-│   │       ├── 01-clip-zero-shot-classification.py (120 líneas)
-│   │       ├── 02-image-captioning-blip.py (110 líneas)
-│   │       ├── 03-visual-question-answering.py (125 líneas)
-│   │       └── 04-text-to-image-stable-diffusion.py (130 líneas)
+│   │       ├── ex_01_clip_zero_shot_classification.py (120 líneas)
+│   │       ├── ex_02_image_captioning_blip.py (110 líneas)
+│   │       ├── ex_03_visual_question_answering.py (125 líneas)
+│   │       └── ex_04_text_to_image_stable_diffusion.py (130 líneas)
 │   │
 │   ├── llm-evals/
 │   │   ├── README.md (150 líneas)
 │   │   └── examples/
-│   │       ├── 01-automatic-metrics.py (140 líneas)
-│   │       ├── 02-prompt-evaluation.py (145 líneas)
-│   │       ├── 03-benchmark-evaluation.py (135 líneas)
-│   │       └── 04-regression-testing.py (120 líneas)
+│   │       ├── ex_01_automatic_metrics.py (140 líneas)
+│   │       ├── ex_02_prompt_evaluation.py (145 líneas)
+│   │       ├── ex_03_benchmark_evaluation.py (135 líneas)
+│   │       └── ex_04_regression_testing.py (120 líneas)
 │   │
 │   ├── ai-observability/
 │   │   ├── README.md (160 líneas)
 │   │   └── examples/
-│   │       ├── 01-basic-logging.py (140 líneas)
-│   │       ├── 02-langsmith-tracing.py (125 líneas)
-│   │       ├── 03-cost-tracking.py (150 líneas)
-│   │       └── 04-metrics-dashboard.py (155 líneas)
+│   │       ├── ex_01_basic_logging.py (140 líneas)
+│   │       ├── ex_02_langsmith_tracing.py (125 líneas)
+│   │       ├── ex_03_cost_tracking.py (150 líneas)
+│   │       └── ex_04_metrics_dashboard.py (155 líneas)
 │   │
 │   └── synthetic-data/
 │       ├── README.md (160 líneas)
 │       └── examples/
-│           ├── 01-ctgan-tabular-synthesis.py (165 líneas)
-│           ├── 02-text-augmentation.py (160 líneas)
-│           └── 03-privacy-preserving-synthesis.py (170 líneas)
+│           ├── ex_01_ctgan_tabular_synthesis.py (165 líneas)
+│           ├── ex_02_text_augmentation.py (160 líneas)
+│           └── ex_03_privacy_preserving_synthesis.py (170 líneas)
 │
 ├── shared/
 │   ├── datasets/
@@ -331,7 +331,7 @@ ______________________________________________________________________
 
 1. **Agents**: Chatbots con herramientas, research assistants, workflow automation
 1. **Guardrails**: Content moderation, PII protection, enterprise safety
-1. **Multimodal**: Image search, visual QA, creative content generation
+1. **Multimodal**: image search, visual QA, creative content generation
 1. **LLM Evals**: Prompt optimization, model comparison, quality assurance
 1. **Observability**: Production monitoring, cost control, debugging
 1. **Synthetic Data**: Privacy-preserving analysis, testing, data augmentation
