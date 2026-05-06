@@ -61,7 +61,8 @@ Comprender los fundamentos de machine learning supervisado y no supervisado para
 - [StatQuest Machine Learning](https://www.youtube.com/c/joshstarmer) (videos recomendados: Linear Regression, Logistic Regression, Decision Trees, Random Forests)
 - [Kaggle Learn - Intro to ML](https://www.kaggle.com/learn/intro-to-machine-learning)
 
-**Libros:**
+**Books:**
+
 
 - [Hands-On Machine Learning (Aurélien Géron)](https://www.oreilly.com/library/view/hands-on-machine-learning/9781492032632/)
 

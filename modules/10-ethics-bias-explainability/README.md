@@ -79,7 +79,8 @@ Aprender a identificar, medir y mitigar sesgos en modelos ML, y explicar decisio
 - [Fairness Definitions Explained](https://arxiv.org/abs/1710.03184)
 - [A Unified Approach to Interpreting Model Predictions (SHAP)](https://arxiv.org/abs/1705.07874)
 
-**Libros:**
+**Books:**
+
 
 - [Interpretable Machine Learning](https://christophm.github.io/interpretable-ml-book/)
 

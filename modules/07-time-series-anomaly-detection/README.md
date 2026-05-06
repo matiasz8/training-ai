@@ -62,7 +62,8 @@ Aprender a modelar series temporales y detectar anomalías para anticipar evento
 - [Time Series Forecasting Guide](https://otexts.com/fpp3/)
 - [Anomaly Detection Papers](https://paperswithcode.com/task/anomaly-detection)
 
-**Libros:**
+**Books:**
+
 
 - [Forecasting: Principles and Practice](https://otexts.com/fpp3/)
 

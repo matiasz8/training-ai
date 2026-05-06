@@ -85,7 +85,8 @@ Aprender a deployar, monitorear y mantener modelos ML en producción con CI/CD, 
 - [Neptune.ai](https://neptune.ai/)
 - [Evidently AI (drift detection)](https://www.evidentlyai.com/)
 
-**Libros:**
+**Books:**
+
 
 - [Designing Machine Learning Systems (Chip Huyen)](https://www.oreilly.com/library/view/designing-machine-learning/9781098107956/)
 - [ML Engineering on AWS](https://www.oreilly.com/library/view/machine-learning-engineering/9781803247595/)
