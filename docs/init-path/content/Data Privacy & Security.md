@@ -1,5 +1,5 @@
 Ensuring data privacy and securing machine learning systems are essential steps in building trustworthy, ethical, and legally compliant AI solutions.
-As an AI & Machine Learning Engineer at NaNLABS, you must design systems that not only perform well but also safeguard user data and comply with regulations. This is especially important when working with foundation models, proprietary datasets, or integrating AI into production environments.
+As an AI & Machine Learning Engineer in practice, you must design systems that not only perform well but also safeguard user data and comply with regulations. This is especially important when working with foundation models, proprietary datasets, or integrating AI into production environments.
 
 ✅ Topics Covered
 Data Anonymization & Pseudonymization – Techniques to protect user identities while retaining data utility.
@@ -27,8 +27,8 @@ MIT – Ethics of AI and Data
 OpenMined – Privacy-preserving Machine Learning Course
 Google Cloud – Secure AI and ML Services
 
-🎯 In Practice at NaNLABS
-At NaNLABS, these principles are core when:
+🎯 In Practice
+In practice, these principles are core when:
 Integrating AI in regulated industries like health or finance.
 Building custom RAG systems using sensitive client data.
 Deploying LLM-based chatbots where prompt injection or user data leakage must be prevented.

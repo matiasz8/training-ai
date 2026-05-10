@@ -1,5 +1,5 @@
 Deep Learning is a subfield of Machine Learning focused on neural networks with multiple layers that learn hierarchical representations of data. It's the foundation of modern AI systems, including computer vision, NLP, and generative models.
-This section introduces key concepts, architectures, and tools that every AI & ML Engineer at NaNLABS should understand before diving into specialized deep learning tasks.
+This section introduces key concepts, architectures, and tools that every AI & ML Engineer in this field should understand before diving into specialized deep learning tasks.
 
 🔍 Topics Covered:
 Neural Networks: Architecture of perceptrons, activation functions (ReLU, Sigmoid, Tanh), forward and backward propagation.
@@ -26,7 +26,7 @@ TensorFlow Docs
 Weights & Biases for Experiment Tracking
 Google Colab (Free GPU Notebook)
 
-✅ How This Applies at NaNLABS:
+✅ How This Applies in Practice:
 Understanding the foundations of Deep Learning helps you:
 Choose the right architecture for a given problem (e.g. CNNs, MLPs, RNNs).
 Fine-tune pre-trained models efficiently.

@@ -1,5 +1,5 @@
 Computer Vision (CV) enables machines to interpret and understand visual information from the world—powering use cases such as object detection, OCR, facial recognition, and automated quality control.
-At NaNLABS, we specialize in leveraging pre-trained vision models and cloud-native services to solve practical business challenges through fast, scalable, and privacy-conscious solutions.
+In practice, we specialize in leveraging pre-trained vision models and cloud-native services to solve practical business challenges through fast, scalable, and privacy-conscious solutions.
 
 ✅ Topics Covered
 
@@ -49,7 +49,7 @@ Practical Deep Learning for Computer Vision – fast.ai
 AWS Computer Vision with SageMaker (SkillBuilder)
 Udacity - Computer Vision Nanodegree (Paid)
 
-🎯 In Practice at NaNLABS
+🎯 In Practice
 We apply Computer Vision to:
 Automate data entry and contract parsing using OCR + NLP
 Build smart assistants that combine screenshots/images with LLMs

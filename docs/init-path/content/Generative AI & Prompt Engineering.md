@@ -1,5 +1,5 @@
 Generative AI unlocks powerful capabilities for content creation, summarization, ideation, and automation across domains. Prompt engineering is the foundational skill that enables engineers to harness the full potential of large foundation models.
-At NaNLABS, we use Generative AI to build intelligent agents, streamline workflows, and personalize user experiences—always prioritizing data security and fast time-to-value.
+In practice, we use Generative AI to build intelligent agents, streamline workflows, and personalize user experiences—always prioritizing data security and fast time-to-value.
 
 ✅ Topics Covered
 
@@ -43,7 +43,7 @@ Generative AI with LLMs – DeepLearning.AI (Coursera)
 LangChain + LlamaIndex Bootcamps (free or paid)
 AWS Generative AI Learning Plan
 
-🎯 In Practice at NaNLABS
+🎯 In Practice
 We use prompt engineering to:
 Design internal copilots (e.g., documentation assistants, data explainer bots)
 Automate form generation, proposal writing, and ticket summarization

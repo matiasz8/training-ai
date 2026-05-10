@@ -1,4 +1,4 @@
-Natural Language Processing (NLP) and Large Language Models (LLMs) are at the core of modern AI applications. From search engines and chatbots to document processing and code generation, mastering these technologies is essential for AI Engineers at NaNLABS.
+Natural Language Processing (NLP) and Large Language Models (LLMs) are at the core of modern AI applications. From search engines and chatbots to document processing and code generation, mastering these technologies is essential for AI Engineers in this field.
 This section focuses on building solid foundations in NLP and exploring how to work with, fine-tune, and integrate LLMs into real-world systems.
 
 ✅ Topics Covered
@@ -43,8 +43,8 @@ Prompt Engineering for Developers (OpenAI)
 Hugging Face Transformers Certification
 Generative AI with Large Language Models (Databricks)
 
-🎯 In Practice at NaNLABS
-At NaNLABS, we use NLP and LLMs to:
+🎯 In Practice
+In practice, we use NLP and LLMs to:
 Build RAG-powered assistants that answer questions using internal knowledge bases.
 Automate document parsing for industries like legal, finance, and government.
 Power multilingual customer support chatbots using open-source or commercial LLMs.

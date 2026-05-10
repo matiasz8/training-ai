@@ -2,7 +2,7 @@ AI & Machine Learning Engineer Roadmap
 
 If you're passionate about solving complex problems with intelligent systems, data-driven models, and modern AI tooling, this roadmap is for you!
 This roadmap equips professionals to specialize in AI & Machine Learning Engineering, covering everything from core ML foundations to real-world applications such as LLMs, NLP, Computer Vision, Predictive Analytics, and RAG pipelines.
-We have structured this roadmap into different learning stages, allowing a progressive path toward becoming an AI/ML Engineer, aligned with how NaNLABS delivers client value.
+We have structured this roadmap into different learning stages, allowing a progressive path toward becoming an AI/ML Engineer, aligned with real-world client value.
 
 This roadmap is inspired by open-source resources such as:
 roadmap.sh

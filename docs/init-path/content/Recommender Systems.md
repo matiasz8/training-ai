@@ -1,4 +1,4 @@
-Recommender Systems personalize the user experience by suggesting relevant content, products, or services. At NaNLABS, we implement custom and scalable recommenders using both traditional ML techniques and deep learning-based architectures, often integrating them into e-commerce, content platforms, or internal dashboards.
+Recommender Systems personalize the user experience by suggesting relevant content, products, or services. In practice, we implement custom and scalable recommenders using both traditional ML techniques and deep learning-based architectures, often integrating them into e-commerce, content platforms, or internal dashboards.
 
 ✅ Topics Covered
 
@@ -42,7 +42,7 @@ Building Recommendation Systems with Machine Learning and AI | edX
 TensorFlow Recommenders Course | GitHub (Free)
 Modern Recommendation Systems | Stanford CS246 (Lectures available online)
 
-🎯 In Practice at NaNLABS
+🎯 In Practice
 We build recommender systems to support:
 E-commerce personalization: Product, upsell, or discount suggestions
 Content curation: Recommending articles, videos, or learning materials

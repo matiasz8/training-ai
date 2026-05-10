@@ -38,7 +38,7 @@ AI For Everyone | Andrew Ng – Coursera (Ethics Module)
 Responsible AI with Microsoft | Microsoft Learn
 Explainable AI | Google Cloud Skill Boost
 
-🧪 In Practice at NaNLABS
+🧪 In Practice
 We apply Responsible AI practices by:
 Incorporating bias checks in our data pipelines using tools like Fairlearn
 Leveraging SHAP for client-facing dashboards to explain predictions

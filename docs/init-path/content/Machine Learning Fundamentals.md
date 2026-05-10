@@ -1,4 +1,4 @@
-Machine Learning (ML) is the foundation of AI systems. This section introduces core ML concepts, algorithms, and workflows essential to becoming an AI & Machine Learning Engineer at NaNLABS.
+Machine Learning (ML) is the foundation of AI systems. This section introduces core ML concepts, algorithms, and workflows essential to becoming an AI & Machine Learning Engineer in this field.
 🔍 Topics Covered
 Types of Machine Learning
 Supervised Learning

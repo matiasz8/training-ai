@@ -1,5 +1,5 @@
 Time Series modeling and Anomaly Detection techniques are essential for applications like predictive maintenance, financial forecasting, system monitoring, and fraud detection.
-At NaNLABS, we help clients build real-time and batch pipelines that handle temporal data, detect outliers, and anticipate system behaviors—often integrating these models with dashboards, alerting systems, or data lakes.
+In practice, we help clients build real-time and batch pipelines that handle temporal data, detect outliers, and anticipate system behaviors—often integrating these models with dashboards, alerting systems, or data lakes.
 
 ✅ Topics Covered
 
@@ -43,7 +43,7 @@ Time Series Forecasting with Python | DataCamp
 Anomaly Detection in Time Series Data | Udemy
 Deep Learning for Time Series Forecasting | Udacity (Paid)
 
-🎯 In Practice at NaNLABS
+🎯 In Practice
 We apply Time Series & Anomaly Detection to:
 Predict equipment failure using sensor data (predictive maintenance)
 Detect suspicious transactions or user behavior in real-time

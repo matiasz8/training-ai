@@ -1,4 +1,4 @@
-Deploying AI models into production requires more than just training a model — it demands robust pipelines, monitoring, scalability, and collaboration across teams. At NaNLABS, we implement MLOps practices to ensure AI systems are reliable, reproducible, and scalable.
+Deploying AI models into production requires more than just training a model — it demands robust pipelines, monitoring, scalability, and collaboration across teams. In practice, we implement MLOps practices to ensure AI systems are reliable, reproducible, and scalable.
 
 ✅ Topics Covered
 
@@ -39,7 +39,7 @@ MLOps with Azure ML | Microsoft Learn
 AWS MLOps Foundation | AWS Skill Builder
 Practical MLOps by Noah Gift (Book + O'Reilly course)
 
-🧪 In Practice at NaNLABS
+🧪 In Practice
 In our real-world AI projects, we apply MLOps to:
 Deploy models through CI/CD pipelines tied to GitHub Actions or GitLab CI
 Use SageMaker, Vertex AI, or custom APIs on ECS/Fargate for inference
